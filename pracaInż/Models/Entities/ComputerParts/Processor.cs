@@ -1,6 +1,6 @@
 ﻿namespace pracaInż.Models.Entities.ComputerParts
 {
-    public class CPU
+    public class Processor
     {
         public int Id { get; set; }
         public string Name { get; set; }

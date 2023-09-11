@@ -1,11 +1,15 @@
 using pracaIn¿.Extensions;
 using pracaIn¿.Models.Services;
+using pracaIn¿.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddIdentityServices(builder.Configuration);
+builder.Services.AddDBServices(builder.Configuration);
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IDashboardServices, DashboardServices>();
+builder.Services.AddScoped<ILoggingService, LoggingService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
