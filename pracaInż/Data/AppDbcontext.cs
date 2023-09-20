@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using pracaInż.Models.Entities;
+using pracaInż.Models.Entities.CompanyStructure;
 using pracaInż.Models.Entities.ComputerParts;
 
 namespace pracaInż.Data
@@ -17,6 +18,8 @@ namespace pracaInż.Data
         public DbSet<Computer> Computers { get; set; }
         public DbSet<Device> Devices { get; set; }
         public DbSet<Log> Logs { get; set; }
+        public DbSet<Factory> Factorys { get; set; }
+        public DbSet<Department> Departments { get; set; }
 
     }
 }
