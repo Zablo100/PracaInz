@@ -8,6 +8,6 @@
         public int StreetNumber { get; set; }
         public string PostalCode { get; set; }
 
-        List<Department> Departments { get; set; }
+        public List<Department> Departments { get; set; }
     }
 }
