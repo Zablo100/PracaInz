@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using pracaInż.Models.DTO.Departments;
+using System.Text.Json.Serialization;
 
 namespace pracaInż.Models.Entities.CompanyStructure
 {
@@ -14,6 +15,18 @@ namespace pracaInż.Models.Entities.CompanyStructure
         [JsonIgnore]
         public Factory Factory { get; set; }
 
+        public Department()
+        {
+        
+        }
 
+        public Department(AddDepartmentDTO departmentDTO, Factory factory)
+        {
+            Name = departmentDTO.Name;
+            ShortName = departmentDTO.ShortName;
+            InvoiceCode = departmentDTO.InvoiceCode;
+            FactoryId = departmentDTO.FactoryId;
+            Factory = factory;
+        }
     }
 }

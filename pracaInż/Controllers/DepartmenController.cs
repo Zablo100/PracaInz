@@ -1,14 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using pracaInż.Models.DTO.Departments;
+using pracaInż.Models.Entities;
+using pracaInż.Services;
 
 namespace pracaInż.Controllers
 {
     [ApiController]
-    [Route("api/v1/department")]
+    [Route("api/department/[action]")]
     public class DepartmenController : Controller
     {
-        public DepartmenController()
+        private readonly IDepartmenService _service;
+        private readonly ILoggingService _logger;
+
+        public DepartmenController(IDepartmenService service, ILoggingService loggingService)
         {
-            
+            _service = service;
+            _logger = loggingService;
+        }
+
+        public ILoggingService LoggingService { get; }
+
+        [HttpGet]
+        [ActionName("GetDepartmentsWithoutEmployees")]
+        public async Task<IActionResult> GetDepartmentsWithoutEmployees()
+        {
+            var departments = await _service.GetDepartmentsWithoutEmployees();
+
+            return Ok(departments);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNewDepartment([FromBody] AddDepartmentDTO departmentDTO)
+        {
+            await _service.CreateNewDepartment(departmentDTO);
+            _logger.LogActiviti("Zablo100", $"Utworzono nowy dział {departmentDTO.Name}", ActionType.Create);
+
+            return Ok();
         }
     }
 }

@@ -22,7 +22,7 @@
         public ActionType ActionType { get; set; }
         public DateTime DateTime { get; set; }
 
-        public Log(string user, string description, HardwareType hardwareType, ActionType actionType)
+        public Log(string user, string description, HardwareType? hardwareType, ActionType actionType)
         {
             User = user;
             Description = description;
