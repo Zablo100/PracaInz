@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pracaInż.Models.Entities.CompanyStructure;
+using System;
 
 public class Employee
 {
@@ -8,6 +9,9 @@ public class Employee
     public string EmailAddress { get; set; }
     public string WorkPhone { get; set; }
     public string JobTitle { get; set; }
+
+    public int DepartmentId { get; set; }   
+    public Department Department { get; set; }
 
 
 }

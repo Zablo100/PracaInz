@@ -20,6 +20,7 @@ namespace pracaInż.Data
         public DbSet<Log> Logs { get; set; }
         public DbSet<Factory> Factorys { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
     }
 }
