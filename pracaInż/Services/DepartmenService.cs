@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
 using pracaInż.Models.DTO.Departments;
 using pracaInż.Models.Entities.CompanyStructure;
@@ -9,6 +10,7 @@ namespace pracaInż.Services
     {
         Task<List<DepartmentListDTO>> GetDepartmentsWithoutEmployees();
         Task CreateNewDepartment(AddDepartmentDTO departmentDTO);
+        Task ModifyDepartment(int id, JsonPatchDocument<Department> patchDocument);
     }
     public class DepartmenService : IDepartmenService
     {
@@ -44,6 +46,18 @@ namespace pracaInż.Services
             }
 
             return result;
+        }
+
+        public async Task ModifyDepartment(int id, JsonPatchDocument<Department> patchDocument)
+        {
+            Department? department = await _context.Departments.FindAsync(id);
+            if(department == null)
+            {
+                return;
+            }
+            patchDocument.ApplyTo(department);
+
+            await _context.SaveChangesAsync();
         }
     }
 }
