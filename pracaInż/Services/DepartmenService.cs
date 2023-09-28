@@ -10,7 +10,9 @@ namespace pracaInż.Services
     {
         Task<List<DepartmentListDTO>> GetDepartmentsWithoutEmployees();
         Task CreateNewDepartment(AddDepartmentDTO departmentDTO);
-        Task ModifyDepartment(int id, JsonPatchDocument<Department> patchDocument);
+        Task PartialUpdate(int id, JsonPatchDocument<Department> patchDocument);
+        Task FullUpdate(AddDepartmentDTO departmentDTO);
+        Task DeleteDepartment(int id);
     }
     public class DepartmenService : IDepartmenService
     {
@@ -48,7 +50,7 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task ModifyDepartment(int id, JsonPatchDocument<Department> patchDocument)
+        public async Task PartialUpdate(int id, JsonPatchDocument<Department> patchDocument)
         {
             Department? department = await _context.Departments.FindAsync(id);
             if(department == null)
@@ -57,6 +59,34 @@ namespace pracaInż.Services
             }
             patchDocument.ApplyTo(department);
 
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task FullUpdate(AddDepartmentDTO departmentDTO)
+        {
+            Factory? factory = await _context.Factorys.FindAsync(departmentDTO.FactoryId);
+            if (factory == null)
+            {
+                //Error
+                return;
+            }
+            Department department = new Department(departmentDTO, factory);
+
+            _context.Departments.Update(department);
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task DeleteDepartment(int id)
+        {
+            Department? department = await _context.Departments.FindAsync(id);
+            if (department == null)
+            {
+                //error
+                return;
+            }
+
+            _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
         }
     }

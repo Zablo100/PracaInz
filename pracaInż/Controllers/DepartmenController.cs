@@ -41,11 +41,27 @@ namespace pracaInż.Controllers
         }
 
         [HttpPatch("{id}")]
-        public async Task<IActionResult> ModifyDepartment(int id, [FromBody] JsonPatchDocument<Department> jsonPatch)
+        public async Task<IActionResult> PartialUpdate(int id, [FromBody] JsonPatchDocument<Department> jsonPatch)
         {
-            await _service.ModifyDepartment(id, jsonPatch);
+            await _service.PartialUpdate(id, jsonPatch);
             
             return Ok();
         }
+
+        [HttpPut]
+        public async Task<IActionResult> FullUpdate([FromBody] AddDepartmentDTO departmentDTO)
+        {
+            await _service.FullUpdate(departmentDTO);
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _service.DeleteDepartment(id);
+            return Ok();
+        }
+
     }
 }
