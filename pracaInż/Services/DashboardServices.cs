@@ -20,13 +20,12 @@ namespace pracaInż.Services
         {
             var devices = await _context.Devices.ToListAsync();
             var status = new List<InfrastructureStatus>();
-            Ping ping = new Ping();
 
-            foreach (var device in devices)
+            var pingTasks = devices.Select(async device =>
             {
-                PingReply reply = ping.Send(device.IPAddress);
+                PingReply reply = await new Ping().SendPingAsync(device.IPAddress);
 
-                if (reply.Status.ToString().Equals("Success"))
+                if (reply.Status == IPStatus.Success)
                 {
                     status.Add(new InfrastructureStatus(device, "Online"));
                 }
@@ -34,8 +33,9 @@ namespace pracaInż.Services
                 {
                     status.Add(new InfrastructureStatus(device, "Offline"));
                 }
+            });
 
-            }
+            await Task.WhenAll(pingTasks);
 
             return status;
         }

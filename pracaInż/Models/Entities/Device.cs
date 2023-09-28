@@ -5,7 +5,8 @@
         Server,
         NAS,
         Router,
-        Switch
+        Switch,
+        Computer
     }
     public class Device
     {
