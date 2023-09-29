@@ -31,6 +31,15 @@ namespace pracaInż.Controllers
             return Ok(departments);
         }
 
+        [HttpGet]
+        [ActionName("GetDepartmentsWithEmployees")]
+        public async Task<IActionResult> GetDepartmentsWithEmployees()
+        {
+            var departments = await _service.GetDepartmentsWithEmployees();
+
+            return Ok(departments);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateNewDepartment([FromBody] AddDepartmentDTO departmentDTO)
         {

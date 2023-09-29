@@ -9,6 +9,7 @@ namespace pracaInż.Services
     public interface IDepartmenService
     {
         Task<List<DepartmentListDTO>> GetDepartmentsWithoutEmployees();
+        Task<List<DepartmentListWithEmployees>> GetDepartmentsWithEmployees();
         Task CreateNewDepartment(AddDepartmentDTO departmentDTO);
         Task PartialUpdate(int id, JsonPatchDocument<Department> patchDocument);
         Task FullUpdate(AddDepartmentDTO departmentDTO);
@@ -88,6 +89,22 @@ namespace pracaInż.Services
 
             _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<DepartmentListWithEmployees>> GetDepartmentsWithEmployees()
+        {
+            List<Department> departments = await _context.Departments
+                .Include(Departmen => Departmen.Factory)
+                .Include(Dep => Dep.Employees)
+                .ToListAsync();
+
+            List<DepartmentListWithEmployees> result = new List<DepartmentListWithEmployees>();
+            foreach (Department department in departments)
+            {
+                result.Add(new DepartmentListWithEmployees(department));
+            }
+
+            return result;
         }
     }
 }

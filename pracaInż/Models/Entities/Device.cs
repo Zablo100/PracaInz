@@ -1,4 +1,6 @@
-﻿namespace pracaInż.Models.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace pracaInż.Models.Entities
 {
     public enum DeviceType
     {

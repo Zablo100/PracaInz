@@ -14,6 +14,7 @@ namespace pracaInż.Models.Entities.CompanyStructure
         public int FactoryId { get; set; }
         [JsonIgnore]
         public Factory Factory { get; set; }
+        public List<Employee> Employees { get; set; }
 
         public Department()
         {
