@@ -1,0 +1,30 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #f0eeee;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f0eeee;
+  }
+
+
+.td-quantity{
+  text-align: center;
+}
+
+.td-price{
+  text-align: center;
+}
+
+#fv{
+  font-size: 3rem;
+  text-align: center;
+  border-bottom: 2px solid black;
+}

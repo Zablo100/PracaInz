@@ -1,0 +1,66 @@
+#employee-info{
+    height: 60vh;
+    width: 25vw;
+}
+
+#employee-info-header{
+    text-align: center;
+    line-height: 4vh;
+    width: 100%;
+    height: 4vh;
+    background-color: #0077b6;
+
+    font-size: 1.6em;
+    color: white;
+}
+
+#computer-info-header{
+    text-align: center;
+    line-height: 3vh;
+    width: 100%;
+    height: 3vh;
+    background-color: #0077b6;
+
+    font-size: 1.6em;
+    color: white;
+}
+
+#employee-contact-info{
+    text-align: center;
+    line-height: 3vh;
+    width: 100%;
+    height: 3vh;
+    background-color: #0077b6;
+
+    font-size: 1.4em;
+    color: white;
+}
+
+.row-info{
+    height: 4vh;
+    width: 25vw;
+
+    line-height: 4vh;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 1.1em;
+
+    display: flex;
+}
+
+.info{
+    color: black;
+}
+
+.info-lable{
+    width: 40%;
+    margin-left: 15px;
+    color: gray;
+}
+
+.last{
+    border: none;
+}
+
+.green{
+    color: green;
+}

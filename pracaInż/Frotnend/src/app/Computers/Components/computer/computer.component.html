@@ -1,0 +1,199 @@
+<div class="content" *ngIf="PageLoaded">
+    <div id="right-panel">
+    <div id="computer-info">
+        <div id="info-header">Informacje</div>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="info-title">
+                    <img src="/assets/cpu.png" class="icon">Procesor
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table>
+                <tr class="row-info">
+                    <td class="info-lable">Model</td>
+                    <td class="info">{{this.Computer.cpu}}</td>
+                </tr>
+
+                <tr class="row-info">
+                    <td class="info-lable">Taktowanie</td>
+                    <td class="info">{{convertSpeed(Computer.cpuMaxclockSpeed)}} GHz</td>
+                </tr>
+
+                <tr class="row-info">
+                    <td class="info-lable">Ilość rdzeni</td>
+                    <td class="info">{{this.Computer.cpuCores}}</td>
+                </tr>
+
+
+            </table>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="info-title">
+                    <img src="/assets/ram.png" class="icon">RAM
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table>
+                <tr class="row-info">
+                    <td class="info-lable">Ilość pamięci</td>
+                    <td class="info">{{this.Computer.ram}} GB</td>
+                </tr>
+
+                <tr class="row-info">
+                    <td class="info-lable">Taktowanie</td>
+                    <td class="info">{{convertSpeed(Computer.ramSpeed)}} MHz</td>
+                </tr>
+
+            </table>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="info-title">
+                    <img src="/assets/gpu.png" class="icon">Karta Graficzna
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table>
+                <tr class="row-info">
+                    <td class="info-lable">Modeli</td>
+                    <td class="info">{{this.Computer.gpu}}</td>
+                </tr>
+
+            </table>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="info-title">
+                    <img src="/assets/disk.png" class="icon">Dysk
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table *ngFor="let drive of Computer.hardDrives; let i = index">
+
+                <div class="table-info-header">Dysk #{{i + 1}}</div>
+                <tr class="row-info">
+                    <td class="info-lable">Model</td>
+                    <td class="info">{{drive.name}}</td>
+                </tr>
+
+                <tr class="row-info">
+                    <td class="info-lable">Typ</td>
+                    <td class="info">{{drive.type}}</td>
+                </tr>
+
+                <tr class="row-info">
+                    <td class="info-lable">Pojemność</td>
+                    <td class="info">{{drive.size}} GB</td>
+                </tr>
+
+            </table>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="hasMonitors()">
+            <mat-expansion-panel-header>
+                <mat-panel-title class="info-title">
+                    <img src="/assets/monitor.png" class="icon">Monitor
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table *ngFor="let monitor of Computer.monitors; let i = index">
+
+                <div class="table-info-header">Monitor #{{i + 1}}</div>
+                <tr class="row-info">
+                    <td class="info-lable">Model</td>
+                    <td class="info">{{monitor.name}}</td>
+                </tr>
+
+                <tr class="row-info">
+                    <td class="info-lable">Hardwer ID</td>
+                    <td class="info">{{monitor.hardwareID}}</td>
+                </tr>
+
+            </table>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title class="info-title">
+                    <img src="/assets/os.png" class="icon">Inne
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <table>
+                <tr class="row-info">
+                    <td class="info-lable">System</td>
+                    <td class="info">{{this.Computer.os}}</td>
+                </tr>
+
+                <tr class="row-info">
+                    <td class="info-lable">Czas kupna</td>
+                    <td class="info">{{getTimeOfPurchase()}}</td>
+                </tr>
+
+            </table>
+        </mat-expansion-panel>
+
+        <div id="chart-container">
+            <div id="info-header">Ostanie 5 interwencji</div>
+            <app-pc-log-chart></app-pc-log-chart>
+        </div>
+
+    </div>
+
+    
+    </div>
+
+    <div id="left-panel">
+        <div id="computer-summary">
+            <div>
+                <img src="/assets/computer.png" id="pc-icon" *ngIf="isPC()">
+                <img src="/assets/laptop.png" id="pc-icon" *ngIf="!isPC()">
+            </div>
+            <div>
+                <div id="top-info">
+                    <div class="test">
+                        <img src="/assets/tag.png" class="summary-icon">
+                        <span class="test2">{{this.Computer.name}}</span>
+                    </div>
+
+                    <div class="test">
+                        <img src="/assets/os.png" class="summary-icon">
+                        <span class="test2">{{this.Computer.os}}</span>
+                    </div>
+
+                    <div class="test">
+                        <img src="/assets/calendar.png" class="summary-icon">
+                        <span class="test2">{{getTimeOfPurchase()}}</span>
+                    </div>
+
+                </div>
+                <div id="bot-info">
+
+                    <div class="test">
+                        <img src="/assets/cpu.png" class="summary-icon">
+                        <span class="test2">{{this.Computer.cpu}}</span>
+                    </div>
+
+                    <div class="test">
+                        <img src="/assets/gpu.png" class="summary-icon">
+                        <span class="test2">{{this.Computer.gpu}}</span>
+                    </div>
+
+                    <div class="test">
+                        <img src="/assets/ram.png" class="summary-icon">
+                        <span id="ram-summary">{{this.Computer.ram}} GB</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pc-history">
+            <div id="pc-history-logs">
+                <app-pc-log *ngFor="let log of PcLogs" [log]="log"></app-pc-log>
+
+            </div>
+            <button class="btn-green-round" id="btn-add-log" (click)="openForm()">+</button>
+        </div>
+    </div>
+</div>
+
+<div class="load" *ngIf="!PageLoaded"></div>

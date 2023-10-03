@@ -1,0 +1,39 @@
+.content{
+  display: flex;
+  padding-left: 0px;
+  padding-top: 0px;
+  align-items: stretch;
+}
+
+
+#filters{
+    height: 100%;
+    width: 15%;
+    border: 1px solid black;
+}
+
+.btn{
+    border: none;
+    background-color: #00a6fb;
+    transition-duration: 0.4s;  
+    color: #f7fff7;
+  
+    height: 5vh;
+    width: 10vw;
+  }
+  
+  .btn:hover{
+    transition: .5 ease-in-out;
+    opacity: 0.75;
+  }
+  
+  .btn:active{
+    transform: scale(0.98);
+    transition: 0.25ms;
+  }
+
+  #info-table{
+    width: 100%;
+  }
+
+  

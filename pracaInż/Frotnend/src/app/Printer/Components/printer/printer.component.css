@@ -1,0 +1,75 @@
+table{
+    width: 100%;
+   }
+   
+   #tabs{
+     height: 10vh;
+   }
+
+   .green{
+    background-color: #b9fbc0;
+   }
+
+   #search{
+    height: 35px;
+    width: 450px;
+    display: block;
+    border-radius: 16px;
+    border: 1px solid lightgray;
+    background: transparent;
+    transition: border-color 0.2s;
+    outline: 0;
+    font-family: Bahnschrift;
+    font-size: medium;
+    text-align: center;
+    
+}
+
+#search:focus::placeholder{
+    transition: 0.25s;
+    color: transparent;
+}
+
+#search:hover{
+    border: 1px solid #0674f1;
+    transition: 0.25s;
+}
+
+
+#search:focus{
+    border: 1px solid #0674f1;
+}
+
+#searchBtn{
+    height: 35px;
+    width: 150px;
+    margin-left: 5px;
+}
+
+#search-bar{
+  justify-content: center;
+  display: flex;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+
+#controls{
+  width: 100%;
+}
+
+.printer-btn{
+  width: 10em;
+  height: 2em;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+
+#clear-btn{
+  float: right;
+}
+
+button{
+  cursor: pointer;
+}

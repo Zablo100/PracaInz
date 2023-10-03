@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace pracaInż.Models.Entities
+namespace pracaInż.Models.Entities.Inventory
 {
     public enum DeviceType
     {

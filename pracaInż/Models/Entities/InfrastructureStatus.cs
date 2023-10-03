@@ -1,4 +1,6 @@
-﻿namespace pracaInż.Models.Entities
+﻿using pracaInż.Models.Entities.Inventory;
+
+namespace pracaInż.Models.Entities
 {
     public class InfrastructureStatus
     {

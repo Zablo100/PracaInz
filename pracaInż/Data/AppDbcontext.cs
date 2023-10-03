@@ -2,6 +2,7 @@
 using pracaInż.Models.Entities;
 using pracaInż.Models.Entities.CompanyStructure;
 using pracaInż.Models.Entities.ComputerParts;
+using pracaInż.Models.Entities.Inventory;
 
 namespace pracaInż.Data
 {
@@ -21,6 +22,7 @@ namespace pracaInż.Data
         public DbSet<Factory> Factorys { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
-
+        public DbSet<Printer> Printers { get; set; }
+        public DbSet<PrinterArcus> PrintersArcus { get; set;}
     }
 }

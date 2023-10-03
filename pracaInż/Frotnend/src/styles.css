@@ -1,0 +1,193 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.content{
+    padding: 10px;
+}
+
+.btn-blue-round{
+    border-radius: 50px;
+    border: none;
+    background-image: linear-gradient(to right, #25aae1, #3f86ed);
+    transition-duration: 0.4s;  
+    color: #f7fff7;
+}
+
+.btn-blue-box{
+    border: none;
+    background-image: linear-gradient(to right, #25aae1, #3f86ed);
+    transition-duration: 0.4s;  
+    color: #f7fff7;
+    border-radius: 5px;
+}
+
+.btn-green-round{
+    border-radius: 50px;
+    border: none;
+    transition-duration: 0.4s; 
+    background-image: linear-gradient(to right, #0ba360, #2bc77b);
+    color: #f7fff7;
+}
+
+.btn-green-box{
+    border: none;
+    transition-duration: 0.4s; 
+    background-image: linear-gradient(to right, #0ba360, #2bc77b);
+    color: #f7fff7;
+    border-radius: 5px;
+}
+
+.btn-black-round{
+    border-radius: 50px;
+    border: none;
+    transition-duration: 0.4s; 
+    background-image: linear-gradient(to right, #29323c, #485563);
+    color: #f7fff7;
+}
+
+.btn-black-box{
+    border: none;
+    transition-duration: 0.4s; 
+    background-image: linear-gradient(to right, #29323c, #485563);
+    color: #f7fff7;
+    border-radius: 5px;
+}
+
+.btn-purple-round{
+    border-radius: 50px;
+    border: none;
+    transition-duration: 0.4s; 
+    background-image: linear-gradient(to right, #852D91, #c241d3);
+    color: #f7fff7;
+}
+
+.btn-purple-box{
+    border: none;
+    transition-duration: 0.4s; 
+    background-image: linear-gradient(to right, #852D91, #c241d3);
+    color: #f7fff7;
+    border-radius: 5px;
+}
+
+.btn-red-round{
+    border-radius: 50px;
+    border: none;
+    transition-duration: 0.4s; 
+    background-image: linear-gradient(to right, #eb3941, #e2373f);
+    color: #f7fff7;
+    border-radius: 5px;
+}
+
+.btn-red-box{
+    border: none;
+    transition-duration: 0.4s; 
+    background-image: linear-gradient(to right, #eb3941, #e2373f);
+    color: #f7fff7;
+    border-radius: 5px;
+}
+
+
+
+.btn-blue-round:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-blue-box:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-green-round:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-green-box:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-black-round:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-black-box:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-purple-round:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-purple-box:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-red-round:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+.btn-red-box:active{
+    transform: scale(0.98);
+    opacity: 0.85;
+    transition: 0.25ms;
+}
+
+
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to { 
+        transform: rotate(360deg);
+    }
+}
+ 
+
+ @-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to { 
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+.load {
+	width: 100px;
+	height: 100px;
+	margin: 110px auto 0;
+    margin-top: 10%;
+	border:solid 10px #0077b6;
+	border-radius: 50%;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	 -webkit-transition: all 0.5s ease-in;
+    -webkit-animation-name:             rotate; 
+    -webkit-animation-duration:         1.0s; 
+    -webkit-animation-iteration-count:  infinite;
+    -webkit-animation-timing-function: linear;
+    	
+    	 transition: all 0.5s ease-in;
+    animation-name:             rotate; 
+    animation-duration:         1.0s; 
+    animation-iteration-count:  infinite;
+    animation-timing-function: linear; 
+}

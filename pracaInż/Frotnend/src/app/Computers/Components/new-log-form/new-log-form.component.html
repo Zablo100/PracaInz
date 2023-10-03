@@ -1,0 +1,34 @@
+<h1 id="form-title">Nowy wpis</h1>
+<div id="form-main">
+    <div id="wraper">
+    <form [formGroup]="CatForm" (change)="categoryChange()">
+        <label for="select-cat" class="select-lable">Kategoria</label>
+        <select class="select-input" id="select-cat" formControlName="category">
+            <option [ngValue]="1">Wymiana</option>
+            <option [ngValue]="2">Inne</option>
+        </select><br>
+    </form>
+
+    <form *ngIf="RepairSelected" (submit)="RepairSubmit">
+        <label for="select-type" class="select-lable">Zdarzenie</label>
+        <select class="select-input" id="select-type">
+            <option [ngValue]="0">Dysk</option>
+            <option [ngValue]="1">Zasilacz</option>
+            <option [ngValue]="2">Procesor</option>
+            <option [ngValue]="3">Pamięć RAM</option>
+            <option [ngValue]="4">Karta graficzna</option>
+        </select>
+
+        <button type="submit" class="btn-black-round" id="btn-submit">Dodaj</button>
+    </form>
+
+    <form *ngIf="CustomSelected">
+        <label for="input-custom" class="select-lable">Opis</label>
+        <textarea id="input-custom"></textarea><br>
+        <button type="submit" class="btn-black-round" id="btn-submit-custom">Dodaj</button>
+    </form>
+
+    
+
+</div>
+</div>

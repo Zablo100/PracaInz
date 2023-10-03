@@ -1,0 +1,6 @@
+<form id="addInvoiceForm" [formGroup]="form" (ngSubmit)="test()">
+    <input id="name" class="input" placeholder="Wpisz numer Faktury" formControlName="name">
+    <input id="cost" class="input" placeholder="Wpisz koszt" formControlName="cost"><br>
+    <span id="error">{{erroDescription}}</span><br>
+    <button type="submit" class="btn-black-box" id="save">Zapisz</button>
+</form>

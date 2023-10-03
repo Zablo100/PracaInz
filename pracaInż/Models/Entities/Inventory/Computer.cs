@@ -1,6 +1,6 @@
 ﻿using pracaInż.Models.Entities.ComputerParts;
 
-namespace pracaInż.Models.Entities
+namespace pracaInż.Models.Entities.Inventory
 {
     public class Computer : Item
     {

@@ -1,0 +1,29 @@
+<div id="main">
+    <h1 class="title">Nowa Faktura</h1>
+
+    <form [formGroup]="form" (ngSubmit)="createNewInvoice()">
+
+        <div id="div-form-input">
+            <div id="wraper">
+                <input id="name" class="input" placeholder="Numer Faktury" formControlName="name">
+                <input id="seller" class="input" placeholder="Sprzedawca" formControlName="seller">
+            </div>
+
+        </div>
+
+        <h2 class="title">Przedmioty</h2>
+        <div id="controls">
+            <button (click)="addComponent()" class="btn-green-box btn-control" type="button">Dodaj przedmiot</button>
+            <button (click)="removeComponent()" class="btn-red-box btn-control" id="btn-remove" type="button">Usuń przedmiot</button>
+        </div>
+
+        <ng-template #container></ng-template>
+
+        <div id="div-submit">
+            <button type="submit" class="btn-blue-box" id="btn-submit">Zapisz</button>
+        </div>
+    </form>
+
+
+
+</div>

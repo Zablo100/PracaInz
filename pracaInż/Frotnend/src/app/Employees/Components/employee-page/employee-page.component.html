@@ -1,0 +1,41 @@
+<div class="content">
+   <div id="employee-info">
+    <div id="employee-info-header">Informacje Presonalne</div>
+    <table>
+        <tr class="row-info">
+            <td class="info-lable">Imię</td>
+            <td class="info">{{this.employee.name}}  {{this.employee.lastName}}</td>
+        </tr>
+
+        <tr class="row-info">
+            <td class="info-lable">Stanowisko</td>
+            <td class="info">{{this.employee.jobTitle}}</td>
+        </tr>
+
+        <tr class="row-info" >
+            <td class="info-lable">Miejsce Pracy</td>
+            <td class="info">{{this.employee.factory.city}}</td>
+        </tr>
+        <tr class="row-info">
+            <td class="info-lable">Email</td>
+            <td class="info">{{this.employee.email}}</td>
+        </tr>
+
+        <tr class="row-info last">
+            <td class="info-lable">Numer wewnętrzny</td>
+            <td class="info">{{this.employee.id}}</td>
+        </tr>
+    </table>
+
+    <div id="computer-info-header">Stanowisko komputerowe</div>
+    <table>
+        <tr class="row-info">
+            <td class="info-lable">Komputer</td>
+            <td class="info">{{this.employee.computer.name}} </td>
+        </tr>
+
+    
+    </table>
+
+   </div>
+</div>

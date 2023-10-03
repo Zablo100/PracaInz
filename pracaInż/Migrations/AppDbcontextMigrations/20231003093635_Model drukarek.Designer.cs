@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pracaInż.Data;
 
@@ -10,9 +11,11 @@ using pracaInż.Data;
 namespace pracaInż.Migrations.AppDbcontextMigrations
 {
     [DbContext(typeof(AppDbcontext))]
-    partial class AppDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20231003093635_Model drukarek")]
+    partial class Modeldrukarek
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -408,9 +411,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.Property<string>("InvoiceDescription")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<bool>("MonthlyCheck")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("SerialNumber")
                         .IsRequired()

@@ -1,0 +1,53 @@
+.input{
+    height: 30px;
+    display: flex;
+    border: 0;
+    border: 1px solid lightgray;
+    background: transparent;
+    transition: border-color 0.2s;
+    outline: 0;
+    font-family: Bahnschrift;
+    font-size: large;
+    text-align: center;
+    
+}
+
+.input:focus::placeholder{
+    transition: 0.25s;
+    color: transparent;
+}
+
+.input:hover{
+    border: 1px solid #0674f1;
+    transition: 0.25s;
+}
+
+
+.input:focus{
+    border: 1px solid #0674f1;
+}
+
+#addInvoiceForm{
+    display: flex;
+}
+
+#item{
+    margin-top: 2px;
+    margin-bottom: 10px;
+}
+
+#name{
+    width: 10em;
+}
+
+#description{
+    width: 15em;
+}
+
+#quantity{
+    width: 5em;
+}
+
+#price{
+    width: 5em;
+}

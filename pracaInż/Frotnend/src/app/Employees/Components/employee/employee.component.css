@@ -1,0 +1,21 @@
+#test1{
+    display: block;
+    width: 100%;
+  }
+  
+  table{
+   width: 100%;
+  }
+  
+  #tabs{
+    height: 10vh;
+  }
+
+  .mat-row {
+    cursor: pointer;
+  }
+  
+  .mat-row:hover{
+    transition: ease-in 0.1s;
+    background-color: rgb(220, 236, 241);
+  }

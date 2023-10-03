@@ -1,0 +1,14 @@
+
+<div class="bg">
+    <div class="content">
+        <div class="login-panel">
+            <div class="input-panel">
+                <form [formGroup]="loginForm" (ngSubmit)="Login()">
+                    <input formControlName="username" type="text" class="input-box" placeholder="Login" autocomplete="login"><br />
+                    <input formControlName="password" type="password" class="input-box" placeholder="Hasło" autocomplete="password"><br />
+                    <button id="x" class="btn" type="submit">Zaloguj</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

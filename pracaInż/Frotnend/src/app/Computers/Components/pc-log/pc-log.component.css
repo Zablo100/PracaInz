@@ -1,0 +1,14 @@
+#log{
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+#msg{
+    margin-left: 25px;
+    font-size: 1.2em;
+}
+
+#date{
+    font-weight: 600;
+    font-size: 1.2em;
+}

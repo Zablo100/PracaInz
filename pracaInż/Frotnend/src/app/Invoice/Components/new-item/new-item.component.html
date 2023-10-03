@@ -1,0 +1,9 @@
+<div id="item">
+    <form id="addInvoiceForm" [formGroup]="itemForm" (ngSubmit)="submitItemRequest()">
+        <input id="name" class="input" placeholder="Nazwa" formControlName="name">
+        <input id="description" class="input" placeholder="Opis" formControlName="description">
+        <input id="quantity" class="input" placeholder="Ilość" formControlName="quantity">
+        <input id="price" class="input" placeholder="Koszt" formControlName="price">
+    </form>
+</div>
+

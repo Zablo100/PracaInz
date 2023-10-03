@@ -1,0 +1,101 @@
+table{
+    width: 100%;
+   }
+
+   .mat-row {
+    cursor: pointer;
+  }
+  
+  .mat-row:hover{
+    transition: ease-in 0.1s;
+    background-color: rgb(220, 236, 241);
+  }
+   
+   #tabs{
+     height: 10vh;
+   }
+
+   .green{
+    background-color: #b9fbc0;
+   }
+
+   #search{
+    height: 35px;
+    width: 450px;
+    display: block;
+    border-radius: 16px;
+    border: 1px solid lightgray;
+    background: transparent;
+    transition: border-color 0.2s;
+    outline: 0;
+    font-family: Bahnschrift;
+    font-size: medium;
+    text-align: center;
+    
+}
+
+#search:focus::placeholder{
+    transition: 0.25s;
+    color: transparent;
+}
+
+#search:hover{
+    border: 1px solid #0674f1;
+    transition: 0.25s;
+}
+
+
+#search:focus{
+    border: 1px solid #0674f1;
+}
+
+.btn-search{
+    height: 35px;
+    width: 150px;
+    margin-left: 15px;
+}
+
+#search-bar{
+
+  display: flex;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+#reset{
+  justify-content: center;
+  display: flex;
+
+}
+
+#reset-text{
+  font-size: small;
+  color: grey;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
+}
+
+button{
+  cursor: pointer;
+}
+
+.select-input{
+  margin-left: 10px;
+  width: 150px;
+  height: 35px;
+  text-align: center;
+  border-radius: 16px;
+  font-family: Bahnschrift;
+  font-size: medium;
+}
+
+#title{
+  font-family: Bahnschrift;
+  font-size: large;
+}
+
+#search-form{
+  display: flex;
+  margin-left: 50px;
+  margin-right: 150px;
+}

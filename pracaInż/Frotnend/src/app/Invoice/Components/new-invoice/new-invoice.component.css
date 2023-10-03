@@ -1,0 +1,70 @@
+.title{
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.btn-control{
+    height: 2.8rem;
+    width: 10rem;
+    font-size: 16px;
+}
+
+#btn-remove{
+    float: right;
+}
+
+#btn-submit{
+    height: 3rem;
+    width: 13rem;
+    font-size: 26px;
+}
+
+#div-submit{
+    text-align: center;
+}
+
+#div-form-input{
+    width: 40em;
+    display: flex;
+    justify-content: center;
+}
+
+#wrpaer{
+    display: block;
+}
+
+.input{
+    height: 35px;
+    width: 25em;
+    margin-bottom: 15px;
+    display: block;
+    border-radius: 16px;
+    border: 0;
+    border: 1px solid lightgray;
+    background: transparent;
+    transition: border-color 0.2s;
+    outline: 0;
+    font-family: Bahnschrift;
+    font-size: large;
+    text-align: center;
+    
+}
+
+.input:focus::placeholder{
+    transition: 0.25s;
+    color: transparent;
+}
+
+.input:hover{
+    border: 1px solid #0674f1;
+    transition: 0.25s;
+}
+
+
+.input:focus{
+    border: 1px solid #0674f1;
+}
+
+#controls{
+    margin-bottom: 25px;
+}

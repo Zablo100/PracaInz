@@ -1,0 +1,55 @@
+.toolbar {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(41, 128, 185);
+    color: white;
+    font-weight: 500;
+    width: 100%;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+
+  .logo{
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(41, 128, 185);
+    cursor: pointer;
+  }
+
+
+  .link{
+    position: relative;
+    margin-left: 1em;
+    font-size: large;
+  }
+
+  .link::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  .link:hover::after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }

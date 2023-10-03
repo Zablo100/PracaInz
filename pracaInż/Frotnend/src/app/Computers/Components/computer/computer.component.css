@@ -1,0 +1,160 @@
+.content{
+    display: flex;
+}
+
+
+#computer-info{
+    width: 25vw;
+}
+
+#info-header{
+    text-align: center;
+    line-height: 4vh;
+    width: 100%;
+    height: 4vh;
+    background-color: #0077b6;
+
+    font-size: 1.6em;
+    color: white;
+}
+
+.row-info{
+    height: 4vh;
+    width: 25vw;
+
+    line-height: 4vh;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 1.1em;
+
+    display: flex;
+}
+
+.info{
+    color: black;
+}
+
+.info-lable{
+    width: 40%;
+    margin-left: 15px;
+    color: gray;
+}
+
+.icon{
+    height: 25px;
+    width: 25px;
+
+    margin-right: 25px;
+}
+
+.info-title{
+    text-align: center;
+    width: 100%;
+    height: 4vh;
+
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.table-info-header{
+    text-align: center;
+    background-color: #0077b6;
+
+    font-size: 1.2em;
+    color: white;
+}
+
+#pc-icon{
+    margin-left: 2em;
+    height: 12em;
+}
+
+#computer-summary{
+    margin-top: 1em;
+    display: flex;
+    margin-left: 50px;
+    border: 3px solid #0077b6;
+    padding: 50px;
+
+    width: 52vw;
+
+    border-radius: 16px;
+}
+
+#top-info{
+    display: flex;
+    margin-top: 2em;
+    margin-left: 3em;
+}
+
+#bot-info{
+    display: flex;
+    margin-top: 1em;
+    margin-left: 3em;
+}
+
+.summary-icon{
+    height: 45px;
+    width: 45px;
+    margin-top: 2px;
+}
+
+.short-info{
+    margin-left: 45px;
+
+    font-size: 1.4em;
+}
+
+.test{
+    display: flex;
+    margin-left: 45px;
+}
+
+.test2{
+    margin-left: 5px;
+    margin-top: 16px;
+    font-size: 1.2em;
+
+    border-bottom: 1px solid #b7babb;
+}
+
+#ram-summary{
+    margin-left: 5px;
+    font-size: 1.4em;
+    margin-top: 14px;
+
+    border-bottom: 1px solid #b7babb;
+}
+
+#pc-history{
+    margin-top: 5vh;
+    margin-left: 50px;
+    height: 57vh;
+    border: 3px solid #0077b6;
+
+    border-radius: 16px;
+}
+
+#pc-history-logs{
+    overflow-y: scroll;
+
+    height: 57vh;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+  }
+
+#btn-add-log{
+    height: 35px;
+    width: 35px;
+    font-size: large;
+    font-weight: 600;
+
+    position: absolute;
+    bottom: 4.5%;
+    right: 5%;
+}
+
+#chart-container{
+    margin-top: 150px;
+}
