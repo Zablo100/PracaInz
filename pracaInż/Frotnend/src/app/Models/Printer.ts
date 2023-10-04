@@ -6,7 +6,7 @@ export interface Printer {
     invoiceDescription: string | null;
     contractNumber: string | null;
     iP: string | null;
-    test: boolean;
+    monthlyCheck: boolean;
     department: string;
     serialNumber: string;
 }

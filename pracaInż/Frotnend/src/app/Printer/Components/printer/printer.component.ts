@@ -3,10 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { map, Observable, Subscription } from 'rxjs';
-import { Printer } from 'src/app/Models/Printer';
 import { PrinterService } from '../../printer.service';
 import { MatDialog } from '@angular/material/dialog';
 import { GenerateInvoiceComponent } from '../generate-invoice/generate-invoice.component';
+import { Printer } from '../../../Models/Printer';
 
 @Component({
   selector: 'app-printer',
@@ -64,7 +64,7 @@ export class PrinterComponent implements OnInit {
   addPrinterCheck(id: number){
     this.service.changeStauts(id)
     const index = this.printers.findIndex(p => p.id == id)
-    this.printers[index].test = true;
+    this.printers[index].monthlyCheck = true;
     this.data.data = this.printers
 
     // this.matDialog.open(GenerateInvoiceComponent, {
@@ -78,13 +78,13 @@ export class PrinterComponent implements OnInit {
   deletPrinterCheck(id: number){
     this.service.changeStauts(id)
     const index = this.printers.findIndex(p => p.id == id)
-    this.printers[index].test = false;
+    this.printers[index].monthlyCheck = false;
     this.data.data = this.printers
   }
 
   cleareAllPrintersStatus(){
     this.printers.forEach(printer => {
-      printer.test = false
+      printer.monthlyCheck = false
     });
     this.service.cleareAll()
     this.data.data = this.printers

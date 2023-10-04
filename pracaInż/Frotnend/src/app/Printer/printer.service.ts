@@ -29,7 +29,7 @@ export class PrinterService {
   }
 
   getAll(){
-    return this.http.get(`http://${app.ip}/api/v1/printer/all`)
+    return this.http.get(`https://localhost:7096/api/department/GetArcusPrinters`)
   }
 
   changeStauts(id: number){

@@ -3,9 +3,24 @@ using pracaIn¿.Models.Services;
 using pracaIn¿.Services;
 using Newtonsoft.Json;
 
+
+
+var frontend = "_frontend";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(cors =>
+{
+    cors.AddPolicy(name: frontend, policy =>
+    {
+
+        policy.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddDBServices(builder.Configuration);
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -13,9 +28,11 @@ builder.Services.AddScoped<IDashboardServices, DashboardServices>();
 builder.Services.AddScoped<ILoggingService, LoggingService>();
 builder.Services.AddScoped<IFactoryService, FactoryService>();
 builder.Services.AddScoped<IDepartmenService, DepartmenService>();
+builder.Services.AddScoped<IPrinterService, PrinterService>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -34,6 +51,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors(frontend);
 
 app.MapControllers();
 
