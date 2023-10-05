@@ -70,7 +70,7 @@
 
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;let element" [ngClass]="{'green': element.test == true}"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;let element" [ngClass]="{'green': element.monthlyCheck == true}"></tr>
   </table>
 
   <mat-paginator [pageSize]="10" showFirstLastButtons aria-label="Select page">

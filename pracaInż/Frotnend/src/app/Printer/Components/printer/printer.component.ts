@@ -32,7 +32,7 @@ export class PrinterComponent implements OnInit {
   }
 
   getDataToTable(){
-    this.service.getAll().subscribe((reponse) => {
+    this.service.getArcusPrinters().subscribe((reponse) => {
       this.data = new MatTableDataSource<Printer>(reponse as Printer[]);
       this.printers = reponse as Printer[];
       this.data.paginator = this.paginator
@@ -64,6 +64,7 @@ export class PrinterComponent implements OnInit {
   addPrinterCheck(id: number){
     this.service.changeStauts(id)
     const index = this.printers.findIndex(p => p.id == id)
+    console.log(this.printers)
     this.printers[index].monthlyCheck = true;
     this.data.data = this.printers
 

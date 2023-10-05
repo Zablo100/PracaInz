@@ -9,27 +9,10 @@ import { app } from '../Core/appip';
   providedIn: 'root'
 })
 export class PrinterService {
-  private printers$ = new BehaviorSubject<Printer[]>([])
-
-
   constructor(private http: HttpClient) { }
   
-
-  // reaktywne
-  getAllRX(): Observable<Printer[]> {
-    return this.printers$
-  }
-
-  public init(): void{
-    this.http
-      .get<Printer[]>("https://192.168.1.224:4040/api/v1/Printer/getAll")
-      .subscribe((printer) => {
-        this.printers$.next(printer)
-      })
-  }
-
-  getAll(){
-    return this.http.get(`https://localhost:7096/api/department/GetArcusPrinters`)
+  getArcusPrinters(){
+    return this.http.get(`https://${app.ip}/api/printers/GetArcusPrinters`)
   }
 
   changeStauts(id: number){
@@ -37,8 +20,9 @@ export class PrinterService {
     const headers = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
-    this.http.patch(`http://${app.ip}/api/v1/printer/changeStatus/` + id, body, headers).subscribe((response) => {
-      
+
+    this.http.put(`https://${app.ip}/api/printers/ChangePrinterStatus/` + id, body, headers).subscribe((response) => {
+      console.log(response)    
     })
   }
 
@@ -47,7 +31,7 @@ export class PrinterService {
     const headers = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
-    this.http.patch(`http://${app.ip}/api/v1/printer/cleare`, body, headers).subscribe((response) => {
+    this.http.post(`https://${app.ip}/api/printers/ClearAllPrintersStatus`, body, headers).subscribe((response) => {
       
     })
   }

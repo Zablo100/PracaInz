@@ -15,10 +15,12 @@ namespace pracaInż.Services
         Task<PrinterArcusDTO> GetArcusPrinterById(int id);
         Task AddNewCompnayPrinter(AddPrinterDTO printerDTO);
         Task AddNewArcusPrinter(AddArcusPrinterDTO printerArcusDTO);
+        Task ChangePrinterStatus(int id);
+        Task ChangeAllPrintersStatus();
         //Task<AddPrinterDTO> FullEditCompnayPrinter(PrinterDTO printerDTO);
         //Task<AddPrin>
         //Task RemoveCompnayPrinter(int id);
-        //Task RemoveArcusPrinters(int id);
+        Task RemoveArcusPrinters(int id);
 
     }
     public class PrinterService : IPrinterService
@@ -59,6 +61,35 @@ namespace pracaInż.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task ChangeAllPrintersStatus()
+        {
+            List<PrinterArcus> printers = await _context.PrintersArcus.ToListAsync();
+
+            foreach(var printer in printers) 
+            {
+                printer.MonthlyCheck = false;
+                _context.PrintersArcus.Update(printer);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ChangePrinterStatus(int id)
+        {
+            PrinterArcus printer = await _context.PrintersArcus.FindAsync(id);
+            if (printer == null)
+            {
+                return;
+            }
+
+            printer.MonthlyCheck = !printer.MonthlyCheck;
+
+            _context.PrintersArcus.Update(printer);
+            await _context.SaveChangesAsync();
+        }
+
+
+        //TODO
         public Task<PrinterArcusDTO> GetArcusPrinterById(int id)
         {
             throw new NotImplementedException();
@@ -76,15 +107,27 @@ namespace pracaInż.Services
 
             return result;
         }
-
+        //TODO
         public Task<PrinterDTO> GetCompnayPrinterById(int id)
         {
             throw new NotImplementedException();
         }
-
+        //TODO
         public Task<List<PrinterDTO>> GetCompnayPrinters()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task RemoveArcusPrinters(int id)
+        {
+            var printer = await _context.PrintersArcus.FindAsync(id);
+            if (printer == null)
+            {
+                return;
+            }
+
+            _context.PrintersArcus.Remove(printer);
+            await _context.SaveChangesAsync();
         }
     }
 }

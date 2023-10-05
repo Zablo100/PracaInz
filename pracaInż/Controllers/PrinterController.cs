@@ -5,7 +5,7 @@ using pracaInż.Services;
 namespace pracaInż.Controllers
 {
     [ApiController]
-    [Route("api/department/[action]")]
+    [Route("api/printers/[action]")]
     public class PrinterController : Controller
     {
         private readonly IPrinterService _printerService;
@@ -31,6 +31,29 @@ namespace pracaInż.Controllers
             return Ok();
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ChangePrinterStatus(int id)
+        {
+            await _printerService.ChangePrinterStatus(id);
+         
+            return Ok(id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ClearAllPrintersStatus()
+        {
+            await _printerService.ChangeAllPrintersStatus();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletArcusPrinter(int id)
+        {
+            await _printerService.RemoveArcusPrinters(id);
+
+            return Ok();
+        }
 
 
 
