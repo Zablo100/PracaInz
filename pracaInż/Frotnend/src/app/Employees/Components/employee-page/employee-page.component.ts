@@ -14,11 +14,6 @@ export class EmployeePageComponent implements OnInit {
   constructor(private service: EmployeeService, private router: Router) { }
 
   ngOnInit(): void {
-    this.service.getEmployeeById(Number(this.router.url.substring(10))).subscribe(data =>{
-      this.employee = data as Employee
-    })
-
-
   }
 
   getStauts(): string{

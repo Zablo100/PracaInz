@@ -42,4 +42,8 @@ export class PrinterService {
     })
   }
 
+  deleteArcusPrinter(id: number){
+    this.http.delete(`https://${app.ip}/api/printers/DeletArcusPrinter` + id, )
+  }
+
 }

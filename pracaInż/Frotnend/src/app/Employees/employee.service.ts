@@ -8,25 +8,14 @@ import { app } from '../Core/appip';
   providedIn: 'root'
 })
 export class EmployeeService {
-  url: string = `http://${app.ip}/api/employee/`;
 
   constructor(private http: HttpClient) { }
 
 
-  getAllDepartments(){
-    return this.http.get("https://localhost:4040/api/v1/department")
+  getAllDepartmentsWithoutEmployees(){
+    return this.http.get(`https://${app.ip}/api/department/GetDepartmentsWithoutEmployees`)
   }
 
-  getEmployeeById(id: number){
-    const requestUrl = this.url + `get/${id}` 
-    return this.http.get(requestUrl)
-  }
-  
-
-  getEmployees() {
-    const requestUrl = this.url + "all"
-    return this.http.get(requestUrl)
-  }
 
 
 

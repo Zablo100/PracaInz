@@ -24,15 +24,6 @@ export class EmployeeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
-    this.serivce.getEmployees().subscribe((reponse) => {
-      this.data = new MatTableDataSource<Employee>(reponse as Employee[]);
-      this.data.sort = this.sort;
-      this.rawData = reponse as Employee[]
-      this.data.paginator = this.paginator
-
-      console.log(this.rawData)
-    })
-
   }
 
 
