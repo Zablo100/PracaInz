@@ -1,8 +1,8 @@
-﻿using pracaInż.Models.DTO.Factories;
+﻿using pracaInż.Models.Entities.CompanyStructure;
 
-namespace pracaInż.Models.Entities.CompanyStructure
+namespace pracaInż.Models.DTO.Factories
 {
-    public class Factory
+    public class FactoryDTO
     {
         public int Id { get; set; }
         public string City { get; set; }
@@ -10,15 +10,9 @@ namespace pracaInż.Models.Entities.CompanyStructure
         public int StreetNumber { get; set; }
         public string PostalCode { get; set; }
 
-        public List<Department> Departments { get; set; }
-
-        public Factory()
+        public FactoryDTO(Factory factory)
         {
-
-        }
-
-        public Factory(AddFactoryDTO factory)
-        {
+            Id = factory.Id;
             City = factory.City;
             Street = factory.Street;
             StreetNumber = factory.StreetNumber;

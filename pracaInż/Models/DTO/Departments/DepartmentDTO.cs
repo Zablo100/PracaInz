@@ -10,5 +10,14 @@ namespace pracaInż.Models.DTO.Departments
         public string ShortName { get; set; }
         public string InvoiceCode { get; set; }
         public int FactoryId { get; set; }
+
+        public DepartmentDTO(Department department)
+        {
+            Id = department.Id;
+            Name = department.Name;
+            ShortName = department.ShortName;
+            InvoiceCode = department.InvoiceCode;
+            FactoryId = department.FactoryId;
+        }
     }
 }
