@@ -35,9 +35,25 @@ namespace pracaInż.Controllers
         {
             var result = await _factoryService.GetFactoryById(id);
 
-            return Ok(result);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Testowe()
+        {
+            var test = await _factoryService.Test();
 
+           if (test.IsError)
+            {
+                return BadRequest(test.FirstError);
+            }
+
+           return Ok(new {Message = "Pomyślnie utworzono obiekty: Fabryka"});
+        }
     }
 }

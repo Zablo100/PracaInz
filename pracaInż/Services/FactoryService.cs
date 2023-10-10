@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ErrorOr;
+using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
+using pracaInż.Models;
 using pracaInż.Models.DTO.Factories;
 using pracaInż.Models.Entities.CompanyStructure;
 
@@ -9,10 +11,11 @@ namespace pracaInż.Services
     {
         Task<List<Factory>> GetFactoriesAsync();
         Task<List<FactoryDTO>> GetFactriesWithOutDepartments();
-        Task<FactoryDTO> GetFactoryWithoutDepartmentsById(int Id);
-        Task<FactoryWithDepartmentDTO> GetFactoryById(int Id);
-        Task CreateNewFactory(AddFactoryDTO factoryDTO);
-        Task DeleteFactory(int Id);
+        Task<ErrorOr<FactoryDTO>> GetFactoryWithoutDepartmentsById(int Id);
+        Task<ErrorOr<FactoryWithDepartmentDTO>> GetFactoryById(int Id);
+        Task<ErrorOr<Created>> CreateNewFactory(AddFactoryDTO factoryDTO);
+        Task<ErrorOr<Deleted>> DeleteFactory(int Id);
+        Task<ErrorOr<Created>> Test();
     }
     public class FactoryService : IFactoryService
     {
@@ -22,24 +25,35 @@ namespace pracaInż.Services
             _context = context;
         }
 
-        public async Task CreateNewFactory(AddFactoryDTO factoryDTO)
+        public async Task<ErrorOr<Created>> CreateNewFactory(AddFactoryDTO factoryDTO)
         {
+            ErrorOr<Created> result = Result.Created;
+            
+
+
             Factory factory = new Factory(factoryDTO);
 
             _context.Factorys.Add(factory);
             await _context.SaveChangesAsync();
+
+            return result;
         }
 
-        public async Task DeleteFactory(int Id)
+        public async Task<ErrorOr<Deleted>> DeleteFactory(int Id)
         {
+            ErrorOr<Deleted> result;
             var factory = await _context.Factorys.FindAsync(Id);
             if(factory == null)
             {
-                return; //TODO: Error
+                result = Error.NotFound(description: "Nie ma obiektu o podanym ID!");
+                return result;
             }
 
             _context.Factorys.Remove(factory);
             await _context.SaveChangesAsync();
+            
+            result = Result.Deleted;
+            return result;
         }
 
         public async Task<List<Factory>> GetFactoriesAsync()
@@ -51,20 +65,22 @@ namespace pracaInż.Services
             return factories;
         }
 
-        public async Task<FactoryWithDepartmentDTO> GetFactoryById(int Id)
+        public async Task<ErrorOr<FactoryWithDepartmentDTO>> GetFactoryById(int Id)
         {
+            ErrorOr<FactoryWithDepartmentDTO> result;
             var factory = await _context.Factorys
                 .Include(Factory => Factory.Departments)
                 .FirstOrDefaultAsync(f => f.Id == Id);
             if(factory == null)
             {
-                throw new Exception(); //TODO: Error
+                return result = Error.NotFound(description: "Nie ma fabryki o takim ID!");
             }
+            result = new FactoryWithDepartmentDTO(factory);
 
-            return new FactoryWithDepartmentDTO(factory);
+            return result;
         }
 
-        public async Task<FactoryDTO> GetFactoryWithoutDepartmentsById(int Id)
+        public async Task<ErrorOr<FactoryDTO>> GetFactoryWithoutDepartmentsById(int Id)
         {
             var factory = await _context.Factorys.FindAsync(Id);
             if (factory == null)
@@ -83,6 +99,15 @@ namespace pracaInż.Services
             {
                 result.Add(new FactoryDTO(factory));
             }
+
+            return result;
+        }
+
+        public async Task<ErrorOr<Created>> Test()
+        {
+            ErrorOr<Created> result = Result.Created;
+
+
 
             return result;
         }
