@@ -1,9 +1,11 @@
 ﻿using ErrorOr;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
 using pracaInż.Models;
 using pracaInż.Models.DTO.Factories;
 using pracaInż.Models.Entities.CompanyStructure;
+using pracaInż.Validators;
 
 namespace pracaInż.Services
 {
@@ -15,7 +17,6 @@ namespace pracaInż.Services
         Task<ErrorOr<FactoryWithDepartmentDTO>> GetFactoryById(int Id);
         Task<ErrorOr<Created>> CreateNewFactory(AddFactoryDTO factoryDTO);
         Task<ErrorOr<Deleted>> DeleteFactory(int Id);
-        Task<ErrorOr<Created>> Test();
     }
     public class FactoryService : IFactoryService
     {
@@ -27,15 +28,21 @@ namespace pracaInż.Services
 
         public async Task<ErrorOr<Created>> CreateNewFactory(AddFactoryDTO factoryDTO)
         {
-            ErrorOr<Created> result = Result.Created;
-            
-
-
+            ErrorOr<Created> result;
+            FactoryValidator validator = new FactoryValidator();
             Factory factory = new Factory(factoryDTO);
 
+            ValidationResult validationResult = validator.Validate(factory);
+
+            if(!validationResult.IsValid) 
+            {
+                result = Error.Validation(description: validationResult.Errors[0].ErrorMessage);
+                return result;
+            }
             _context.Factorys.Add(factory);
             await _context.SaveChangesAsync();
 
+            result = Result.Created;
             return result;
         }
 
@@ -49,8 +56,8 @@ namespace pracaInż.Services
                 return result;
             }
 
-            _context.Factorys.Remove(factory);
-            await _context.SaveChangesAsync();
+            //_context.Factorys.Remove(factory);
+            //await _context.SaveChangesAsync();
             
             result = Result.Deleted;
             return result;
@@ -103,13 +110,5 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<ErrorOr<Created>> Test()
-        {
-            ErrorOr<Created> result = Result.Created;
-
-
-
-            return result;
-        }
     }
 }

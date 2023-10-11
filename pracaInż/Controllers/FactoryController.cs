@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Mvc;
+using pracaInż.Models.DTO.Factories;
 using pracaInż.Services;
 
 namespace pracaInż.Controllers
@@ -43,17 +45,32 @@ namespace pracaInż.Controllers
             return Ok(result.Value);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Testowe()
+        [HttpPost]
+        public async Task<IActionResult> createNewFactory([FromBody] AddFactoryDTO factoryDTO)
         {
-            var test = await _factoryService.Test();
+            var result = await _factoryService.CreateNewFactory(factoryDTO);
 
-           if (test.IsError)
+            if (result.IsError)
             {
-                return BadRequest(test.FirstError);
+                return BadRequest(result.FirstError);
             }
 
-           return Ok(new {Message = "Pomyślnie utworzono obiekty: Fabryka"});
+            //TODO: Stworzyć obiekt z informacjami do powiadomienia w forntendzie (Status, Komunikat)
+            return Ok(new {Message = "Pomyślnie utworzono obiekty Fabryka"});
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> deleteFactoryById(int id)
+        {
+            var result = await _factoryService.DeleteFactory(id);
+
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            //TODO: Stworzyć obiekt z informacjami do powiadomienia w forntendzie (Status, Komunikat)
+            return Ok(result.Value);
         }
     }
 }
