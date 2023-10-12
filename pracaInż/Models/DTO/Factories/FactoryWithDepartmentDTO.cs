@@ -13,6 +13,11 @@ namespace pracaInż.Models.DTO.Factories
         
         public List<DepartmentDTO> Departments { get; set; }
 
+
+        public FactoryWithDepartmentDTO()
+        {
+
+        }
         public FactoryWithDepartmentDTO(Factory factory)
         {
             Id = factory.Id;

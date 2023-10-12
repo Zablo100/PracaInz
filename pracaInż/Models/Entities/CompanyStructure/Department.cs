@@ -30,5 +30,17 @@ namespace pracaInż.Models.Entities.CompanyStructure
             FactoryId = departmentDTO.FactoryId;
             Factory = factory;
         }
+
+        public Department(DepartmentDTO departmentDTO, Factory factory)
+        {
+            Id = departmentDTO.Id;
+            Name = departmentDTO.Name;
+            ShortName = departmentDTO.ShortName;
+            InvoiceCode = departmentDTO.InvoiceCode;
+
+            Factory = factory;
+            FactoryId = factory.Id;
+        }
+
     }
 }

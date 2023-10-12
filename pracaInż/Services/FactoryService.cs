@@ -114,13 +114,23 @@ namespace pracaInż.Services
         public async Task<ErrorOr<Updated>> UpdateFactory(FactoryWithDepartmentDTO factoryDTO)
         {
             ErrorOr<Updated> result;
-            var factory = await _context.Factorys.FindAsync(factoryDTO.Id);
+            var factory = await _context.Factorys
+                .AsNoTracking()
+                .FirstOrDefaultAsync(f => f.Id == factoryDTO.Id);
+
             if (factory == null)
             {
-                return result = Error.NotFound(description: "Nie ma fabryki o podanym ID!");
+                result = Error.NotFound(description: "Nie ma fabryki o podanym ID!");
+                return result;
             }
 
-            return result = Result.Updated;
+            Factory updatetedFactory = new Factory(factoryDTO, factory);
+
+            _context.Factorys.Update(updatetedFactory);
+            await _context.SaveChangesAsync();
+
+            result = Result.Updated;
+            return result;
         }
     }
 }

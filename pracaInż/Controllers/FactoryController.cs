@@ -85,7 +85,12 @@ namespace pracaInż.Controllers
         public async Task<IActionResult> UpdateFactory([FromBody] FactoryWithDepartmentDTO factoryDTO)
         {
             var result = await _factoryService.UpdateFactory(factoryDTO);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
 
+            return Ok(new NotificationResponse(0, $"Pomyślnie zaktualizowane dane fabryki: {factoryDTO.Street} {factoryDTO.StreetNumber}"));
         }
     }
 }
