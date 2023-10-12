@@ -1,4 +1,5 @@
 ﻿using pracaInż.Models.DTO.Departments;
+using pracaInż.Models.DTO.Factories;
 using System.Text.Json.Serialization;
 
 namespace pracaInż.Models.Entities.CompanyStructure

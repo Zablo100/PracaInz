@@ -1,12 +1,14 @@
 ﻿using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
+using pracaInż.Models;
 using pracaInż.Models.DTO.Factories;
+using pracaInż.Models.Entities.CompanyStructure;
 using pracaInż.Services;
 
 namespace pracaInż.Controllers
 {
     [ApiController]
-    [Route("api/v1/Factory/[action]")]
+    [Route("api/Factory/[action]")]
     public class FactoryController : Controller
     {
         private readonly IFactoryService _factoryService;
@@ -20,6 +22,10 @@ namespace pracaInż.Controllers
         public async Task<IActionResult> getAll()
         {
             var result = await _factoryService.GetFactoriesAsync();
+            if (result.Count == 0)
+            {
+                return Ok(new NotificationResponse(2, "Błąd ładowania zawartości!"));
+            }
 
             return Ok(result);
         }
@@ -28,6 +34,10 @@ namespace pracaInż.Controllers
         public async Task<IActionResult> GetFactoriesWithoutDepartments()
         {
             var result = await _factoryService.GetFactriesWithOutDepartments();
+            if (result.Count == 0)
+            {
+                return Ok(new NotificationResponse(2, "Błąd ładowania zawartości!"));
+            }
 
             return Ok(result);
         }
@@ -55,8 +65,7 @@ namespace pracaInż.Controllers
                 return BadRequest(result.FirstError);
             }
 
-            //TODO: Stworzyć obiekt z informacjami do powiadomienia w forntendzie (Status, Komunikat)
-            return Ok(new {Message = "Pomyślnie utworzono obiekty Fabryka"});
+            return Ok(new NotificationResponse(0, "Pomyślnie utworzono fabryke!"));
         }
 
         [HttpDelete("{id}")]
@@ -69,8 +78,14 @@ namespace pracaInż.Controllers
                 return BadRequest(result.FirstError);
             }
 
-            //TODO: Stworzyć obiekt z informacjami do powiadomienia w forntendzie (Status, Komunikat)
-            return Ok(result.Value);
+            return Ok(new NotificationResponse(0, "Pomyślnie usunięto fabryke!"));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateFactory([FromBody] FactoryWithDepartmentDTO factoryDTO)
+        {
+            var result = await _factoryService.UpdateFactory(factoryDTO);
+
         }
     }
 }

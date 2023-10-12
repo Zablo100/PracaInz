@@ -17,6 +17,7 @@ namespace pracaInż.Services
         Task<ErrorOr<FactoryWithDepartmentDTO>> GetFactoryById(int Id);
         Task<ErrorOr<Created>> CreateNewFactory(AddFactoryDTO factoryDTO);
         Task<ErrorOr<Deleted>> DeleteFactory(int Id);
+        Task<ErrorOr<Updated>> UpdateFactory(FactoryWithDepartmentDTO factoryDTO);
     }
     public class FactoryService : IFactoryService
     {
@@ -52,7 +53,7 @@ namespace pracaInż.Services
             var factory = await _context.Factorys.FindAsync(Id);
             if(factory == null)
             {
-                result = Error.NotFound(description: "Nie ma obiektu o podanym ID!");
+                result = Error.NotFound(description: "Nie ma fabryki o podanym ID!");
                 return result;
             }
 
@@ -110,5 +111,16 @@ namespace pracaInż.Services
             return result;
         }
 
+        public async Task<ErrorOr<Updated>> UpdateFactory(FactoryWithDepartmentDTO factoryDTO)
+        {
+            ErrorOr<Updated> result;
+            var factory = await _context.Factorys.FindAsync(factoryDTO.Id);
+            if (factory == null)
+            {
+                return result = Error.NotFound(description: "Nie ma fabryki o podanym ID!");
+            }
+
+            return result = Result.Updated;
+        }
     }
 }

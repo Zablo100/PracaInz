@@ -24,5 +24,6 @@ namespace pracaInż.Models.Entities.CompanyStructure
             StreetNumber = factory.StreetNumber;
             PostalCode = factory.PostalCode;
         }
+        
     }
 }
