@@ -31,15 +31,17 @@ namespace pracaInż.Services
         {
             ErrorOr<Created> result;
             FactoryValidator validator = new FactoryValidator();
-            Factory factory = new Factory(factoryDTO);
-
-            ValidationResult validationResult = validator.Validate(factory);
+            
+            ValidationResult validationResult = validator.Validate(factoryDTO);
 
             if(!validationResult.IsValid) 
             {
                 result = Error.Validation(description: validationResult.Errors[0].ErrorMessage);
                 return result;
             }
+
+            Factory factory = new Factory(factoryDTO);
+
             _context.Factorys.Add(factory);
             await _context.SaveChangesAsync();
 
@@ -57,8 +59,8 @@ namespace pracaInż.Services
                 return result;
             }
 
-            //_context.Factorys.Remove(factory);
-            //await _context.SaveChangesAsync();
+            _context.Factorys.Remove(factory);
+            await _context.SaveChangesAsync();
             
             result = Result.Deleted;
             return result;

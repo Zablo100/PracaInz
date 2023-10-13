@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
+using pracaInż.Models.DTO.Factories;
 using pracaInż.Models.Entities.CompanyStructure;
 
 namespace pracaInż.Validators
 {
-    public class FactoryValidator : AbstractValidator<Factory>
+    public class FactoryValidator : AbstractValidator<AddFactoryDTO>
     {
         public FactoryValidator()
         {
@@ -21,6 +22,15 @@ namespace pracaInż.Validators
                 .NotEmpty().WithMessage("Pole ulica jest wymagane!")
                 .GreaterThan(0).WithMessage("Numer budynku nie może być mniejszy od 1!");
 
+            RuleFor(Factory => Factory.PostalCode)
+                .NotEmpty().WithMessage("Pole kod pocztowy nie moze być puste!")
+                .Must(BeValidPostalCode).WithMessage("Podano błędny kod pocztowy!");
+
+        }
+
+        private bool BeValidPostalCode(string arg)
+        {
+            throw new NotImplementedException();
         }
 
         public bool BeValidName(string name)
