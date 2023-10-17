@@ -123,6 +123,14 @@ namespace pracaInż.Services
         public async Task<ErrorOr<Updated>> UpdateFactory(FactoryWithDepartmentDTO factoryDTO)
         {
             ErrorOr<Updated> result;
+            UpdateFactoryValidator validator = new UpdateFactoryValidator();
+
+            ValidationResult validationResult = await validator.ValidateAsync(factoryDTO);
+            if (!validationResult.IsValid)
+            {
+                result = Error.Validation(description: validationResult.Errors[0].ErrorMessage);
+            }
+
             var factory = await _context.Factorys
                 .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Id == factoryDTO.Id);
