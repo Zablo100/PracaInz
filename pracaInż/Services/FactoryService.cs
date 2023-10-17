@@ -11,7 +11,7 @@ namespace pracaInż.Services
 {
     public interface IFactoryService
     {
-        Task<List<Factory>> GetFactoriesAsync();
+        Task<List<FactoryWithDepartmentDTO>> GetFactoriesAsync();
         Task<List<FactoryDTO>> GetFactriesWithOutDepartments();
         Task<ErrorOr<FactoryDTO>> GetFactoryWithoutDepartmentsById(int Id);
         Task<ErrorOr<FactoryWithDepartmentDTO>> GetFactoryById(int Id);
@@ -66,13 +66,20 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<List<Factory>> GetFactoriesAsync()
+        public async Task<List<FactoryWithDepartmentDTO>> GetFactoriesAsync()
         {
             List<Factory> factories = await _context.Factorys
                 .Include(Factory => Factory.Departments)
                 .ToListAsync();
 
-            return factories;
+            List<FactoryWithDepartmentDTO> results = new List<FactoryWithDepartmentDTO>();
+
+            foreach(var fact in factories)
+            {
+                results.Add(new FactoryWithDepartmentDTO(fact));
+            }
+
+            return results;
         }
 
         public async Task<ErrorOr<FactoryWithDepartmentDTO>> GetFactoryById(int Id)

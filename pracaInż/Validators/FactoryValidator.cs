@@ -30,7 +30,7 @@ namespace pracaInż.Validators
 
         private bool BeValidPostalCode(string arg)
         {
-            throw new NotImplementedException();
+            return true; //TODO: Wprowadzić walidacje
         }
 
         public bool BeValidName(string name)
