@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+﻿using ErrorOr;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
 using pracaInż.Models.DTO.Departments;
 using pracaInż.Models.Entities.CompanyStructure;
+using pracaInż.Validators;
 
 namespace pracaInż.Services
 {
@@ -10,10 +13,10 @@ namespace pracaInż.Services
     {
         Task<List<DepartmentListDTO>> GetDepartmentsWithoutEmployees();
         Task<List<DepartmentListWithEmployees>> GetDepartmentsWithEmployees();
-        Task CreateNewDepartment(AddDepartmentDTO departmentDTO);
+        Task<ErrorOr<Created>> CreateNewDepartment(AddDepartmentDTO departmentDTO);
         Task PartialUpdate(int id, JsonPatchDocument<Department> patchDocument);
-        Task FullUpdate(AddDepartmentDTO departmentDTO);
-        Task DeleteDepartment(int id);
+        Task<ErrorOr<Updated>> FullUpdate(AddDepartmentDTO departmentDTO);
+        Task<ErrorOr<Deleted>> DeleteDepartment(int id);
     }
     public class DepartmenService : IDepartmenService
     {
@@ -24,18 +27,32 @@ namespace pracaInż.Services
             _context = context;
         }
 
-        public async Task CreateNewDepartment(AddDepartmentDTO departmentDTO)
+        public async Task<ErrorOr<Created>> CreateNewDepartment(AddDepartmentDTO departmentDTO)
         {
+            ErrorOr<Created> result;
+            DepartmentValidation validator = new DepartmentValidation();
+
+            ValidationResult validationResult = validator.Validate(departmentDTO);
+            if (!validationResult.IsValid)
+            {
+                result = Error.Validation(description: validationResult.Errors[0].ErrorMessage);
+                return result;
+            }
+
             Factory? factory = await _context.Factorys.FindAsync(departmentDTO.FactoryId);
             if(factory == null)
             {
-                //Error
-                return;
+                result = Error.Validation(description: "Nie można przypisać działu do podanej fabryki!");
+                return result;
             }
             Department department = new Department(departmentDTO, factory);
 
+
             _context.Departments.Add(department);
             await _context.SaveChangesAsync();
+
+            result = Result.Created;
+            return result;
         }
 
         public async Task<List<DepartmentListDTO>> GetDepartmentsWithoutEmployees()
@@ -63,32 +80,48 @@ namespace pracaInż.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task FullUpdate(AddDepartmentDTO departmentDTO)
+        public async Task<ErrorOr<Updated>> FullUpdate(AddDepartmentDTO departmentDTO)
         {
+            ErrorOr<Updated> result;
+            DepartmentValidation validator = new DepartmentValidation();
+
+            ValidationResult validationResult = validator.Validate(departmentDTO);
+            if (!validationResult.IsValid)
+            {
+                result = Error.Validation(description: validationResult.Errors[0].ErrorMessage);
+                return result;
+            }
             Factory? factory = await _context.Factorys.FindAsync(departmentDTO.FactoryId);
             if (factory == null)
             {
-                //Error
-                return;
+                result = Error.Validation(description: "Nie odnaleziono fabryki, do której przypisany jest dział");
+                return result;
             }
             Department department = new Department(departmentDTO, factory);
 
             _context.Departments.Update(department);
             await _context.SaveChangesAsync();
 
+            result = Result.Updated;
+            return result;
+
         }
 
-        public async Task DeleteDepartment(int id)
+        public async Task<ErrorOr<Deleted>> DeleteDepartment(int id)
         {
+            ErrorOr<Deleted> result;
             Department? department = await _context.Departments.FindAsync(id);
             if (department == null)
             {
-                //error
-                return;
+                result = Error.NotFound(description: "Nie odnaleziono działu o podanym ID!");
+                return result;
             }
 
             _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
+
+            result = Result.Deleted;
+            return result;
         }
 
         public async Task<List<DepartmentListWithEmployees>> GetDepartmentsWithEmployees()

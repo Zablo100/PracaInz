@@ -12,12 +12,11 @@ namespace pracaInż.Controllers
     public class DepartmenController : Controller
     {
         private readonly IDepartmenService _service;
-        private readonly ILoggingService _logger;
 
-        public DepartmenController(IDepartmenService service, ILoggingService loggingService)
+        public DepartmenController(IDepartmenService service)
         {
             _service = service;
-            _logger = loggingService;
+
         }
 
         public ILoggingService LoggingService { get; }
@@ -44,7 +43,7 @@ namespace pracaInż.Controllers
         public async Task<IActionResult> CreateNewDepartment([FromBody] AddDepartmentDTO departmentDTO)
         {
             await _service.CreateNewDepartment(departmentDTO);
-            _logger.LogActiviti("System Test", $"Utworzono nowy dział {departmentDTO.Name}", ActionType.Create);
+
 
             return Ok();
         }
