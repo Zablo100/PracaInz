@@ -29,6 +29,7 @@ builder.Services.AddScoped<ILoggingService, LoggingService>();
 builder.Services.AddScoped<IFactoryService, FactoryService>();
 builder.Services.AddScoped<IDepartmenService, DepartmenService>();
 builder.Services.AddScoped<IPrinterService, PrinterService>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
