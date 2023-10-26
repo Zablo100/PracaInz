@@ -23,7 +23,7 @@ namespace pracaInż.Services
         public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeeBasicInfoByFactory(int factoryId)
         {
             ErrorOr<List<EmployeeBasicInfoDTO>> result;
-            var employees = await _context.Employees.Where(employee => employee.Department.FactoryId == factoryId)
+            var employees = await _context.Employees.Include(emp => emp.Department).Where(employee => employee.Department.FactoryId == factoryId)
                 .ToListAsync();
 
             if(employees.Count >= 0)
@@ -42,14 +42,41 @@ namespace pracaInż.Services
             return result;
         }
 
-        public Task<ErrorOr<EmployeeBasicInfoDTO>> GetEmployeeBasicInfoById(int id)
+        public async Task<ErrorOr<EmployeeBasicInfoDTO>> GetEmployeeBasicInfoById(int id)
         {
-            throw new NotImplementedException();
+            ErrorOr<EmployeeBasicInfoDTO> result;
+            var employee = await _context.Employees
+                .Include(emp => emp.Department)
+                .FirstOrDefaultAsync(emp => emp.Id == id);
+            if(employee == null)
+            {
+                result = Error.NotFound(description: "Nie znależono pracownika o podanym ID");
+                return result;
+            }
+
+            result = new EmployeeBasicInfoDTO(employee);
+            return result;
         }
 
-        public Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeeBasicInfoList()
+        public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeeBasicInfoList()
         {
-            throw new NotImplementedException();
+            ErrorOr<List<EmployeeBasicInfoDTO>> result;
+            var rawData = await _context.Employees.Include(emp => emp.Department).ToListAsync();
+            if(rawData.Count < 0) 
+            {
+                result = Error.NotFound(description: "Nie znaleziono żadnych pracowników!");
+                return result;
+            }
+
+            List<EmployeeBasicInfoDTO> employeeBasicInfoDTOs = new List<EmployeeBasicInfoDTO> ();
+            foreach(var employee in rawData)
+            {
+                employeeBasicInfoDTOs.Add(new EmployeeBasicInfoDTO(employee));
+            }
+
+            result = employeeBasicInfoDTOs;
+            return result;
+
         }
     }
 }
