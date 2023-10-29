@@ -1,15 +1,21 @@
 ﻿using ErrorOr;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
 using pracaInż.Models.DTO.Employees;
+using pracaInż.Validators;
 
 namespace pracaInż.Services
 {
     public interface IEmployeeService
     {
-        Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeeBasicInfoList();
-        Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeeBasicInfoByFactory(int factoryId);
+        Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoList();
+        Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoByFactory(int factoryId);
         Task<ErrorOr<EmployeeBasicInfoDTO>> GetEmployeeBasicInfoById(int id);
+        Task<ErrorOr<Created>> AddNewEmployeeBasicInfo(AddEmployeeBasiInfoDTO employeeDTO);
+        Task<ErrorOr<Updated>> UpdateEmployeeInfo(UpdateEmployeeDTO employeeDTO);
+        Task<ErrorOr<Deleted>> DeleteEmployee(int id);
+
     }
     public class EmployeeService : IEmployeeService
     {
@@ -20,7 +26,7 @@ namespace pracaInż.Services
             _context = context;            
         }
 
-        public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeeBasicInfoByFactory(int factoryId)
+        public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoByFactory(int factoryId)
         {
             ErrorOr<List<EmployeeBasicInfoDTO>> result;
             var employees = await _context.Employees.Include(emp => emp.Department).Where(employee => employee.Department.FactoryId == factoryId)
@@ -58,7 +64,7 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeeBasicInfoList()
+        public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoList()
         {
             ErrorOr<List<EmployeeBasicInfoDTO>> result;
             var rawData = await _context.Employees.Include(emp => emp.Department).ToListAsync();
@@ -77,6 +83,78 @@ namespace pracaInż.Services
             result = employeeBasicInfoDTOs;
             return result;
 
+        }
+
+        public async Task<ErrorOr<Created>> AddNewEmployeeBasicInfo(AddEmployeeBasiInfoDTO employeeDTO)
+        {
+            ErrorOr<Created> result;
+            AddEmployeeValidator validator = new AddEmployeeValidator();
+            ValidationResult validationResult = validator.Validate(employeeDTO);
+
+            if (!validationResult.IsValid)
+            {
+                result = Error.Validation(description: validationResult.Errors[0].ErrorMessage);
+                return result;
+            }
+
+            var department = await _context.Departments.FindAsync(employeeDTO.DepartmentId);
+            if (department == null)
+            {
+                result = Error.NotFound(description: "Nie można przypisać działu do pracownika");
+                return result;
+            }
+
+            var employee = new Employee(employeeDTO, department);
+            _context.Employees.Add(employee);
+
+            await _context.SaveChangesAsync();
+
+            result = Result.Created;
+            return result;
+        }
+        public async Task<ErrorOr<Updated>> UpdateEmployeeInfo(UpdateEmployeeDTO employeeDTO)
+        {
+            ErrorOr<Updated> result;
+            UpdateEmployeeValidator validator = new UpdateEmployeeValidator();
+            ValidationResult validationResult = validator.Validate(employeeDTO);
+
+            if (!validationResult.IsValid)
+            {
+                result = Error.Validation(description: validationResult.Errors[0].ErrorMessage);
+                return result;
+            }
+
+            var department = await _context.Departments.FindAsync(employeeDTO.DepartmentId);
+            if (department == null)
+            {
+                result = Error.NotFound(description: "Nie można przypisać działu do pracownika");
+                return result;
+            }
+
+            var employee = new Employee(employeeDTO, department);
+            _context.Employees.Add(employee);
+
+            await _context.SaveChangesAsync();
+
+            result = Result.Updated;
+            return result;
+        }
+
+        public async Task<ErrorOr<Deleted>> DeleteEmployee(int id)
+        {
+            ErrorOr<Deleted> result;
+            var employee = await _context.Employees.FindAsync(id);
+            if (employee == null)
+            {
+                result = Error.NotFound(description: "Nie znaleziono pracownika o podanym ID");
+                return result;
+            }
+
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+
+            result = Result.Deleted;
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using pracaInż.Models.Entities.CompanyStructure;
+﻿using pracaInż.Models.DTO.Employees;
+using pracaInż.Models.Entities.CompanyStructure;
 using System;
 
 public class Employee
@@ -12,6 +13,34 @@ public class Employee
 
     public int DepartmentId { get; set; }   
     public Department Department { get; set; }
+
+    public Employee()
+    {
+
+    }
+
+    public Employee(AddEmployeeBasiInfoDTO employeeDTO, Department department)
+    {
+        Name = employeeDTO.Name;
+        Surname = employeeDTO.Surname;
+        EmailAddress = employeeDTO.Email;
+        WorkPhone = employeeDTO.WorkPhoneNumber;
+        JobTitle = employeeDTO.JobTitle;
+        Department = department;
+        DepartmentId = department.Id;
+    }
+
+    public Employee(UpdateEmployeeDTO employeeDTO, Department department)
+    {
+        Id = employeeDTO.Id;
+        Name = employeeDTO.Name;
+        Surname = employeeDTO.Surname;
+        EmailAddress = employeeDTO.Email;
+        WorkPhone = employeeDTO.WorkPhoneNumber;
+        JobTitle = employeeDTO.JobTitle;
+        Department = department;
+        DepartmentId = department.Id;
+    }
 
 
 }

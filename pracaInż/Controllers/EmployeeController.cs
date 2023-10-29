@@ -16,7 +16,7 @@ namespace pracaInż.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEmployeesBasicInfo()
         {
-            var result = await _service.GetEmployeeBasicInfoList();
+            var result = await _service.GetEmployeesBasicInfoList();
             if(result.IsError)
             {
                 return BadRequest(result.FirstError);
