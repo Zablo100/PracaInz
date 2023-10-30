@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using pracaInż.Models.DTO.Employees;
 using pracaInż.Services;
 
 namespace pracaInż.Controllers
@@ -24,5 +25,54 @@ namespace pracaInż.Controllers
 
             return Ok(result.Value);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateNewEmployee(AddEmployeeBasiInfoDTO employeeDTO)
+        {
+            var result = await _service.AddNewEmployeeBasicInfo(employeeDTO);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeById(int id)
+        {
+            var result = await _service.GetEmployeeBasicInfoById(id);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateEmployee(UpdateEmployeeDTO emplooyeeDTO)
+        {
+            var result = await _service.UpdateEmployeeInfo(emplooyeeDTO);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            var result = await _service.DeleteEmployee(id);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
     }
 }

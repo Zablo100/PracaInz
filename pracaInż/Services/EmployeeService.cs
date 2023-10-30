@@ -132,7 +132,7 @@ namespace pracaInż.Services
             }
 
             var employee = new Employee(employeeDTO, department);
-            _context.Employees.Add(employee);
+            _context.Employees.Update(employee);
 
             await _context.SaveChangesAsync();
 
