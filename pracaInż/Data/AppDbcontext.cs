@@ -24,5 +24,6 @@ namespace pracaInż.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Printer> Printers { get; set; }
         public DbSet<PrinterArcus> PrintersArcus { get; set;}
+        public DbSet<Software> Software {  get; set; }
     }
 }

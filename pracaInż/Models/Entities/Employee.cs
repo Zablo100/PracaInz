@@ -1,4 +1,5 @@
 ﻿using pracaInż.Models.DTO.Employees;
+using pracaInż.Models.Entities;
 using pracaInż.Models.Entities.CompanyStructure;
 using System;
 
@@ -13,6 +14,8 @@ public class Employee
 
     public int DepartmentId { get; set; }   
     public Department Department { get; set; }
+
+    public List<Software> SoftwareAccessList { get; set; }
 
     public Employee()
     {
