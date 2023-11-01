@@ -6,6 +6,8 @@ import { EmployeeService } from '../../employee.service';
 import { Employee } from '../../../Models/Employee';
 import { Department } from 'src/app/Models/Department';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSelect } from '@angular/material/select';
+
 
 
 @Component({

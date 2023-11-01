@@ -8,6 +8,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort'
 import { MatDialogRef, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatButtonModule} from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { PcLogComponent } from './Computers/Components/pc-log/pc-log.component';
 import { NewLogFormComponent } from './Computers/Components/new-log-form/new-log-form.component';
 import { InfrastructurePageComponent } from './Infrastructure/Page/infrastructure-page/infrastructure-page.component';
 import { PcLogChartComponent } from './Computers/Components/pc-log-chart/pc-log-chart.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { PcLogChartComponent } from './Computers/Components/pc-log-chart/pc-log-
     MatSortModule,
     MatTabsModule,
     MatDialogModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

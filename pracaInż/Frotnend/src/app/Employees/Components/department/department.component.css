@@ -1,14 +1,18 @@
-#test1{
-    display: block;
-    width: 100%;
-  }
-  
   table{
    width: 100%;
   }
   
   #tabs{
     height: 10vh;
+  }
+
+  #tabs button{
+    margin-top: 7vh;
+    margin-left: 1vw;
+  }
+
+  .controll-button{
+    width: 100px;
   }
 
   
@@ -36,4 +40,9 @@
   #delet-button-icon{
     height: 15px;
     width: 15px;
+  }
+
+  #test2{
+    margin-top: 5vh;
+    margin-left: 2vw; 
   }

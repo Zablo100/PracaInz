@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+<div class="page-table">
 <div id="search-bar">
   <form [formGroup]="searchForm" (ngSubmit)="applyFilter()">
       <input id="search" formControlName="search" placeholder="Wyszukaj drukarkę" autocomplete="off">
@@ -76,3 +77,5 @@
 
   <mat-paginator [pageSize]="10" showFirstLastButtons aria-label="Select page">
   </mat-paginator>
+</div>
+<div class="bottom-space"></div>

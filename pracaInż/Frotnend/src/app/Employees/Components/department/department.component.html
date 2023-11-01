@@ -1,6 +1,17 @@
-<div id="test1">
+<div class="page-table">
 
-    <div id="tabs"></div>
+    <div id="tabs">
+
+      <mat-form-field id="test2">
+        <mat-label>Wybierz oddział</mat-label>
+        <mat-select>
+          <mat-option value="option1">Wszystkie</mat-option>
+          <mat-option value="option1">Bydgoszcz</mat-option>
+          <mat-option value="option2">Kruszyn</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
 
     <table mat-table [dataSource]="this.data">
 
@@ -40,3 +51,4 @@
     </mat-paginator>
 
 </div>
+<div class="bottom-space"></div>
