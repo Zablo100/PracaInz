@@ -37,6 +37,9 @@ import { NewLogFormComponent } from './Computers/Components/new-log-form/new-log
 import { InfrastructurePageComponent } from './Infrastructure/Page/infrastructure-page/infrastructure-page.component';
 import { PcLogChartComponent } from './Computers/Components/pc-log-chart/pc-log-chart.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -78,7 +81,11 @@ import {MatSelectModule} from '@angular/material/select';
     MatDialogModule,
     MatExpansionModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

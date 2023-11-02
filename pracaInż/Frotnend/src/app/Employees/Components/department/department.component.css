@@ -46,3 +46,12 @@
     margin-top: 5vh;
     margin-left: 2vw; 
   }
+
+  #search-input{
+    margin-left: 35px;
+  }
+
+  .mat-button, .mat-raised-button{
+    background-color:#f8f9fa;
+}
+

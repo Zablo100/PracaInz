@@ -7,8 +7,10 @@ import { Employee } from '../../../Models/Employee';
 import { Department } from 'src/app/Models/Department';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
-
-
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-department',
