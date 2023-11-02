@@ -29,7 +29,9 @@ namespace pracaInż.Services
         public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoByFactory(int factoryId)
         {
             ErrorOr<List<EmployeeBasicInfoDTO>> result;
-            var employees = await _context.Employees.Include(emp => emp.Department).Where(employee => employee.Department.FactoryId == factoryId)
+            var employees = await _context.Employees
+                .Include(emp => emp.Department)
+                .Where(employee => employee.Department.FactoryId == factoryId)
                 .ToListAsync();
 
             if(employees.Count >= 0)
@@ -53,6 +55,7 @@ namespace pracaInż.Services
             ErrorOr<EmployeeBasicInfoDTO> result;
             var employee = await _context.Employees
                 .Include(emp => emp.Department)
+                .ThenInclude(dep => dep.Factory)
                 .FirstOrDefaultAsync(emp => emp.Id == id);
             if(employee == null)
             {
@@ -67,7 +70,10 @@ namespace pracaInż.Services
         public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoList()
         {
             ErrorOr<List<EmployeeBasicInfoDTO>> result;
-            var rawData = await _context.Employees.Include(emp => emp.Department).ToListAsync();
+            var rawData = await _context.Employees
+                .Include(emp => emp.Department)
+                .ThenInclude(dep => dep.Factory)
+                .ToListAsync();
             if(rawData.Count < 0) 
             {
                 result = Error.NotFound(description: "Nie znaleziono żadnych pracowników!");

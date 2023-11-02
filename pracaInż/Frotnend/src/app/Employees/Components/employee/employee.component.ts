@@ -5,7 +5,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { EmployeeService } from '../../employee.service';
 import { Employee } from '../../../Models/Employee';
-
+import { MatSelect } from '@angular/material/select';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-employee',
@@ -24,6 +28,14 @@ export class EmployeeComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
+    this.getDataFromAPI()
+  }
+
+  getDataFromAPI(){
+    this.serivce.getEmployeesList().subscribe((response) => {
+      this.rawData = response as Employee[]
+      this.data = new MatTableDataSource<Employee>(response as Employee[])
+    })
   }
 
 
@@ -37,9 +49,6 @@ export class EmployeeComponent implements OnInit {
   sortData(sort: Sort) {
     if (sort.active == "department"){
       this.sortByDepartment(sort.direction)
-    }else if(sort.active == "factory"){
-      //console.log(sort)
-      this.sortByFactory(sort.direction)
     }
 
     if(sort.direction == ""){
@@ -53,35 +62,15 @@ export class EmployeeComponent implements OnInit {
 
     if(direction == "asc"){
       this.data.data.sort((a,b) => {
-        const e1 = a.department.name
-        const e2 = b.department.name
+        const e1 = a.departmentShortName
+        const e2 = b.departmentShortName
   
         return e1 < e2 ? -1 : 1
       });
     }else{
       this.data.data.sort((a,b) => {
-        const e1 = a.department.name
-        const e2 = b.department.name
-  
-        return e1 > e2 ? -1 : 1
-      });
-    }
-
-  }
-
-  sortByFactory(direction: string){
-
-    if(direction == "asc"){
-      this.data.data.sort((a,b) => {
-        const e1 = a.factory.city
-        const e2 = b.factory.city
-  
-        return e1 < e2 ? -1 : 1
-      });
-    }else{
-      this.data.data.sort((a,b) => {
-        const e1 = a.factory.city
-        const e2 = b.factory.city
+        const e1 = a.departmentShortName
+        const e2 = b.departmentShortName
   
         return e1 > e2 ? -1 : 1
       });

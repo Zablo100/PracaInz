@@ -16,6 +16,10 @@ export class EmployeeService {
     return this.http.get(`https://${app.ip}/api/department/GetDepartmentsWithoutEmployees`)
   }
 
+  getEmployeesList(){
+    return this.http.get(`https://${app.ip}/Employee/GetEmployeesBasicInfo`)
+  }
+
 
 
 

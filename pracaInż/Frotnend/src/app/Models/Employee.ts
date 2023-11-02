@@ -5,11 +5,13 @@ import { Factory } from "./Factory";
 export interface Employee {
     id: number;
     name: string;
-    lastName: string;
+    surname: string;
     email: string;
+    workPhoneNumber: string;
     jobTitle: string;
-    factory: Factory;
-    department: Department;
+    departmentName: string;
+    departmentShortName: string;
+    factoryLocation: string;
     computer: Computer
 }
 

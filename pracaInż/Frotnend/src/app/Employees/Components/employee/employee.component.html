@@ -1,7 +1,21 @@
 <div class="page-table">
 
   <div id="tabs">
-    
+    <mat-form-field id="test2">
+      <mat-label>Wybierz oddział</mat-label>
+      <mat-select>
+        <mat-option value="option1">Wszystkie</mat-option>
+        <mat-option value="option1">Bydgoszcz</mat-option>
+        <mat-option value="option2">Kruszyn</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field id="search-input">
+      <input matInput placeholder="Wyszukaj">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button mat-raised-button>Wyszukaj</button>
   </div>
 
   <table mat-table [dataSource]="this.data" matSort (matSortChange)="sortData($event)">
@@ -15,7 +29,7 @@
     <!-- Last Name Column -->
     <ng-container matColumnDef="lastname">
       <th mat-header-cell *matHeaderCellDef> Nazwisko </th>
-      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
     </ng-container>
 
     <!-- Email Column -->
@@ -26,8 +40,8 @@
 
     <!-- Phone Column -->
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef> Wew. </th>
-      <td mat-cell *matCellDef="let element"> 00 </td>
+      <th mat-header-cell *matHeaderCellDef> Telefon wewnętrzny </th>
+      <td mat-cell *matCellDef="let element"> {{element.workPhoneNumber}} </td>
     </ng-container>
 
     <!-- JobTitle Column -->
@@ -39,19 +53,19 @@
     <!-- Department Column -->
     <ng-container matColumnDef="department">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Dział </th>
-      <td mat-cell *matCellDef="let element"> {{element.department.shortName}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.departmentShortName}} </td>
     </ng-container>
 
     <!-- Factory Column -->
     <ng-container matColumnDef="factory">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Lokalizacja </th>
-      <td mat-cell *matCellDef="let element"> {{element.factory.city}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.factoryLocation}} </td>
     </ng-container>
 
     <!-- PC Column -->
     <ng-container matColumnDef="computer">
       <th mat-header-cell *matHeaderCellDef> PC </th>
-      <td mat-cell *matCellDef="let element"> {{element.computer.name}} </td>
+      <td mat-cell *matCellDef="let element"> Test </td>
     </ng-container>
 
 

@@ -10,6 +10,7 @@
         public string JobTitle { get; set; }
         public string DepatrmentName { get; set; }
         public string DepartmentShortName { get; set; }
+        public string FactoryLocation { get; set; }
 
         public EmployeeBasicInfoDTO(Employee employee)
         {
@@ -21,6 +22,7 @@
             JobTitle = employee.JobTitle;
             DepatrmentName = employee.Department.Name;
             DepartmentShortName = employee.Department.ShortName;
+            FactoryLocation = employee.Department.Factory.City;
         }
 
     }
