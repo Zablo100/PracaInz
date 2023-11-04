@@ -5,3 +5,11 @@ export interface Department {
     invoiceCode: string;
     factoryLocation: string;
 }
+
+export interface DepartmentDTO {
+    id: number;
+    name: string;
+    shortName: string;
+    invoiceCode: string;
+    factoryId: number;
+}

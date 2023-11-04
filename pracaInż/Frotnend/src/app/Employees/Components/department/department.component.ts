@@ -11,6 +11,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
+import { DepartmentEditWindowComponent } from '../department-edit-window/department-edit-window.component';
 
 @Component({
   selector: 'app-department',
@@ -47,7 +48,13 @@ export class DepartmentComponent implements OnInit {
   }
 
   async openEditWindow(id: number){
-    console.log("Edytowanie elementu o id: " + id)
+    this.matDialog.open(DepartmentEditWindowComponent, {
+      "autoFocus": false,
+      data: {
+        DepartmentId: id,
+      }
+    });
+
   }
 
 

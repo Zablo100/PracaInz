@@ -1,0 +1,31 @@
+<div id="content">
+    <form [formGroup]="EditForm" (ngSubmit)="submit()">
+        <mat-form-field class="input">
+            <mat-label>Nazwa</mat-label>
+            <input formControlName="name" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Fasdads</mat-label>
+            <input formControlName="shortName" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>First name</mat-label>
+            <input formControlName="invoiceCode" matInput>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Oddział</mat-label>
+            <mat-select formControlName="factory">
+                <mat-option value="1"> Test 1</mat-option>
+                <mat-option value="2"> Test 2</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+        <button mat-raised-button type="submit">Zapisz</button>
+        
+    </form>
+</div>

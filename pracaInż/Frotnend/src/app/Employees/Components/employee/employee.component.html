@@ -68,6 +68,14 @@
       <td mat-cell *matCellDef="let element"> Test </td>
     </ng-container>
 
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef> Opcje </th>
+      <td mat-cell *matCellDef="let element">
+        <button class="option-button" id="edit-button" (click)="openEditWindow(element.id)"><span><img id="edit-button-icon" src="/assets/Options/edit.png"></span></button>
+        <button class="option-button" id="delet-button"><span><img id="delet-button-icon" src="/assets/Options/delete.png"></span></button>
+      </td>
+    </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row routerLink="/employee/{{row.id}}" *matRowDef="let row; columns: displayedColumns;"></tr>

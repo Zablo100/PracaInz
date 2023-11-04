@@ -20,6 +20,10 @@ export class EmployeeService {
     return this.http.get(`https://${app.ip}/Employee/GetEmployeesBasicInfo`)
   }
 
+  getDepartmentByID(id: number){
+    return this.http.get(`https://${app.ip}/api/department/GetById/${id}`)
+  }
+
 
 
 

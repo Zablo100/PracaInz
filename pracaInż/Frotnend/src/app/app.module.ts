@@ -40,6 +40,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { EmployeeEditWindowComponent } from './Employees/Components/employee-edit-window/employee-edit-window.component';
+import { DepartmentEditWindowComponent } from './Employees/Components/department-edit-window/department-edit-window.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +69,8 @@ import { MatInputModule } from '@angular/material/input';
     NewLogFormComponent,
     InfrastructurePageComponent,
     PcLogChartComponent,
+    EmployeeEditWindowComponent,
+    DepartmentEditWindowComponent,
   ],
   imports: [
     BrowserModule,

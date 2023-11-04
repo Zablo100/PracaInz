@@ -32,3 +32,13 @@
   margin-top: 5vh;
   margin-left: 2vw; 
 }
+
+#edit-button-icon{
+  height: 15px;
+  width: 15px;
+}
+
+#delet-button-icon{
+  height: 15px;
+  width: 15px;
+}

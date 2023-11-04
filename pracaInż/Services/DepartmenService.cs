@@ -17,6 +17,7 @@ namespace pracaInż.Services
         Task PartialUpdate(int id, JsonPatchDocument<Department> patchDocument);
         Task<ErrorOr<Updated>> FullUpdate(AddDepartmentDTO departmentDTO);
         Task<ErrorOr<Deleted>> DeleteDepartment(int id);
+        Task<ErrorOr<DepartmentDTO>> GetDepartmentById(int id);
     }
     public class DepartmenService : IDepartmenService
     {
@@ -137,6 +138,20 @@ namespace pracaInż.Services
                 result.Add(new DepartmentListWithEmployees(department));
             }
 
+            return result;
+        }
+
+        public async Task<ErrorOr<DepartmentDTO>> GetDepartmentById(int id)
+        {
+            ErrorOr<DepartmentDTO> result;
+            var department = await _context.Departments.FindAsync(id);
+            if (department == null)
+            {
+                result = Error.NotFound(description: "Nie ma działu o podanym ID!");
+                return result;
+            }
+
+            result = new DepartmentDTO(department);
             return result;
         }
     }

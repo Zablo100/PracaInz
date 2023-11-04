@@ -18,7 +18,7 @@ import { MatButton } from '@angular/material/button';
 })
 export class EmployeeComponent implements OnInit {
   data: MatTableDataSource<Employee>;
-  displayedColumns: string[] = ['department', 'name', 'lastname', 'position', 'email', 'phone', 'factory', 'computer'];
+  displayedColumns: string[] = ['department', 'name', 'lastname', 'position', 'email', 'phone', 'factory', 'computer', 'options'];
   rawData: Employee[]
   selectedEmp: Employee;
 
@@ -89,6 +89,10 @@ export class EmployeeComponent implements OnInit {
 
   test(emp: Employee){
     console.log(emp)
+  }
+
+  openEditWindow(id: number){
+    console.log(id)
   }
 
 
