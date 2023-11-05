@@ -15,7 +15,7 @@ namespace pracaInż.Services
         Task<List<DepartmentListWithEmployees>> GetDepartmentsWithEmployees();
         Task<ErrorOr<Created>> CreateNewDepartment(AddDepartmentDTO departmentDTO);
         Task PartialUpdate(int id, JsonPatchDocument<Department> patchDocument);
-        Task<ErrorOr<Updated>> FullUpdate(AddDepartmentDTO departmentDTO);
+        Task<ErrorOr<Updated>> FullUpdate(UpdateDepartmentDTO departmentDTO);
         Task<ErrorOr<Deleted>> DeleteDepartment(int id);
         Task<ErrorOr<DepartmentDTO>> GetDepartmentById(int id);
     }
@@ -81,10 +81,10 @@ namespace pracaInż.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<ErrorOr<Updated>> FullUpdate(AddDepartmentDTO departmentDTO)
+        public async Task<ErrorOr<Updated>> FullUpdate(UpdateDepartmentDTO departmentDTO)
         {
             ErrorOr<Updated> result;
-            DepartmentValidation validator = new DepartmentValidation();
+            UpdateDepartmentValidation validator = new UpdateDepartmentValidation();
 
             ValidationResult validationResult = validator.Validate(departmentDTO);
             if (!validationResult.IsValid)
@@ -92,13 +92,15 @@ namespace pracaInż.Services
                 result = Error.Validation(description: validationResult.Errors[0].ErrorMessage);
                 return result;
             }
-            Factory? factory = await _context.Factorys.FindAsync(departmentDTO.FactoryId);
-            if (factory == null)
-            {
-                result = Error.Validation(description: "Nie odnaleziono fabryki, do której przypisany jest dział");
-                return result;
-            }
-            Department department = new Department(departmentDTO, factory);
+
+            //Factory? factory = await _context.Factorys.FindAsync(departmentDTO.FactoryId);
+            //if (factory == null)
+            //{
+            //    result = Error.Validation(description: "Nie odnaleziono fabryki, do której przypisany jest dział");
+            //    return result;
+            //}
+
+            Department department = new Department(departmentDTO);
 
             _context.Departments.Update(department);
             await _context.SaveChangesAsync();

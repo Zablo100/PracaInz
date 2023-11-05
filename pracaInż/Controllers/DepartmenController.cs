@@ -57,11 +57,15 @@ namespace pracaInż.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> FullUpdate([FromBody] AddDepartmentDTO departmentDTO)
+        public async Task<IActionResult> FullUpdate([FromBody] UpdateDepartmentDTO departmentDTO)
         {
-            await _service.FullUpdate(departmentDTO);
+            var result = await _service.FullUpdate(departmentDTO);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
 
-            return Ok();
+            return Ok(result.Value);
         }
 
         [HttpDelete("{id}")]

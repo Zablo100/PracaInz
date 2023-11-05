@@ -50,7 +50,19 @@ export class DepartmentEditWindowComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.EditForm.value)
+    var request = {
+      id: this.data.DepartmentId,
+      name: this.EditForm.value.name,
+      shortName: this.EditForm.value.shortName,
+      invoiceCode: this.EditForm.value.invoiceCode,
+      factoryId: parseInt(this.EditForm.value.factory)
+    }
+
+    //console.log(request)
+
+    this.service.updateDepartment(request).subscribe((response) => {
+      console.log(response)
+    })
   }
 
 

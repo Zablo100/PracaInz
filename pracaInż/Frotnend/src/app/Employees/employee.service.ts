@@ -24,6 +24,10 @@ export class EmployeeService {
     return this.http.get(`https://${app.ip}/api/department/GetById/${id}`)
   }
 
+  updateDepartment(request: any){ //TODO: Zmienić any na updateDepartmentDTO
+    return this.http.put(`https://${app.ip}/api/department/FullUpdate`, request)
+  }
+
 
 
 
