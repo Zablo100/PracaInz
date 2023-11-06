@@ -18,6 +18,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Updated>> FullUpdate(UpdateDepartmentDTO departmentDTO);
         Task<ErrorOr<Deleted>> DeleteDepartment(int id);
         Task<ErrorOr<DepartmentDTO>> GetDepartmentById(int id);
+        Task<List<DepartmentListDTO>> GetDepartmentsByFactory(int id);
     }
     public class DepartmenService : IDepartmenService
     {
@@ -155,6 +156,18 @@ namespace pracaInż.Services
 
             result = new DepartmentDTO(department);
             return result;
+        }
+
+        public async Task<List<DepartmentListDTO>> GetDepartmentsByFactory(int id)
+        {
+            var departments = await _context.Departments.Where(dep => dep.FactoryId == id).Include(dep => dep.Factory).ToListAsync();
+            List<DepartmentListDTO> list = new List<DepartmentListDTO>();
+            foreach (Department department in departments)
+            {
+                list.Add(new DepartmentListDTO(department));
+            }
+
+            return list;
         }
     }
 }

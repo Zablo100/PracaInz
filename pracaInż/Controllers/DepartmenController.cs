@@ -87,5 +87,14 @@ namespace pracaInż.Controllers
             return Ok(result.Value);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetDepartmentsByFactoryId(int id)
+        {
+            //TODO: Błędy
+            var result = await _service.GetDepartmentsByFactory(id);
+
+            return Ok(result);
+        }
+
     }
 }
