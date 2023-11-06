@@ -1,11 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EmployeeService } from '../../employee.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Department, DepartmentDTO } from 'src/app/Models/Department';
 import { MatInput } from '@angular/material/input';
 import { MatFormField } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-department-edit-window',
@@ -15,8 +16,11 @@ import { MatSelect } from '@angular/material/select';
 export class DepartmentEditWindowComponent implements OnInit {
   EditForm: FormGroup;
   Department: DepartmentDTO;
+  SelectFactory: any[];
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public service: EmployeeService) { }
+  constructor(
+    public dialogRef: MatDialogRef<DepartmentEditWindowComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, public service: EmployeeService, private notification: ToastrService) { }
 
   ngOnInit(): void {
     this.test()
@@ -33,10 +37,15 @@ export class DepartmentEditWindowComponent implements OnInit {
   }
 
   GetDataFromAPI(){
-    console.log(this.data)
+
     this.service.getDepartmentByID(this.data.DepartmentId).subscribe((response) => {
       this.Department = response as DepartmentDTO;
       this.createForm();
+    })
+
+    this.service.getDataForSelectElement().subscribe((response) => {
+      this.SelectFactory = response as any[]
+      console.log(response)
     })
   }
 
@@ -58,13 +67,12 @@ export class DepartmentEditWindowComponent implements OnInit {
       factoryId: parseInt(this.EditForm.value.factory)
     }
 
-    //console.log(request)
-
     this.service.updateDepartment(request).subscribe((response) => {
-      console.log(response)
+      this.notification.success("Pomyślnie zaktualizowane dane")
+      this.dialogRef.close();
+    }, (err) => {
+      this.notification.error(err.error.description)
     })
   }
-
-
 
 }

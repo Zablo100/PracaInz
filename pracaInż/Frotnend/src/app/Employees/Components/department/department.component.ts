@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeService } from '../../employee.service';
 import { Employee } from '../../../Models/Employee';
 import { Department } from 'src/app/Models/Department';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSelect } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
@@ -26,8 +26,11 @@ export class DepartmentComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.GetDataFromApi();
+  }
 
+  async GetDataFromApi(){
     this.serivce.getAllDepartmentsWithoutEmployees().subscribe((response) => {
       this.data = new MatTableDataSource<any>(response as Department[]);
       this.data.paginator = this.paginator;
@@ -38,7 +41,7 @@ export class DepartmentComponent implements OnInit {
     console.log(id)
   }
 
-  async openDeletWindow(id: number){
+  openDeletWindow(id: number){
     // this.matDialog.open("InvoiceComponent", {
     //   "autoFocus": false,
     //   data: {
@@ -47,13 +50,18 @@ export class DepartmentComponent implements OnInit {
     // });
   }
 
-  async openEditWindow(id: number){
-    this.matDialog.open(DepartmentEditWindowComponent, {
+  openEditWindow(id: number){
+    let dialog: MatDialogRef<DepartmentEditWindowComponent> = this.matDialog.open(DepartmentEditWindowComponent, {
       "autoFocus": false,
+      enterAnimationDuration: "180ms",
       data: {
         DepartmentId: id,
       }
     });
+
+    dialog.afterClosed().subscribe(async () => {
+      await this.GetDataFromApi();
+    })
 
   }
 

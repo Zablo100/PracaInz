@@ -28,6 +28,10 @@ export class EmployeeService {
     return this.http.put(`https://${app.ip}/api/department/FullUpdate`, request)
   }
 
+  getDataForSelectElement(){
+    return this.http.get(`https://${app.ip}/api/Factory/GetDataForSelectElement`)
+  }
+
 
 
 
