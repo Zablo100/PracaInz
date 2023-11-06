@@ -12,5 +12,6 @@ namespace pracaInż.Services
     }
     public class SoftwareService
     {
+
     }
 }
