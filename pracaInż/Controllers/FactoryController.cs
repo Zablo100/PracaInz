@@ -92,5 +92,17 @@ namespace pracaInż.Controllers
 
             return Ok(new NotificationResponse(0, $"Pomyślnie zaktualizowane dane fabryki: {factoryDTO.Street} {factoryDTO.StreetNumber}"));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDataForSelectElement()
+        {
+            var result = await _factoryService.GetFactoryForSelect();
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Created>> CreateNewFactory(AddFactoryDTO factoryDTO);
         Task<ErrorOr<Deleted>> DeleteFactory(int Id);
         Task<ErrorOr<Updated>> UpdateFactory(FactoryWithDepartmentDTO factoryDTO);
+        Task<ErrorOr<List<FactorySelectDTO>>> GetFactoryForSelect(); 
     }
     public class FactoryService : IFactoryService
     {
@@ -94,6 +95,26 @@ namespace pracaInż.Services
             }
             result = new FactoryWithDepartmentDTO(factory);
 
+            return result;
+        }
+
+        public async Task<ErrorOr<List<FactorySelectDTO>>> GetFactoryForSelect()
+        {
+            ErrorOr<List<FactorySelectDTO>> result;
+            var factoryies = await _context.Factorys.ToListAsync();
+            if(factoryies.Count == 0) 
+            { 
+                result = Error.NotFound(description: "Błąd podczas ładowania danych");
+                return result;
+            }
+
+            List<FactorySelectDTO> results = new List<FactorySelectDTO>();
+            foreach( var factory in factoryies)
+            {
+                results.Add(new FactorySelectDTO(factory));
+            }
+
+            result = results;
             return result;
         }
 
