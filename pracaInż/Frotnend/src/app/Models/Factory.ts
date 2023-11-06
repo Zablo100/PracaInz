@@ -4,3 +4,8 @@ export interface Factory {
     address: string;
     postalCode: string;
 }
+
+export interface SelectFactoryDTO{
+    id: number;
+    city: string;
+}

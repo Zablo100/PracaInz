@@ -7,6 +7,7 @@ import { MatInput } from '@angular/material/input';
 import { MatFormField } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
+import { SelectFactoryDTO } from 'src/app/Models/Factory';
 
 @Component({
   selector: 'app-department-edit-window',
@@ -16,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DepartmentEditWindowComponent implements OnInit {
   EditForm: FormGroup;
   Department: DepartmentDTO;
-  SelectFactory: any[];
+  SelectFactory: SelectFactoryDTO[];
 
   constructor(
     public dialogRef: MatDialogRef<DepartmentEditWindowComponent>,
@@ -29,10 +30,10 @@ export class DepartmentEditWindowComponent implements OnInit {
 
   test(){
     this.EditForm = new FormGroup({
-      name: new FormControl("test"),
-      shortName: new FormControl("test"),
-      invoiceCode: new FormControl("test"),
-      factory: new FormControl("1")
+      name: new FormControl(""),
+      shortName: new FormControl(""),
+      invoiceCode: new FormControl(""),
+      factory: new FormControl("")
     })
   }
 
@@ -44,7 +45,7 @@ export class DepartmentEditWindowComponent implements OnInit {
     })
 
     this.service.getDataForSelectElement().subscribe((response) => {
-      this.SelectFactory = response as any[]
+      this.SelectFactory = response as SelectFactoryDTO[]
       console.log(response)
     })
   }

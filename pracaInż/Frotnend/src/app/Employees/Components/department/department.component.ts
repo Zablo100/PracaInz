@@ -12,6 +12,8 @@ import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { DepartmentEditWindowComponent } from '../department-edit-window/department-edit-window.component';
+import { SelectFactoryDTO } from 'src/app/Models/Factory';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-department',
@@ -20,6 +22,9 @@ import { DepartmentEditWindowComponent } from '../department-edit-window/departm
 })
 export class DepartmentComponent implements OnInit {
   data!: MatTableDataSource<Department>;
+  SelectFactory: SelectFactoryDTO[];
+  FactoryForm: FormGroup;
+  PageLoaded: boolean = false;
   displayedColumns: string[] = ['name', 'shortName', "invoiceCode", "factoryLocation", "options"];
 
   constructor(private serivce: EmployeeService, private matDialog: MatDialog) { }
@@ -27,13 +32,22 @@ export class DepartmentComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   async ngOnInit(): Promise<void> {
+    this.createFactoryForm();
     await this.GetDataFromApi();
+    await this.getFactoryList();
   }
 
   async GetDataFromApi(){
     this.serivce.getAllDepartmentsWithoutEmployees().subscribe((response) => {
       this.data = new MatTableDataSource<any>(response as Department[]);
       this.data.paginator = this.paginator;
+      this.PageLoaded = true;
+    })
+  }
+
+  async getFactoryList(){
+    this.serivce.getDataForSelectElement().subscribe(response => {
+      this.SelectFactory = response as SelectFactoryDTO[];
     })
   }
 
@@ -63,6 +77,30 @@ export class DepartmentComponent implements OnInit {
       await this.GetDataFromApi();
     })
 
+  }
+
+  createFactoryForm(){
+    this.FactoryForm = new FormGroup({
+      factoryId: new FormControl("0")
+    })
+  }
+
+  initForm(){
+    this.FactoryForm = new FormGroup({
+      factoryId: new FormControl("0")
+    })
+  }
+
+  async factorySort(){
+    let factoryId = parseInt(this.FactoryForm.value.factoryId)
+    if(factoryId != 0){
+      this.serivce.getDepartmentsByFactoryId(factoryId).subscribe(response => {
+        this.data = new MatTableDataSource<any>(response as Department[]);
+        this.data.paginator = this.paginator;
+      })
+    }else if(factoryId == 0){
+      await this.GetDataFromApi();
+    }
   }
 
 

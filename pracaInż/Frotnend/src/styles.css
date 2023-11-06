@@ -196,7 +196,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	width: 100px;
 	height: 100px;
 	margin: 110px auto 0;
-    margin-top: 10%;
+    margin-top: 10px;
 	border:solid 10px #0077b6;
 	border-radius: 50%;
 	border-right-color: transparent;

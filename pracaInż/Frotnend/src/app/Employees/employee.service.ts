@@ -32,6 +32,10 @@ export class EmployeeService {
     return this.http.get(`https://${app.ip}/api/Factory/GetDataForSelectElement`)
   }
 
+  getDepartmentsByFactoryId(id: number){
+    return this.http.get(`https://${app.ip}/api/department/GetDepartmentsByFactoryId/` + id)
+  }
+
 
 
 

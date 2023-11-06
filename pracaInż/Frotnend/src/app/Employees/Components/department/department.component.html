@@ -4,24 +4,26 @@
 
     <div id="tabs">
 
-      <mat-form-field id="test2">
-        <mat-label>Wybierz oddział</mat-label>
-        <mat-select>
-          <mat-option value="option1">Wszystkie</mat-option>
-          <mat-option value="option1">Bydgoszcz</mat-option>
-          <mat-option value="option2">Kruszyn</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <form [formGroup]="FactoryForm">
+        <mat-form-field id="test2">
+          <mat-label>Wybierz oddział</mat-label>
+          <mat-select formControlName="factoryId" (ngModelChange)="factorySort()">
+            <mat-option value="0">Wszystkie</mat-option>
+            <mat-option *ngFor="let element of this.SelectFactory" value="{{element.id}}"> {{element.city}}</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field id="search-input">
-        <input matInput placeholder="Wyszukaj">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
+        <mat-form-field id="search-input">
+          <input matInput placeholder="Wyszukaj">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
 
-      <button mat-raised-button>Wyszukaj</button>
+        <button mat-raised-button type="submit()">Wyszukaj</button>
+    </form>
 
     </div>
-
+    <div class="load" *ngIf="!PageLoaded"></div>
+    <div *ngIf="PageLoaded">
     <table mat-table [dataSource]="this.data">
 
       <ng-container matColumnDef="name">
@@ -58,6 +60,7 @@
 
     <mat-paginator [pageSize]="10" showFirstLastButtons aria-label="Select page of periodic elements">
     </mat-paginator>
+  </div>
 
 </div>
 <div class="bottom-space"></div>
