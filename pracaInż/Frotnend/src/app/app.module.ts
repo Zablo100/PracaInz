@@ -43,6 +43,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { EmployeeEditWindowComponent } from './Employees/Components/employee-edit-window/employee-edit-window.component';
 import { DepartmentEditWindowComponent } from './Employees/Components/department-edit-window/department-edit-window.component';
+import { DepartmentAddWindowComponent } from './Employees/Components/department-add-window/department-add-window.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { DepartmentEditWindowComponent } from './Employees/Components/department
     PcLogChartComponent,
     EmployeeEditWindowComponent,
     DepartmentEditWindowComponent,
+    DepartmentAddWindowComponent,
   ],
   imports: [
     BrowserModule,

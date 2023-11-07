@@ -14,6 +14,7 @@ import { MatButton } from '@angular/material/button';
 import { DepartmentEditWindowComponent } from '../department-edit-window/department-edit-window.component';
 import { SelectFactoryDTO } from 'src/app/Models/Factory';
 import { FormControl, FormGroup } from '@angular/forms';
+import { DepartmentAddWindowComponent } from '../department-add-window/department-add-window.component';
 
 @Component({
   selector: 'app-department',
@@ -85,12 +86,6 @@ export class DepartmentComponent implements OnInit {
     })
   }
 
-  initForm(){
-    this.FactoryForm = new FormGroup({
-      factoryId: new FormControl("0")
-    })
-  }
-
   async factorySort(){
     let factoryId = parseInt(this.FactoryForm.value.factoryId)
     if(factoryId != 0){
@@ -103,5 +98,15 @@ export class DepartmentComponent implements OnInit {
     }
   }
 
+  openCreateWindow(){
+    let dialog: MatDialogRef<DepartmentAddWindowComponent> = this.matDialog.open(DepartmentAddWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms"
+    });
+
+    dialog.afterClosed().subscribe(async () => {
+      await this.GetDataFromApi();
+    })
+  }
 
 }

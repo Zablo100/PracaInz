@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, find, map, Observable, tap } from 'rxjs';
 import { Employee } from '../Models/Employee';
 import { app } from '../Core/appip';
+import { AddDepartmentDTO } from '../Models/Department';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,10 @@ export class EmployeeService {
 
   getDepartmentsByFactoryId(id: number){
     return this.http.get(`https://${app.ip}/api/department/GetDepartmentsByFactoryId/` + id)
+  }
+
+  createNewDepartment(request: AddDepartmentDTO){
+    return this.http.post(`https://${app.ip}/api/department/CreateNewDepartment`, request)
   }
 
 
