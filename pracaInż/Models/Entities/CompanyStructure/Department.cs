@@ -22,13 +22,12 @@ namespace pracaInż.Models.Entities.CompanyStructure
         
         }
 
-        public Department(AddDepartmentDTO departmentDTO, Factory factory)
+        public Department(AddDepartmentDTO departmentDTO)
         {
             Name = departmentDTO.Name;
             ShortName = departmentDTO.ShortName;
             InvoiceCode = departmentDTO.InvoiceCode;
             FactoryId = departmentDTO.FactoryId;
-            Factory = factory;
         }
 
         public Department(DepartmentDTO departmentDTO, Factory factory)

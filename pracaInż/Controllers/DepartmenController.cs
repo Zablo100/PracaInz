@@ -42,10 +42,13 @@ namespace pracaInż.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateNewDepartment([FromBody] AddDepartmentDTO departmentDTO)
         {
-            await _service.CreateNewDepartment(departmentDTO);
+            var result = await _service.CreateNewDepartment(departmentDTO);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
 
-
-            return Ok();
+            return Ok(result.Value);
         }
 
         [HttpPatch("{id}")]

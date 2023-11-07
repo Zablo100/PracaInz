@@ -41,13 +41,8 @@ namespace pracaInż.Services
                 return result;
             }
 
-            Factory? factory = await _context.Factorys.FindAsync(departmentDTO.FactoryId);
-            if(factory == null)
-            {
-                result = Error.Validation(description: "Nie można przypisać działu do podanej fabryki!");
-                return result;
-            }
-            Department department = new Department(departmentDTO, factory);
+
+            Department department = new Department(departmentDTO);
 
 
             _context.Departments.Add(department);
