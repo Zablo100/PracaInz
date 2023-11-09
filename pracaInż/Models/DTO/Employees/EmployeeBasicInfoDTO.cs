@@ -8,7 +8,7 @@
         public string Email { get; set; }
         public string WorkPhoneNumber { get; set; }
         public string JobTitle { get; set; }
-        public string DepatrmentName { get; set; }
+        public string DepartmentName { get; set; }
         public string DepartmentShortName { get; set; }
         public string FactoryLocation { get; set; }
 
@@ -20,7 +20,7 @@
             Email = employee.EmailAddress;
             WorkPhoneNumber = employee.WorkPhone;
             JobTitle = employee.JobTitle;
-            DepatrmentName = employee.Department.Name;
+            DepartmentName = employee.Department.Name;
             DepartmentShortName = employee.Department.ShortName;
             FactoryLocation = employee.Department.Factory.City;
         }
