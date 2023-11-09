@@ -46,7 +46,6 @@ export class DepartmentEditWindowComponent implements OnInit {
 
     this.service.getDataForSelectElement().subscribe((response) => {
       this.SelectFactory = response as SelectFactoryDTO[]
-      console.log(response)
     })
   }
 
