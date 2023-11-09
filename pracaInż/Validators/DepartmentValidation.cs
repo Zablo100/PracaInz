@@ -30,7 +30,7 @@ namespace pracaInż.Validators
 
         public bool BeValidName(string name)
         {
-            return name.All(char.IsLetter);
+            return name.All(c => char.IsLetter(c) || char.IsWhiteSpace(c));
         }
     }
 
