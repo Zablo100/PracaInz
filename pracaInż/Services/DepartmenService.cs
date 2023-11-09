@@ -89,13 +89,6 @@ namespace pracaInż.Services
                 return result;
             }
 
-            //Factory? factory = await _context.Factorys.FindAsync(departmentDTO.FactoryId);
-            //if (factory == null)
-            //{
-            //    result = Error.Validation(description: "Nie odnaleziono fabryki, do której przypisany jest dział");
-            //    return result;
-            //}
-
             Department department = new Department(departmentDTO);
 
             _context.Departments.Update(department);
