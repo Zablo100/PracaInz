@@ -1,1 +1,30 @@
-<p>employee-edit-window works!</p>
+<div id="content">
+    <form [formGroup]="EditForm" (ngSubmit)="submit()">
+        <mat-form-field class="input">
+            <mat-label>Imię</mat-label>
+            <input formControlName="name" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Nazwisko</mat-label>
+            <input formControlName="surename" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Oddział</mat-label>
+            <mat-select formControlName="factory">
+                <mat-option *ngFor="let element of this.SelectFactory" value="{{element.id}}"> {{element.city}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+        <button mat-raised-button type="submit">Zapisz</button>
+        
+    </form>
+</div>

@@ -10,6 +10,8 @@ import { MatIcon } from '@angular/material/icon';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
+import { EmployeeEditWindowComponent } from '../employee-edit-window/employee-edit-window.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-employee',
@@ -20,9 +22,9 @@ export class EmployeeComponent implements OnInit {
   data: MatTableDataSource<Employee>;
   displayedColumns: string[] = ['department', 'name', 'lastname', 'position', 'email', 'phone', 'factory', 'computer', 'options'];
   rawData: Employee[]
-  selectedEmp: Employee;
+  
 
-  constructor(private serivce: EmployeeService) { }
+  constructor(private serivce: EmployeeService, private matDialog: MatDialog) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -44,6 +46,8 @@ export class EmployeeComponent implements OnInit {
       this.data.sort = this.sort;
     }, 1000);
   }
+
+
 
 
   sortData(sort: Sort) {
@@ -87,13 +91,22 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  test(emp: Employee){
-    console.log(emp)
-  }
 
   openEditWindow(id: number){
-    console.log(id)
+    let dialog: MatDialogRef<EmployeeEditWindowComponent> = this.matDialog.open(EmployeeEditWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+      data: {
+        EmployeeId: id,
+      }
+    });
+
+    dialog.afterClosed().subscribe(async () => {
+      await this.getDataFromAPI();
+    })
+
   }
+
 
 
 }
