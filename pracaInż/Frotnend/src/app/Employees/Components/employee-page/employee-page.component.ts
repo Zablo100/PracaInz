@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../../employee.service';
 import { Employee } from '../../../Models/Employee';
 import { PcStatus } from '../../../Models/PcStatus';
+import { Chart } from 'chart.js/auto';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -16,6 +17,7 @@ export class EmployeePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDataFromAPI()
+    this.createChart()
   }
 
   getDataFromAPI(){
@@ -35,5 +37,34 @@ export class EmployeePageComponent implements OnInit {
     return "Offline"
   }
 
+  createChart(){
+    const daty = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
+    const dane = [2,5,2,7,5,4,3,2,1,0,0,3]
+    new Chart("myChart", {
+      type: 'bar',
+      data: {
+        labels: daty,
+        datasets: [{
+          label: 'Ilość zgłoszeń',
+          data: dane,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 8,
+            ticks: {
+              stepSize: 1
+            }
+          },
+          x: {
+            max: 12
+          }
+        }
+      }
+    });
+  }
 
 }

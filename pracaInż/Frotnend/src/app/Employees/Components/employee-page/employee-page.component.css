@@ -44,3 +44,12 @@
     font-size: 1.6em;
     color: white;
 }
+
+#right-box{
+    margin-left: 2vw;
+}
+
+#chart{
+    width: 60vw;
+    height: 29vh;
+}
