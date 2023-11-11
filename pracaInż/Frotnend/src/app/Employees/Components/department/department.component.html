@@ -4,21 +4,21 @@
 
     <div id="tabs">
 
-      <form [formGroup]="FactoryForm">
+      <form [formGroup]="FactoryForm" (ngSubmit)="submit()">
         <mat-form-field id="test2">
           <mat-label>Wybierz oddział</mat-label>
-          <mat-select formControlName="factoryId" (ngModelChange)="factorySort()">
+          <mat-select formControlName="factoryId" (ngModelChange)="submit()">
             <mat-option value="0">Wszystkie</mat-option>
             <mat-option *ngFor="let element of this.SelectFactory" value="{{element.id}}"> {{element.city}}</mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field id="search-input">
-          <input matInput placeholder="Wyszukaj">
+          <input matInput placeholder="Wyszukaj" formControlName="search">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
-        <button mat-raised-button type="submit()">Wyszukaj</button>
+        <button mat-raised-button type="submit">Wyszukaj</button>
         <button mat-raised-button id="add-button" (click)="openCreateWindow()">Dodaj nowy</button>
     </form>
 

@@ -15,6 +15,7 @@ import { DepartmentEditWindowComponent } from '../department-edit-window/departm
 import { SelectFactoryDTO } from 'src/app/Models/Factory';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DepartmentAddWindowComponent } from '../department-add-window/department-add-window.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-department',
@@ -28,7 +29,7 @@ export class DepartmentComponent implements OnInit {
   PageLoaded: boolean = false;
   displayedColumns: string[] = ['name', 'shortName', "invoiceCode", "factoryLocation", "options"];
 
-  constructor(private serivce: EmployeeService, private matDialog: MatDialog) { }
+  constructor(private serivce: EmployeeService, private matDialog: MatDialog, private notification: ToastrService) { }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -52,17 +53,8 @@ export class DepartmentComponent implements OnInit {
     })
   }
 
-  click(id: number){
-    console.log(id)
-  }
-
   openDeletWindow(id: number){
-    // this.matDialog.open("InvoiceComponent", {
-    //   "autoFocus": false,
-    //   data: {
-    //     DepartmentId: id,
-    //   }
-    // });
+
   }
 
   openEditWindow(id: number){
@@ -82,7 +74,8 @@ export class DepartmentComponent implements OnInit {
 
   createFactoryForm(){
     this.FactoryForm = new FormGroup({
-      factoryId: new FormControl("0")
+      factoryId: new FormControl("0"),
+      search: new FormControl("")
     })
   }
 
@@ -109,4 +102,19 @@ export class DepartmentComponent implements OnInit {
     })
   }
 
+  async submit(){
+    const body = {
+      factoryId: parseInt(this.FactoryForm.value.factoryId),
+      query: this.FactoryForm.value.search
+    }
+    console.log(body)
+    await this.serivce.searchDepartmentByQuery(body).subscribe((response) => {
+      this.data = new MatTableDataSource<any>(response as Department[]);
+      this.data.paginator = this.paginator;
+    }, (err) => {
+      this.notification.error(err.error.description)
+      this.data = new MatTableDataSource<any>([] as Department[]);
+      this.data.paginator = this.paginator;
+    })
+  }
 }

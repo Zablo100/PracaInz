@@ -9,7 +9,7 @@ import { AddDepartmentDTO } from '../Models/Department';
   providedIn: 'root'
 })
 export class EmployeeService {
-
+  baseUrl = `https://${app.ip}`
   constructor(private http: HttpClient) { }
 
 
@@ -45,7 +45,10 @@ export class EmployeeService {
     return this.http.post(`https://${app.ip}/api/department/CreateNewDepartment`, request)
   }
 
-
+  searchDepartmentByQuery(query: any){
+    return this.http.put(`${this.baseUrl}/api/department/SearchDepartment`, query)
+    
+  }
 
 
 
