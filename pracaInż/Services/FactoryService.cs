@@ -18,7 +18,8 @@ namespace pracaInż.Services
         Task<ErrorOr<Created>> CreateNewFactory(AddFactoryDTO factoryDTO);
         Task<ErrorOr<Deleted>> DeleteFactory(int Id);
         Task<ErrorOr<Updated>> UpdateFactory(FactoryWithDepartmentDTO factoryDTO);
-        Task<ErrorOr<List<FactorySelectDTO>>> GetFactoryForSelect(); 
+        Task<ErrorOr<List<FactorySelectDTO>>> GetFactoryForSelect();
+        Task<ErrorOr<List<FactoryDTO>>> SearchFactoryByQuery(string query);
     }
     public class FactoryService : IFactoryService
     {
@@ -138,6 +139,29 @@ namespace pracaInż.Services
                 result.Add(new FactoryDTO(factory));
             }
 
+            return result;
+        }
+
+        public async Task<ErrorOr<List<FactoryDTO>>> SearchFactoryByQuery(string query)
+        {
+            ErrorOr<List<FactoryDTO>> result;
+            var rawData = await _context.Factorys
+                .Where(factory => factory.City.Contains(query) || factory.PostalCode.Contains(query) || factory.Street.Contains(query))
+                .ToListAsync();
+
+            if(rawData.Count == 0)
+            {
+                result = Error.NotFound(description: "Nie znaleziono fabryki spełniającej podane kryteria");
+                return result;
+            }
+
+            List<FactoryDTO> factories = new List<FactoryDTO>();
+            foreach(var factory in rawData)
+            {
+                factories.Add(new FactoryDTO(factory));
+            }
+
+            result = factories;
             return result;
         }
 

@@ -104,5 +104,17 @@ namespace pracaInż.Controllers
 
             return Ok(result.Value);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> SearchFactoryByQuery([FromBody] FactorySearchDTO search)
+        {
+            var result = await _factoryService.SearchFactoryByQuery(search.Query);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
     }
 }
