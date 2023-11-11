@@ -19,6 +19,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Deleted>> DeleteDepartment(int id);
         Task<ErrorOr<DepartmentDTO>> GetDepartmentById(int id);
         Task<List<DepartmentListDTO>> GetDepartmentsByFactory(int id);
+        Task<ErrorOr<List<DepartmentListDTO>>> SearchByQuery(DepartmentSearchDTO search);
     }
     public class DepartmenService : IDepartmenService
     {
@@ -156,6 +157,59 @@ namespace pracaInż.Services
             }
 
             return list;
+        }
+
+        public async Task<ErrorOr<List<DepartmentListDTO>>> SearchByQuery(DepartmentSearchDTO search)
+        {
+            ErrorOr<List<DepartmentListDTO>> result;
+            if(search.FactoryId == 0)
+            {
+                var raw = await _context.Departments
+                    .Where(dep => dep.Name.Contains(search.Query) ||
+                    dep.ShortName.Contains(search.Query))
+                    .Include(dep => dep.Factory)
+                    .ToListAsync();
+                if(raw.Count == 0)
+                {
+                    result = Error.NotFound(description: "Nie znaleziono żadnego działu");
+                    return result;
+                }
+
+                List<DepartmentListDTO> departmentsResult = new List<DepartmentListDTO>();
+                foreach(var dep in raw)
+                {
+                    departmentsResult.Add(new DepartmentListDTO(dep));
+                }
+
+                result = departmentsResult;
+                return result;
+            }
+
+            var rawData = await _context.Departments
+             .Where(dep => 
+             dep.FactoryId == search.FactoryId &&
+             dep.Name.Contains(search.Query) ||
+             dep.ShortName.Contains(search.Query) &&
+             dep.FactoryId == search.FactoryId)
+             .Include(dep => dep.Factory)
+             .ToListAsync();
+
+            if (rawData.Count == 0)
+            {
+                result = Error.NotFound(description: "Nie znaleziono żadnego działu spełniającego podane kryteria");
+                return result;
+            }
+
+            List<DepartmentListDTO> departments = new List<DepartmentListDTO>();
+            foreach (var dep in rawData)
+            {
+                departments.Add(new DepartmentListDTO(dep));
+            }
+
+            result = departments;
+            return result;
+
+
         }
     }
 }

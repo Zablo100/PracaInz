@@ -99,5 +99,16 @@ namespace pracaInż.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> SearchDepartment([FromBody] DepartmentSearchDTO query)
+        {
+            var result = await _service.SearchByQuery(query);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
     }
 }
