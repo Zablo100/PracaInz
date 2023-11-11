@@ -44,6 +44,9 @@ import { MatInputModule } from '@angular/material/input';
 import { EmployeeEditWindowComponent } from './Employees/Components/employee-edit-window/employee-edit-window.component';
 import { DepartmentEditWindowComponent } from './Employees/Components/department-edit-window/department-edit-window.component';
 import { DepartmentAddWindowComponent } from './Employees/Components/department-add-window/department-add-window.component';
+import { FactoryComponent } from './Employees/Components/factory/factory.component';
+import { FactoryEditWindowComponent } from './Employees/Components/factory-edit-window/factory-edit-window.component';
+import { FactoryAddWindowComponent } from './Employees/Components/factory-add-window/factory-add-window.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +77,9 @@ import { DepartmentAddWindowComponent } from './Employees/Components/department-
     EmployeeEditWindowComponent,
     DepartmentEditWindowComponent,
     DepartmentAddWindowComponent,
+    FactoryComponent,
+    FactoryEditWindowComponent,
+    FactoryAddWindowComponent,
   ],
   imports: [
     BrowserModule,
