@@ -73,4 +73,12 @@ export class EmployeeService {
     return this.http.delete(`${this.baseUrl}/api/Factory/deleteFactoryById/` + id)
   }
 
+  updateEmployee(body: any){
+    return this.http.put(`${this.baseUrl}/Employee/UpdateEmployee`, body)
+  }
+
+  getDapartmentsForSelect(id: number){
+    return this.http.get(`${this.baseUrl}/api/department/GetDepartmentsForSelectElement/` + id)
+  }
+
 }

@@ -104,6 +104,7 @@ import { FactoryDeleteWindowComponent } from './Employees/Components/factory-del
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
+      progressBar: true,
     })
   ],
   providers: [],

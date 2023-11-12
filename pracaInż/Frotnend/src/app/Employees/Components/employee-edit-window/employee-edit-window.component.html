@@ -15,16 +15,37 @@
             <input formControlName="email" matInput>
         </mat-form-field>
         <br>
+        <mat-form-field class="input">
+            <mat-label>Stanowisko</mat-label>
+            <input formControlName="jobTitle" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Numer wewnętrzny</mat-label>
+            <input type="number" formControlName="workPhoneNumber" matInput>
+        </mat-form-field>
+        <br>
 
         <mat-form-field class="input">
             <mat-label>Oddział</mat-label>
-            <mat-select formControlName="factory">
+            <mat-select formControlName="factory" (selectionChange)="getDepartmentsList()">
                 <mat-option *ngFor="let element of this.SelectFactory" value="{{element.id}}"> {{element.city}}</mat-option>
             </mat-select>
         </mat-form-field>
-
         <br>
-        <button mat-raised-button type="submit">Zapisz</button>
+
+        <mat-form-field class="input">
+            <mat-label>Dział</mat-label>
+            <mat-select formControlName="departmentId">
+                <mat-option *ngFor="let element of this.DepartmentsSelect" value={{element.id}}> {{element.shortName}} - {{element.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+
+        <div id="controls">
+            <button mat-raised-button type="submit">Zapisz</button>
+        </div>
+
         
     </form>
 </div>

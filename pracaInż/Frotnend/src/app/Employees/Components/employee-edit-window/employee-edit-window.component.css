@@ -1,0 +1,9 @@
+.input{
+    margin-top: 0.5vh;
+}
+
+#controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

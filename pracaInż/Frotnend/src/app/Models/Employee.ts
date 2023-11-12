@@ -13,6 +13,8 @@ export interface Employee {
     departmentShortName: string;
     factoryLocation: string;
     computer: Computer
+    departmentId: number,
+    factoryId: number;
 }
 
 export interface EmployeePC {

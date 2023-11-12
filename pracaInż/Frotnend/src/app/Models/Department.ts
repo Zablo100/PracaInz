@@ -20,3 +20,9 @@ export interface AddDepartmentDTO {
     invoiceCode: string;
     factoryId: number;
 }
+
+export interface DepartmentSelectDTO{
+    id: number,
+    name: string,
+    shortName: string
+}
