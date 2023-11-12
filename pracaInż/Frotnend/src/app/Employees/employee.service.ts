@@ -4,6 +4,7 @@ import { BehaviorSubject, filter, find, map, Observable, tap } from 'rxjs';
 import { Employee } from '../Models/Employee';
 import { app } from '../Core/appip';
 import { AddDepartmentDTO } from '../Models/Department';
+import { AddFactoryDTO, Factory } from '../Models/Factory';
 
 @Injectable({
   providedIn: 'root'
@@ -56,4 +57,16 @@ export class EmployeeService {
   searchFactoryByQuery(query: any){
     return this.http.put(`${this.baseUrl}/api/Factory/SearchFactoryByQuery`, query)
   }
+
+  addNewFactory(request: AddFactoryDTO){
+    return this.http.post(`${this.baseUrl}/api/Factory/createNewFactory`, request)
+  }
+
+  getFactoryById(id: number){
+    return this.http.get(`${this.baseUrl}/api/Factory/GetFactoryById/` + id)
+  }
+updateFactory(factory: Factory){
+  return this.http.put(`${this.baseUrl}/api/Factory/UpdateFactory`, factory)
+}
+
 }
