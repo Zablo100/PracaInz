@@ -25,7 +25,7 @@ namespace pracaInż.Models.Entities.CompanyStructure
             PostalCode = factory.PostalCode;
         }
 
-        public Factory(FactoryWithDepartmentDTO factoryDTO, Factory factory)
+        public Factory(UpdateFactoryDTO factoryDTO, Factory factory)
         {
             Id = factoryDTO.Id;
             City = factoryDTO.City;
@@ -33,11 +33,11 @@ namespace pracaInż.Models.Entities.CompanyStructure
             StreetNumber = factoryDTO.StreetNumber;
             PostalCode = factoryDTO.PostalCode;
             List<Department> departments = new List<Department>();
-            foreach(var dep in factoryDTO.Departments)
+            foreach(var dep in factory.Departments)
             {
-                departments.Add(new Department(dep, factory));
+                departments.Add(dep);
             }
-
+            
             Departments = departments;
         }
         

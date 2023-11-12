@@ -17,7 +17,7 @@ namespace pracaInż.Services
         Task<ErrorOr<FactoryWithDepartmentDTO>> GetFactoryById(int Id);
         Task<ErrorOr<Created>> CreateNewFactory(AddFactoryDTO factoryDTO);
         Task<ErrorOr<Deleted>> DeleteFactory(int Id);
-        Task<ErrorOr<Updated>> UpdateFactory(FactoryWithDepartmentDTO factoryDTO);
+        Task<ErrorOr<Updated>> UpdateFactory(UpdateFactoryDTO factoryDTO);
         Task<ErrorOr<List<FactorySelectDTO>>> GetFactoryForSelect();
         Task<ErrorOr<List<FactoryDTO>>> SearchFactoryByQuery(string query);
     }
@@ -165,7 +165,7 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<ErrorOr<Updated>> UpdateFactory(FactoryWithDepartmentDTO factoryDTO)
+        public async Task<ErrorOr<Updated>> UpdateFactory(UpdateFactoryDTO factoryDTO)
         {
             ErrorOr<Updated> result;
             UpdateFactoryValidator validator = new UpdateFactoryValidator();
@@ -178,6 +178,7 @@ namespace pracaInż.Services
 
             var factory = await _context.Factorys
                 .AsNoTracking()
+                .Include(factory => factory.Departments)
                 .FirstOrDefaultAsync(f => f.Id == factoryDTO.Id);
 
             if (factory == null)

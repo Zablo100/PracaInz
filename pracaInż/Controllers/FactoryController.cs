@@ -82,7 +82,7 @@ namespace pracaInż.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateFactory([FromBody] FactoryWithDepartmentDTO factoryDTO)
+        public async Task<IActionResult> UpdateFactory([FromBody] UpdateFactoryDTO factoryDTO)
         {
             var result = await _factoryService.UpdateFactory(factoryDTO);
             if (result.IsError)

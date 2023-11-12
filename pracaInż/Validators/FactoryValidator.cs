@@ -4,7 +4,7 @@ using pracaInż.Models.Entities.CompanyStructure;
 
 namespace pracaInż.Validators
 {
-    public class UpdateFactoryValidator : AbstractValidator<FactoryWithDepartmentDTO>
+    public class UpdateFactoryValidator : AbstractValidator<UpdateFactoryDTO>
     {
         public UpdateFactoryValidator()
         {
