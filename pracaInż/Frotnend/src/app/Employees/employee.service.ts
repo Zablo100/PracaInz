@@ -65,8 +65,12 @@ export class EmployeeService {
   getFactoryById(id: number){
     return this.http.get(`${this.baseUrl}/api/Factory/GetFactoryById/` + id)
   }
-updateFactory(factory: Factory){
+  updateFactory(factory: Factory){
   return this.http.put(`${this.baseUrl}/api/Factory/UpdateFactory`, factory)
-}
+  }
+
+  deleteFactory(id: number){
+    return this.http.delete(`${this.baseUrl}/api/Factory/deleteFactoryById/` + id)
+  }
 
 }

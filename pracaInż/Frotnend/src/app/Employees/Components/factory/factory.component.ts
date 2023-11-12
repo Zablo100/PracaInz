@@ -9,6 +9,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { query } from '@angular/animations';
 import { FactoryAddWindowComponent } from '../factory-add-window/factory-add-window.component';
 import { FactoryEditWindowComponent } from '../factory-edit-window/factory-edit-window.component';
+import { FactoryDeleteWindowComponent } from '../factory-delete-window/factory-delete-window.component';
 
 @Component({
   selector: 'app-factory',
@@ -78,6 +79,16 @@ export class FactoryComponent implements OnInit {
   }
 
   openDeletWindow(id: number){
+    let dialog: MatDialogRef<FactoryDeleteWindowComponent> = this.dialog.open(FactoryDeleteWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+      data: {
+        factoryId: id,
+      }
+    });
 
+    dialog.afterClosed().subscribe(async () => {
+      await this.getDataFormApi();
+    })
   }
 }

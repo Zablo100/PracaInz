@@ -47,6 +47,7 @@ import { DepartmentAddWindowComponent } from './Employees/Components/department-
 import { FactoryComponent } from './Employees/Components/factory/factory.component';
 import { FactoryEditWindowComponent } from './Employees/Components/factory-edit-window/factory-edit-window.component';
 import { FactoryAddWindowComponent } from './Employees/Components/factory-add-window/factory-add-window.component';
+import { FactoryDeleteWindowComponent } from './Employees/Components/factory-delete-window/factory-delete-window.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { FactoryAddWindowComponent } from './Employees/Components/factory-add-wi
     FactoryComponent,
     FactoryEditWindowComponent,
     FactoryAddWindowComponent,
+    FactoryDeleteWindowComponent,
   ],
   imports: [
     BrowserModule,

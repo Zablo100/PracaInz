@@ -52,8 +52,6 @@ export class FactoryEditWindowComponent implements OnInit {
       streetNumber: new FormControl(this.factory.streetNumber),
       postalCode: new FormControl(this.factory.postalCode)
     })
-
-    console.log(this.factory)
   }
 
   submit(){
@@ -70,7 +68,6 @@ export class FactoryEditWindowComponent implements OnInit {
       this.dialogRef.close()
     }, (err) => {
       this.notification.error(getErrorMessage(err))
-      console.log(err)
     })
   
   }
