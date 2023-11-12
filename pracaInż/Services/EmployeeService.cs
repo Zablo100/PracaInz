@@ -15,6 +15,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Created>> AddNewEmployeeBasicInfo(AddEmployeeBasiInfoDTO employeeDTO);
         Task<ErrorOr<Updated>> UpdateEmployeeInfo(UpdateEmployeeDTO employeeDTO);
         Task<ErrorOr<Deleted>> DeleteEmployee(int id);
+        Task<ErrorOr<List<EmployeeBasicInfoDTO>>> SearchByQuery(string query);
 
     }
     public class EmployeeService : IEmployeeService
@@ -162,5 +163,73 @@ namespace pracaInż.Services
             result = Result.Deleted;
             return result;
         }
+
+        public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> SearchByQuery(EmployeeSearchDTO search)
+        {
+            ErrorOr<List<EmployeeBasicInfoDTO>> result;
+            List<Employee> raw = new List<Employee>();
+
+            if(search.DepartmentId == 0 && search.FactoryId == 0)
+            {
+                raw = await _context.Employees
+                    .Include(emp => emp.)
+                    .Where(emp =>
+                    emp.Name.Contains(search.Query) ||
+                    emp.Surname.Contains(search.Query) ||
+                    emp.JobTitle.Contains(search.Query)
+                    ).ToListAsync();
+            }
+            else if(search.FactoryId == 0)
+            {
+                raw = await _context.Employees
+                    .Include(emp => emp.Department)
+                    .Where(
+                    emp => emp.DepartmentId == search.DepartmentId &&
+                    emp.Name.Contains(search.Query) ||
+                    emp.Surname.Contains(search.Query) ||
+                    emp.JobTitle.Contains(search.Query)
+                    ).ToListAsync();
+            }
+            else if(search.DepartmentId == 0)
+            {
+                raw = await _context.Employees
+                    .Include(emp => emp.Department)
+                    .ThenInclude(dep => dep.Factory)
+                    .Where(
+                    emp => emp.Department.FactoryId == search.FactoryId &&
+                    emp.Name.Contains(search.Query) ||
+                    emp.Surname.Contains(search.Query) ||
+                    emp.JobTitle.Contains(search.Query) ||
+                    emp.Department.ShortName.Contains(search.Query)
+                    ).ToListAsync();
+            }
+            else
+            {
+                raw = await _context.Employees
+                     .Include(emp => emp.Department)
+                     .ThenInclude(dep => dep.Factory)
+                     .Where(
+                     emp => emp.DepartmentId == search.DepartmentId &&
+                     emp.Department.FactoryId == search.FactoryId &&
+                     emp.Name.Contains(search.Query) ||
+                     emp.Surname.Contains(search.Query) ||
+                     emp.JobTitle.Contains(search.Query) ||
+                     emp.Department.ShortName.Contains(search.Query)
+                     ).ToListAsync();
+            }
+
+            if(raw.Count() == 0)
+            {
+                result = Error.NotFound(description: "Nie ma wyników dla podanych parametrów");
+                return result;
+            }
+
+            List<EmployeeBasicInfoDTO> employees = new List<EmployeeBasicInfoDTO>();
+            raw.ForEach(emp => employees.Add(new EmployeeBasicInfoDTO(emp)));
+
+            result = employees;
+            return result;
+        }
+
     }
 }
