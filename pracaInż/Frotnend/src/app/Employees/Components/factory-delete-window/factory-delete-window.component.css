@@ -1,0 +1,18 @@
+#agree-button{
+    background-color: lightgreen;
+    margin-right: 2vw;
+}
+
+#cancel-button{
+    background-color: lightcoral;
+}
+
+#controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#message{
+    font-size: large;
+}
