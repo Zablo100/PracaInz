@@ -5,8 +5,10 @@ import { Factory } from 'src/app/Models/Factory';
 import { EmployeeService } from '../../employee.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { query } from '@angular/animations';
+import { FactoryAddWindowComponent } from '../factory-add-window/factory-add-window.component';
+import { FactoryEditWindowComponent } from '../factory-edit-window/factory-edit-window.component';
 
 @Component({
   selector: 'app-factory',
@@ -51,11 +53,28 @@ export class FactoryComponent implements OnInit {
   }
 
   openCreateWindow(){
+    const dialog: MatDialogRef<FactoryAddWindowComponent> = this.dialog.open(FactoryAddWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+    })
 
+    dialog.afterClosed().subscribe(async () => {
+      await this.getDataFormApi();
+    })
   }
 
   openEditWindow(id: number){
+    let dialog: MatDialogRef<FactoryEditWindowComponent> = this.dialog.open(FactoryEditWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+      data: {
+        factoryId: id,
+      }
+    });
 
+    dialog.afterClosed().subscribe(async () => {
+      await this.getDataFormApi();
+    })
   }
 
   openDeletWindow(id: number){
