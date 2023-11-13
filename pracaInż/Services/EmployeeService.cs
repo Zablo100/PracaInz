@@ -15,7 +15,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Created>> AddNewEmployeeBasicInfo(AddEmployeeBasiInfoDTO employeeDTO);
         Task<ErrorOr<Updated>> UpdateEmployeeInfo(UpdateEmployeeDTO employeeDTO);
         Task<ErrorOr<Deleted>> DeleteEmployee(int id);
-        Task<ErrorOr<List<EmployeeBasicInfoDTO>>> SearchByQuery(string query);
+        Task<ErrorOr<List<EmployeeBasicInfoDTO>>> SearchByQuery(EmployeeSearchDTO query);
 
     }
     public class EmployeeService : IEmployeeService
@@ -172,19 +172,22 @@ namespace pracaInż.Services
             if(search.DepartmentId == 0 && search.FactoryId == 0)
             {
                 raw = await _context.Employees
-                    .Include(emp => emp.)
+                    .Include(emp => emp.Department)
+                    .ThenInclude(dep => dep.Factory)
                     .Where(emp =>
                     emp.Name.Contains(search.Query) ||
                     emp.Surname.Contains(search.Query) ||
-                    emp.JobTitle.Contains(search.Query)
+                    emp.JobTitle.Contains(search.Query) ||
+                    emp.Department.ShortName.Contains(search.Query)
                     ).ToListAsync();
             }
             else if(search.FactoryId == 0)
             {
                 raw = await _context.Employees
                     .Include(emp => emp.Department)
-                    .Where(
-                    emp => emp.DepartmentId == search.DepartmentId &&
+                    .ThenInclude(dep => dep.Factory)
+                    .Where(emp => emp.DepartmentId == search.DepartmentId)
+                    .Where(emp =>
                     emp.Name.Contains(search.Query) ||
                     emp.Surname.Contains(search.Query) ||
                     emp.JobTitle.Contains(search.Query)
@@ -195,8 +198,8 @@ namespace pracaInż.Services
                 raw = await _context.Employees
                     .Include(emp => emp.Department)
                     .ThenInclude(dep => dep.Factory)
-                    .Where(
-                    emp => emp.Department.FactoryId == search.FactoryId &&
+                    .Where(emp => emp.Department.FactoryId == search.FactoryId)
+                    .Where(emp =>
                     emp.Name.Contains(search.Query) ||
                     emp.Surname.Contains(search.Query) ||
                     emp.JobTitle.Contains(search.Query) ||
@@ -209,8 +212,9 @@ namespace pracaInż.Services
                      .Include(emp => emp.Department)
                      .ThenInclude(dep => dep.Factory)
                      .Where(
-                     emp => emp.DepartmentId == search.DepartmentId &&
-                     emp.Department.FactoryId == search.FactoryId &&
+                     emp => emp.DepartmentId == search.DepartmentId)
+                    .Where(emp => emp.Department.FactoryId == search.FactoryId)
+                    .Where(emp =>
                      emp.Name.Contains(search.Query) ||
                      emp.Surname.Contains(search.Query) ||
                      emp.JobTitle.Contains(search.Query) ||

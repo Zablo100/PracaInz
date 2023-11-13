@@ -74,5 +74,16 @@ namespace pracaInż.Controllers
             return Ok(result.Value);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> SearchByQuery([FromBody] EmployeeSearchDTO search)
+        {
+            var result = await _service.SearchByQuery(search);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
     }
 }
