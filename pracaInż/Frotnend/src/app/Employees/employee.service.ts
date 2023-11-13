@@ -81,4 +81,8 @@ export class EmployeeService {
     return this.http.get(`${this.baseUrl}/api/department/GetDepartmentsForSelectElement/` + id)
   }
 
+  searchEmployee(body: any){
+    return this.http.post(`${this.baseUrl}/Employee/SearchByQuery`, body)
+  }
+
 }

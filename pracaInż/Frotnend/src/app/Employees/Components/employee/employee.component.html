@@ -1,21 +1,30 @@
 <div class="page-table">
 
   <div id="tabs">
+    <form [formGroup]="SearchForm" (submit)="submit()">
     <mat-form-field id="test2">
       <mat-label>Wybierz oddział</mat-label>
-      <mat-select>
-        <mat-option value="option1">Wszystkie</mat-option>
-        <mat-option value="option1">Bydgoszcz</mat-option>
-        <mat-option value="option2">Kruszyn</mat-option>
+      <mat-select formControlName="factoryId" (ngModelChange)="factorySelectChange()">
+        <mat-option value='0'>Wszystkie</mat-option>
+        <mat-option *ngFor="let factory of factories" value="{{factory.id}}"> {{factory.city}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field id="test2">
+      <mat-label>Wybierz dział</mat-label>
+      <mat-select formControlName="departmentId" (ngModelChange)="submit()">
+        <mat-option value="0">Wszystkie</mat-option>
+        <mat-option *ngFor="let element of departments" value="{{element.id}}"> {{element.shortName}} </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field id="search-input">
-      <input matInput placeholder="Wyszukaj">
+      <input matInput placeholder="Wyszukaj" formControlName="query">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
 
-    <button mat-raised-button>Wyszukaj</button>
+    <button mat-raised-button type="submit">Wyszukaj</button>
+  </form>
   </div>
 
   <table mat-table [dataSource]="this.data" matSort (matSortChange)="sortData($event)">
