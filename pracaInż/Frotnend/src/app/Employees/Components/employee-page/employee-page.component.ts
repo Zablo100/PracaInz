@@ -5,6 +5,8 @@ import { Employee } from '../../../Models/Employee';
 import { PcStatus } from '../../../Models/PcStatus';
 import { Chart } from 'chart.js/auto';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { EmployeeEditWindowComponent } from '../employee-edit-window/employee-edit-window.component';
 
 @Component({
   templateUrl: './employee-page.component.html',
@@ -13,7 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 export class EmployeePageComponent implements OnInit {
   public employee: Employee
 
-  constructor(private service: EmployeeService, private route: ActivatedRoute, private notification: ToastrService) { }
+  constructor(private service: EmployeeService, private route: ActivatedRoute, 
+    private notification: ToastrService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getDataFromAPI()
@@ -25,7 +28,6 @@ export class EmployeePageComponent implements OnInit {
     if (id != null){
       this.service.getEmployeeById(id).subscribe((response) => {
         this.employee = response as Employee
-        console.log(this.employee)
       }, (err) => {
         this.notification.error(err.error.description)
       })
@@ -67,4 +69,19 @@ export class EmployeePageComponent implements OnInit {
     });
   }
 
+  openEditWindow(){
+    const id = this.route.snapshot.paramMap.get('id')
+
+    let dialog: MatDialogRef<EmployeeEditWindowComponent> = this.matDialog.open(EmployeeEditWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+      data: {
+        EmployeeId: id,
+      }
+    });
+
+    dialog.afterClosed().subscribe(async () => {
+      await this.getDataFromAPI();
+    })
+  }
 }

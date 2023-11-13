@@ -1,5 +1,6 @@
+<div class="load" *ngIf="!PageLoaded"></div>
 <div id="content">
-    <form [formGroup]="EditForm" (ngSubmit)="submit()">
+    <form [formGroup]="EditForm" (ngSubmit)="submit()" *ngIf="PageLoaded">
         <mat-form-field class="input">
             <mat-label>Imię</mat-label>
             <input formControlName="name" matInput>

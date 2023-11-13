@@ -1,7 +1,7 @@
 <div class="content">
     <div id="left-box">
         <div class="page-table">
-            <div id="employee-info-header">Informacje Presonalne</div>
+            <div id="employee-info-header" class="info-header">Informacje Presonalne</div>
             <table>
                 <tr class="row-info">
                     <td class="info-lable">Imię</td>
@@ -33,10 +33,71 @@
                 </tr>
             </table>
         </div>
+        <div class="page-table">
+            <div id="computer-info-header" class="info-header">Przypisany komputer</div>
+            <table>
+                <tr class="row-info">
+                    <td class="info-lable">Test</td>
+                    <td class="info"> W trakcie</td>
+                </tr>
+                <tr class="row-info last">
+                    <td class="info-lable">Test</td>
+                    <td class="info"> W trakcie</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="page-table">
+            <div id="permission-info-header" class="info-header">Dostepy?</div>
+            <table>
+                <tr class="row-info perm">
+                    <td class="info-lable">Programy</td>
+                    <td class="info">
+                        <div class="permission-buttons">
+                            <button mat-raised-button class="show-button">Pokaż szczegóły <mat-icon>search</mat-icon></button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr class="row-info perm">
+                    <td class="info-lable">Uprawnienia</td>
+                    <td class="info">                        
+                        <div class="permission-buttons">
+                            <button mat-raised-button class="show-button">Pokaż szczegóły <mat-icon>search</mat-icon></button>
+                        </div>
+                </td>
+                </tr>
+
+                <tr class="row-info last perm">
+                    <td class="info-lable">Dostępy do zasobów</td>
+                    <td class="info"> 
+                        <div class="permission-buttons">
+                            <button mat-raised-button class="show-button">Pokaż szczegóły <mat-icon>search</mat-icon></button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
     </div>
     <div id="right-box">
         <div class="page-table" id="chart">
             <canvas id="myChart" height="264" width="1300"></canvas>
+        </div>
+
+        <div id="right-bottom">
+            <div id="tickets" class="page-table"></div>
+            <div id="controls" class="page-table">
+                <div class="wraper">
+                    <button mat-raised-button class="show-button" (click)="openEditWindow()">Edytuj pracownika <mat-icon class="icon">edit</mat-icon></button>  
+                </div>
+                <div class="wraper">
+                    <button mat-raised-button class="show-button">Zmień hasło <mat-icon class="icon">refresh</mat-icon></button>  
+                </div>
+                <div class="wraper">
+                    <button mat-raised-button class="show-button">Wyłącz konto<mat-icon class="icon">lock</mat-icon></button>  
+                </div>
+            </div>
         </div>
     </div>
 </div>

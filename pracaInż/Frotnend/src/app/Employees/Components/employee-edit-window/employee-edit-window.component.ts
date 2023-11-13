@@ -14,6 +14,7 @@ import { DepartmentSelectDTO } from 'src/app/Models/Department';
   styleUrls: ['./employee-edit-window.component.css']
 })
 export class EmployeeEditWindowComponent implements OnInit {
+  PageLoaded: boolean = false
   EditForm: FormGroup;
   employee: Employee;
   SelectFactory: SelectFactoryDTO[];
@@ -33,9 +34,11 @@ export class EmployeeEditWindowComponent implements OnInit {
     this.service.getEmployeeById(this.data.EmployeeId).subscribe((response) => {
       this.employee = response as Employee
       this.fillForm()
+      this.PageLoaded = true
     }, (err) => {
       this.notification.error(getErrorMessage(err))
     })
+
   }
 
   createForm(){
