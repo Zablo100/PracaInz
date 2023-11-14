@@ -10,6 +10,7 @@ namespace pracaInż.Models.DTO.SoftwareDTOs
         public string Author { get; set; }
         public string? AuthorEmail { get; set; }
         public string? PhoneNumber { get; set; }
+        public int Support { get; set; }
 
         public SoftwareDTO()
         {
@@ -24,6 +25,7 @@ namespace pracaInż.Models.DTO.SoftwareDTOs
             Author = software.Author;
             AuthorEmail = software.AuthorEmail;
             PhoneNumber = software.PhoneNumber;
+            Support = software.Support;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace pracaInż.Models.Entities
         public string Author { get; set; }
         public string? AuthorEmail { get; set; }
         public string? PhoneNumber { get; set; }
+        public int Support {  get; set; }
 
         public List<Employee> Employees { get; set; }
 
@@ -25,6 +26,7 @@ namespace pracaInż.Models.Entities
             Author = softwareDTO.Author;
             AuthorEmail = softwareDTO.AuthorEmail;
             PhoneNumber = softwareDTO.PhoneNumber;
+            Support = softwareDTO.Support;
         }
 
         public Software(SoftwareDTO softwareDTO)
@@ -35,6 +37,7 @@ namespace pracaInż.Models.Entities
             Author = softwareDTO.Author;
             AuthorEmail = softwareDTO.AuthorEmail;
             PhoneNumber = softwareDTO.PhoneNumber;
+            Support = softwareDTO.Support;
         }
     }
 }

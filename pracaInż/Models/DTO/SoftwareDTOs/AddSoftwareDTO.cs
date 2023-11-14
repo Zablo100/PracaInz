@@ -7,5 +7,6 @@
         public string Author { get; set; }
         public string? AuthorEmail { get; set; }
         public string? PhoneNumber { get; set; }
+        public int Support { get; set; }
     }
 }
