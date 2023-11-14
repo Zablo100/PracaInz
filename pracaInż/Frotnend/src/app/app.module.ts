@@ -51,6 +51,7 @@ import { FactoryDeleteWindowComponent } from './Employees/Components/factory-del
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { DocumentPageComponent } from './Documents/UI/document-page/document-page.component';
 import { DocumentsPageComponent } from './Documents/UI/documents-page/documents-page.component';
+import { SoftwareListPAgeComponent } from './Software/UI/software-list-page/software-list-page.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { DocumentsPageComponent } from './Documents/UI/documents-page/documents-
     FactoryDeleteWindowComponent,
     DocumentPageComponent,
     DocumentsPageComponent,
+    SoftwareListPAgeComponent,
   ],
   imports: [
     BrowserModule,

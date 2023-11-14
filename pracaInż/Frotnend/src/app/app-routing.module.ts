@@ -13,6 +13,7 @@ import { ComputerPageComponent } from './Computers/UI/computer-page.component';
 import { ComputerComponent } from './Computers/Components/computer/computer.component';
 import { InfrastructurePageComponent } from './Infrastructure/Page/infrastructure-page/infrastructure-page.component';
 import { DocumentPageComponent } from './Documents/UI/document-page/document-page.component';
+import { SoftwareListPAgeComponent } from './Software/UI/software-list-page/software-list-page.component';
 
 const routes: Routes = [
   {path: "login", component: LoginPageComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: "computers", component: ComputerPageComponent},
   {path: "infrastructure", component: InfrastructurePageComponent},
   {path: "documents", component: DocumentPageComponent},
+  {path: "software", component: SoftwareListPAgeComponent},
   {path: "", redirectTo: "infrastructure", pathMatch: "full"},
 ];
 

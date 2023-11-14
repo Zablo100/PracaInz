@@ -19,7 +19,6 @@ export class DocumentPageComponent implements OnInit {
     this.http.get('https://localhost:7096/Document/GetManualDocumentById/1', {responseType: 'arraybuffer'}).subscribe((response) => {
       var blob = new Blob([response], {type: 'application/pdf'})
       this.pdfSrc = URL.createObjectURL(blob)
-      console.log(this.pdfSrc)
   })
   }
 
