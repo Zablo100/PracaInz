@@ -213,3 +213,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     animation-iteration-count:  infinite;
     animation-timing-function: linear; 
 }
+
+
+
+
+.mat-tooltip{
+    background-color: darkslategrey ;
+    font-size: 12px;
+}

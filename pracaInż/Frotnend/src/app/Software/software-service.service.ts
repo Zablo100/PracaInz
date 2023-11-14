@@ -16,4 +16,16 @@ export class SoftwareServiceService {
     return this.http.get(`${this.baseUrl}/Software/GetAllSoftwareList`)
   }
 
+  addNewSoftware(body: any){
+    return this.http.post(`${this.baseUrl}/Software/AddNewSoftware`, body)
+  }
+
+  getSoftwareInfo(id: number){
+    return this.http.get(`${this.baseUrl}/Software/GetSoftwareById/` + id)
+  }
+
+  updateSoftwareInfo(body: any){
+    return this.http.put(`${this.baseUrl}/Software/UpdateSoftware`, body)
+  }
+
 }

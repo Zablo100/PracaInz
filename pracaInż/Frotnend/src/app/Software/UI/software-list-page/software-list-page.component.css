@@ -129,9 +129,13 @@ table{
  }
 
  .mat-column-Support{
-  width: 5%;
+  width: 7%;
  }
 
- .mat-column-Description{
+.mat-column-Description{
   width: 35%;
+ }
+
+.mat-column-options{
+  width: 7%;
  }

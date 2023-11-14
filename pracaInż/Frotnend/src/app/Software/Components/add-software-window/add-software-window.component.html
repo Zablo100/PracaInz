@@ -1,0 +1,41 @@
+<div id="content">
+    <form [formGroup]="AddForm" (ngSubmit)="submit()">
+        <mat-form-field class="input">
+            <mat-label>Nazwa</mat-label>
+            <input formControlName="name" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Twórca</mat-label>
+            <input formControlName="author" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Email</mat-label>
+            <input formControlName="authorEmail" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Telefon</mat-label>
+            <input formControlName="phoneNumber" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Wsparcie</mat-label>
+            <mat-select>
+                <mat-option value="0">Brak</mat-option>
+                <mat-option value="1">Aktywne</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Opis</mat-label>
+            <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+        <br>
+
+        <button mat-raised-button type="submit">Zapisz</button>
+        
+    </form>
+</div>
+
