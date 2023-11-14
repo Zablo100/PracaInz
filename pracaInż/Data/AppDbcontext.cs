@@ -2,6 +2,7 @@
 using pracaInż.Models.Entities;
 using pracaInż.Models.Entities.CompanyStructure;
 using pracaInż.Models.Entities.ComputerParts;
+using pracaInż.Models.Entities.Documents;
 using pracaInż.Models.Entities.Inventory;
 
 namespace pracaInż.Data
@@ -25,5 +26,7 @@ namespace pracaInż.Data
         public DbSet<Printer> Printers { get; set; }
         public DbSet<PrinterArcus> PrintersArcus { get; set;}
         public DbSet<Software> Software {  get; set; }
+        public DbSet<ManualDocumentModel> ManualDocuments { get; set; }
+        public DbSet<PurchaseOrderDoc> PurchaseOrderDocuments { get; set;}
     }
 }

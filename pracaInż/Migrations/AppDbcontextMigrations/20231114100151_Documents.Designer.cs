@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pracaInż.Data;
 
@@ -10,9 +11,11 @@ using pracaInż.Data;
 namespace pracaInż.Migrations.AppDbcontextMigrations
 {
     [DbContext(typeof(AppDbcontext))]
-    partial class AppDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20231114100151_Documents")]
+    partial class Documents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -281,10 +284,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.Property<DateOnly>("CreateAt")
                         .HasColumnType("date");
 
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<DateOnly>("LastUpdate")
                         .HasColumnType("date");
 
@@ -297,9 +296,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                         .HasColumnType("longtext");
 
                     b.Property<int?>("SoftwareId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -315,10 +311,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Extension")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -326,9 +318,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.Property<string>("PathToFile")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

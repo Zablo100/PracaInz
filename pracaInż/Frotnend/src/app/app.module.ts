@@ -48,6 +48,9 @@ import { FactoryComponent } from './Employees/Components/factory/factory.compone
 import { FactoryEditWindowComponent } from './Employees/Components/factory-edit-window/factory-edit-window.component';
 import { FactoryAddWindowComponent } from './Employees/Components/factory-add-window/factory-add-window.component';
 import { FactoryDeleteWindowComponent } from './Employees/Components/factory-delete-window/factory-delete-window.component';
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { DocumentPageComponent } from './Documents/UI/document-page/document-page.component';
+import { DocumentsPageComponent } from './Documents/UI/documents-page/documents-page.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +85,8 @@ import { FactoryDeleteWindowComponent } from './Employees/Components/factory-del
     FactoryEditWindowComponent,
     FactoryAddWindowComponent,
     FactoryDeleteWindowComponent,
+    DocumentPageComponent,
+    DocumentsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,7 +110,8 @@ import { FactoryDeleteWindowComponent } from './Employees/Components/factory-del
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true,
-    })
+    }),
+    NgxExtendedPdfViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

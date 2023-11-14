@@ -12,6 +12,7 @@ import { PrintersPageComponent } from './Printer/UI/printers-page/printers-page.
 import { ComputerPageComponent } from './Computers/UI/computer-page.component';
 import { ComputerComponent } from './Computers/Components/computer/computer.component';
 import { InfrastructurePageComponent } from './Infrastructure/Page/infrastructure-page/infrastructure-page.component';
+import { DocumentPageComponent } from './Documents/UI/document-page/document-page.component';
 
 const routes: Routes = [
   {path: "login", component: LoginPageComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: "printers", component: PrintersPageComponent},
   {path: "computers", component: ComputerPageComponent},
   {path: "infrastructure", component: InfrastructurePageComponent},
+  {path: "documents", component: DocumentPageComponent},
   {path: "", redirectTo: "infrastructure", pathMatch: "full"},
 ];
 
