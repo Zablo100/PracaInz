@@ -1,4 +1,6 @@
-﻿namespace pracaInż.Models.Entities
+﻿using pracaInż.Models.DTO.SoftwareDTOs;
+
+namespace pracaInż.Models.Entities
 {
     public class Software
     {
@@ -10,5 +12,29 @@
         public string? PhoneNumber { get; set; }
 
         public List<Employee> Employees { get; set; }
+
+        public Software()
+        {
+            
+        }
+
+        public Software(AddSoftwareDTO softwareDTO)
+        {
+            Name = softwareDTO.Name;
+            Description = softwareDTO.Description;
+            Author = softwareDTO.Author;
+            AuthorEmail = softwareDTO.AuthorEmail;
+            PhoneNumber = softwareDTO.PhoneNumber;
+        }
+
+        public Software(SoftwareDTO softwareDTO)
+        {
+            Id = softwareDTO.Id;
+            Name = softwareDTO.Name;
+            Description = softwareDTO.Description;
+            Author = softwareDTO.Author;
+            AuthorEmail = softwareDTO.AuthorEmail;
+            PhoneNumber = softwareDTO.PhoneNumber;
+        }
     }
 }

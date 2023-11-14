@@ -31,6 +31,7 @@ builder.Services.AddScoped<IDepartmenService, DepartmenService>();
 builder.Services.AddScoped<IPrinterService, PrinterService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
+builder.Services.AddScoped<ISoftwareService, SoftwareService>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
