@@ -1,0 +1,80 @@
+<div id="content">
+    <form [formGroup]="AddForm" (ngSubmit)="submit()">
+
+        <mat-form-field class="input">
+            <mat-label>Numer Inwentarzowy</mat-label>
+            <input formControlName="inventoryNumber" matInput>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>KŚT</mat-label>
+            <input formControlName="fixedAssetClassification" matInput>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Opis</mat-label>
+            <input formControlName="description" matInput>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Dział</mat-label>
+            <mat-select formControlName="departmentId">
+                <mat-option *ngFor="let element of this.DepartmentsSelect" value={{element.id}}> {{element.shortName}} - {{element.city}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Nr. księgi</mat-label>
+            <input formControlName="inventoryBookNumber" type="number" matInput>
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Ilość [szt]</mat-label>
+            <input formControlName="amount" matInput type="number">
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Nazwa wewnętrzna</mat-label>
+            <input formControlName="name" matInput>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input">
+            <mat-label>Rok zakupu</mat-label>
+            <input formControlName="yearOfPurches" matInput type="number">
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Cena</mat-label>
+            <input formControlName="orginalPrice" matInput type="number">
+        </mat-form-field>
+        <br>
+
+        <mat-form-field class="input">
+            <mat-label>Typ</mat-label>
+            <mat-select formControlName="type">
+                <mat-option value="0">Server</mat-option>
+                <mat-option value="1">NAS</mat-option>
+                <mat-option value="2">Router</mat-option>
+                <mat-option value="3">Switch</mat-option>
+                <mat-option value="4">Komputer</mat-option>
+                <mat-option value="5">Laptop</mat-option>
+                <mat-option value="6">Telefon</mat-option>
+                <mat-option value="7">Inne</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <br>
+       
+        <div id="controls">
+            <button mat-raised-button type="submit">Zapisz</button>
+        </div>
+        
+    </form>
+</div>

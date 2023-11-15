@@ -25,4 +25,5 @@ export interface DepartmentSelectDTO{
     id: number,
     name: string,
     shortName: string
+    city: string;
 }

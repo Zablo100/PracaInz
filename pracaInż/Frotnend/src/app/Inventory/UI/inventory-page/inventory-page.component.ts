@@ -6,6 +6,8 @@ import { InventoryService } from '../../inventory.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
 import { getErrorMessage } from 'src/app/Core/appip';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AddInventoryWindowComponent } from '../../Components/add-inventory-window/add-inventory-window.component';
 
 @Component({
   templateUrl: './inventory-page.component.html',
@@ -20,7 +22,7 @@ export class InventoryPageComponent implements OnInit {
   "OrginalPrice", "Amount", "Name" ,"YearOfPurches" ,"options"]
 
 
-  constructor(private service: InventoryService, private notification: ToastrService) { }
+  constructor(private service: InventoryService, private notification: ToastrService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadData();
@@ -40,7 +42,14 @@ export class InventoryPageComponent implements OnInit {
   }
 
   openCreateWindow(){
+    let dialog: MatDialogRef<AddInventoryWindowComponent> = this.matDialog.open(AddInventoryWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+    });
 
+    dialog.afterClosed().subscribe(async () => {
+      await this.loadData();
+    })
   }
 
   openEditWindow(id: any){

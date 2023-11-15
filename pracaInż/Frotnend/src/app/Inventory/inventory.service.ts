@@ -12,4 +12,12 @@ export class InventoryService {
   getItems(){
     return this.http.get(`${this.baseURL}/GetInventoryAssets`)
   }
+
+  getDapartmentsForSelect(){
+    return this.http.get(`https://${app.ip}/api/department/GetDepartmentsForSelectElement`)
+  }
+
+  addNewAsset(body: any){
+    return this.http.post(`${this.baseURL}/AddNewAsset`, body)
+  }
 }
