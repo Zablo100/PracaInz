@@ -7,6 +7,7 @@ import { Chart } from 'chart.js/auto';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { EmployeeEditWindowComponent } from '../employee-edit-window/employee-edit-window.component';
+import { EmployeeSoftwareWindowComponent } from '../employee-software-window/employee-software-window.component';
 
 @Component({
   templateUrl: './employee-page.component.html',
@@ -73,6 +74,26 @@ export class EmployeePageComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id')
 
     let dialog: MatDialogRef<EmployeeEditWindowComponent> = this.matDialog.open(EmployeeEditWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+      data: {
+        EmployeeId: id,
+      }
+    });
+
+    dialog.afterClosed().subscribe(async () => {
+      await this.getDataFromAPI();
+    })
+  }
+
+  test(){
+    console.log("Tak")
+  }
+
+  openSoftwareWindow(){
+    console.log("Tak")
+    const id = this.route.snapshot.paramMap.get('id')
+    let dialog: MatDialogRef<EmployeeSoftwareWindowComponent> = this.matDialog.open(EmployeeSoftwareWindowComponent, {
       "autoFocus": false,
       enterAnimationDuration: "180ms",
       data: {

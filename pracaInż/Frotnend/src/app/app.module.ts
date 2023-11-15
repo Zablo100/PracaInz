@@ -55,6 +55,8 @@ import { SoftwareListPAgeComponent } from './Software/UI/software-list-page/soft
 import {TooltipPosition, MatTooltipModule} from '@angular/material/tooltip';
 import { AddSoftwareWindowComponent } from './Software/Components/add-software-window/add-software-window.component';
 import { EditSoftwareWindowComponent } from './Software/Components/edit-software-window/edit-software-window.component';
+import { EmployeeSoftwareWindowComponent } from './Employees/Components/employee-software-window/employee-software-window.component';
+import { InventoryPageComponent } from './Inventory/UI/inventory-page/inventory-page.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +96,8 @@ import { EditSoftwareWindowComponent } from './Software/Components/edit-software
     SoftwareListPAgeComponent,
     AddSoftwareWindowComponent,
     EditSoftwareWindowComponent,
+    EmployeeSoftwareWindowComponent,
+    InventoryPageComponent,
   ],
   imports: [
     BrowserModule,

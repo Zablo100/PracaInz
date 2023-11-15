@@ -28,4 +28,8 @@ export class SoftwareServiceService {
     return this.http.put(`${this.baseUrl}/Software/UpdateSoftware`, body)
   }
 
+  getEmployeeSoftware(id: number | string){
+    return this.http.get(`${this.baseUrl}/Software/GetEmployeeSoftwareList/` + id)
+  }
+
 }

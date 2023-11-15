@@ -1,0 +1,29 @@
+table{
+    width: 100%;
+}
+
+.page-table{
+    min-width: 50vw;
+}
+
+.mat-column-Name{
+    width: 10vw;
+}
+
+.mat-column-Description{
+    width: 30vw;
+}
+
+.mat-column-AccessLevel{
+    width: 10vw;
+}
+
+.mat-cell{
+    font-size: 0.8vw;
+}
+
+.mat-header-cell {
+    font-size: 1vw;
+    color: white;
+    background-color: #0077b6;
+}

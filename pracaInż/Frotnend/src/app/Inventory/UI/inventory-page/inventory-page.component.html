@@ -1,0 +1,138 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div class="page-background">
+<div class="page-table">
+
+    <div id="tabs">
+
+      <form [formGroup]="SearchForm" (ngSubmit)="submit()">
+
+        <mat-form-field id="search-input">
+          <input matInput placeholder="Wyszukaj" formControlName="search" >
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <button mat-raised-button type="submit">Wyszukaj</button>
+        <button mat-raised-button id="add-button" (click)="openCreateWindow()">Dodaj nowy</button>
+    </form>
+
+    </div>
+    <div class="load" *ngIf="!PageLoaded"></div>
+    <div *ngIf="PageLoaded">
+    <table mat-table [dataSource]="this.data">
+
+        <ng-container matColumnDef="Icon">
+            <th mat-header-cell *matHeaderCellDef> Typ </th>
+            <td mat-cell *matCellDef="let element">
+                
+                <mat-icon *ngIf="element.type == 5" class="icon-info"
+                matTooltip="Laptop"
+                [matTooltipPosition]="'above'"
+                matTooltipHideDelay="35">laptop</mat-icon>
+
+                <mat-icon *ngIf="element.type == 6" class="icon-info"
+                matTooltip="Telefon"
+                [matTooltipPosition]="'above'"
+                matTooltipHideDelay="35">phone_android</mat-icon>
+               
+               
+                <mat-icon *ngIf="element.type == 2" class="icon-info"
+                matTooltip="Router"
+                [matTooltipPosition]="'above'"
+                matTooltipHideDelay="35">router</mat-icon>
+                
+                
+                <mat-icon *ngIf="element.type == 3" class="icon-info"
+                matTooltip="Switch"
+                [matTooltipPosition]="'above'"
+                matTooltipHideDelay="35">router</mat-icon>
+               
+               
+                <mat-icon *ngIf="element.type == 4" class="icon-info"
+                matTooltip="Komputer"
+                [matTooltipPosition]="'above'"
+                matTooltipHideDelay="35">desktop_windows</mat-icon>
+                
+                
+                <mat-icon *ngIf="element.type == 7" class="icon-info"
+                matTooltip="Inne"
+                [matTooltipPosition]="'above'"
+                matTooltipHideDelay="35">devices_other</mat-icon>
+                
+                
+                <mat-icon *ngIf="element.type == 0" class="icon-info"
+                matTooltip="Server"
+                [matTooltipPosition]="'above'"
+                matTooltipHideDelay="35">memory</mat-icon>
+            </td>
+          </ng-container>
+
+      <ng-container matColumnDef="InventoryNumber">
+        <th mat-header-cell *matHeaderCellDef> Numer Inwentarzowy </th>
+        <td mat-cell *matCellDef="let element"> {{element.inventoryNumber}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="FixedAssetClassification">
+        <th mat-header-cell *matHeaderCellDef> KŚT </th>
+        <td mat-cell *matCellDef="let element"> {{element.fixedAssetClassification}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Description">
+        <th mat-header-cell *matHeaderCellDef> Nazwa </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="BuyingUnit">
+        <th mat-header-cell *matHeaderCellDef> Jednostka Organizacyjna </th>
+        <td mat-cell *matCellDef="let element"> {{element.buyingUnit}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="CostPosition">
+        <th mat-header-cell *matHeaderCellDef> Stanowisko kosztów </th>
+        <td mat-cell *matCellDef="let element"> {{element.costPosition}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="InventoryBookNumber">
+        <th mat-header-cell *matHeaderCellDef> Nr. księgi inwentarzowej </th>
+        <td mat-cell *matCellDef="let element"> {{element.inventoryBookNumber}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="OrginalPrice">
+        <th mat-header-cell *matHeaderCellDef> Wartość </th>
+        <td mat-cell *matCellDef="let element"> {{element.orginalPrice}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Amount">
+        <th mat-header-cell *matHeaderCellDef> Ilość [szt] </th>
+        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef> Nazwa wewnętrzna </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="YearOfPurches">
+        <th mat-header-cell *matHeaderCellDef> Rok zakupu </th>
+        <td mat-cell *matCellDef="let element"> {{element.yearOfPurches}} </td>
+      </ng-container>
+
+
+
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Opcje </th>
+        <td mat-cell *matCellDef="let element">
+          <button class="option-button" id="edit-button" (click)="openEditWindow(element.id)"><span><img id="edit-button-icon" src="/assets/Options/edit.png"></span></button>
+          <button class="option-button" id="delet-button" (click)="openDeletWindow(element.id)"><span><img id="delet-button-icon" src="/assets/Options/delete.png"></span></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+  <mat-paginator [pageSize]="10" showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+</div>
+<div class="bottom-space"></div>

@@ -14,6 +14,7 @@ import { ComputerComponent } from './Computers/Components/computer/computer.comp
 import { InfrastructurePageComponent } from './Infrastructure/Page/infrastructure-page/infrastructure-page.component';
 import { DocumentPageComponent } from './Documents/UI/document-page/document-page.component';
 import { SoftwareListPAgeComponent } from './Software/UI/software-list-page/software-list-page.component';
+import { InventoryPageComponent } from './Inventory/UI/inventory-page/inventory-page.component';
 
 const routes: Routes = [
   {path: "login", component: LoginPageComponent},
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: "infrastructure", component: InfrastructurePageComponent},
   {path: "documents", component: DocumentPageComponent},
   {path: "software", component: SoftwareListPAgeComponent},
+  {path: "inventory", component: InventoryPageComponent},
   {path: "", redirectTo: "infrastructure", pathMatch: "full"},
 ];
 
