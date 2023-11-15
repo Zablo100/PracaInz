@@ -15,6 +15,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Deleted>> DeleteSoftwareInfo(int id);
         Task<ErrorOr<SoftwareDTO>> GetSoftwareInfo(int id);
         Task<ErrorOr<List<SoftwareDTO>>> GetAllSoftwareInfo();
+        Task<ErrorOr<List<SoftwareDTO>>> GetEmployeeSoftware(int id);
     }
     public class SoftwareService : ISoftwareService
     {
@@ -77,6 +78,22 @@ namespace pracaInż.Services
             rawSoftwareList.ForEach(element => softwareDTOs.Add(new SoftwareDTO(element)));
 
             result = softwareDTOs;
+            return result;
+        }
+
+        public async Task<ErrorOr<List<SoftwareDTO>>> GetEmployeeSoftware(int id)
+        {
+            ErrorOr<List<SoftwareDTO >> result;
+            var employee = await _context.Employees.Where(emp => emp.Id == id).Include(emp => emp.SoftwareAccessList).FirstOrDefaultAsync();
+            if(employee == null)
+            {
+                result = Error.NotFound(description: "Wystąpił błąd podczas ładowania danych pracownika");
+                return result;
+            }
+
+            List<SoftwareDTO> software = new List<SoftwareDTO>();
+            employee.SoftwareAccessList.ForEach(e => software.Add(new SoftwareDTO(e)));
+            result = software;
             return result;
         }
 

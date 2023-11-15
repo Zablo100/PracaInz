@@ -28,5 +28,6 @@ namespace pracaInż.Data
         public DbSet<Software> Software {  get; set; }
         public DbSet<ManualDocumentModel> ManualDocuments { get; set; }
         public DbSet<PurchaseOrderDoc> PurchaseOrderDocuments { get; set;}
+        public DbSet<InventoryAsset> InventoryAssets { get; set; }
     }
 }

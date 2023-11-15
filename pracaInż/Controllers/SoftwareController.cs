@@ -73,6 +73,18 @@ namespace pracaInż.Controllers
 
             return Ok(result.Value);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeSoftwareList(int id)
+        {
+            var result = await _service.GetEmployeeSoftware(id);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
     
     }
 }
