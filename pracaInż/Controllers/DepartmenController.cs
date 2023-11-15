@@ -122,5 +122,17 @@ namespace pracaInż.Controllers
 
             return Ok(result.Value);
         }
+        [HttpGet]
+        public async Task<IActionResult> GetDepartmentsForSelectElement()
+        {
+            var result = await _service.GetDepartmentsForSelectElement();
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
     }
 }

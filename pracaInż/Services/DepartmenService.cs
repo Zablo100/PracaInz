@@ -21,6 +21,7 @@ namespace pracaInż.Services
         Task<List<DepartmentListDTO>> GetDepartmentsByFactory(int id);
         Task<ErrorOr<List<DepartmentListDTO>>> SearchByQuery(DepartmentSearchDTO search);
         Task<ErrorOr<List<DepartmentSelectDTO>>> GetDepartmentsForSelectElement(int id);
+        Task<ErrorOr<List<DepartmentSelectDTO>>> GetDepartmentsForSelectElement();
     }
     public class DepartmenService : IDepartmenService
     {
@@ -216,7 +217,18 @@ namespace pracaInż.Services
         public async Task<ErrorOr<List<DepartmentSelectDTO>>> GetDepartmentsForSelectElement(int id)
         {
             ErrorOr<List<DepartmentSelectDTO>> result;
-            var raw = await _context.Departments.Where(dep => dep.FactoryId == id).ToListAsync();
+            var raw = await _context.Departments.Include(dep => dep.Factory).Where(dep => dep.FactoryId == id).ToListAsync();
+            var departments = new List<DepartmentSelectDTO>();
+            raw.ForEach(dep => departments.Add(new DepartmentSelectDTO(dep)));
+
+            result = departments;
+            return result;
+        }
+
+        public async Task<ErrorOr<List<DepartmentSelectDTO>>> GetDepartmentsForSelectElement()
+        {
+            ErrorOr<List<DepartmentSelectDTO>> result;
+            var raw = await _context.Departments.Include(dep => dep.Factory).ToListAsync();
             var departments = new List<DepartmentSelectDTO>();
             raw.ForEach(dep => departments.Add(new DepartmentSelectDTO(dep)));
 
