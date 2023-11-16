@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pracaInż.Data;
 
@@ -10,9 +11,11 @@ using pracaInż.Data;
 namespace pracaInż.Migrations.AppDbcontextMigrations
 {
     [DbContext(typeof(AppDbcontext))]
-    partial class AppDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20231116132756_TicketModel")]
+    partial class TicketModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -477,71 +480,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("pracaInż.Models.Entities.Invoice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Seller")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("TotalCost")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Invoices");
-                });
-
-            modelBuilder.Entity("pracaInż.Models.Entities.InvoiceItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("InvoiceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<int>("PurchaseOrderDocId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.HasIndex("PurchaseOrderDocId");
-
-                    b.ToTable("InvoicesItem");
-                });
-
             modelBuilder.Entity("pracaInż.Models.Entities.Log", b =>
                 {
                     b.Property<int>("Id")
@@ -816,33 +754,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.Navigation("Department");
                 });
 
-            modelBuilder.Entity("pracaInż.Models.Entities.InvoiceItem", b =>
-                {
-                    b.HasOne("pracaInż.Models.Entities.CompanyStructure.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("pracaInż.Models.Entities.Invoice", "Invoice")
-                        .WithMany("Items")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("pracaInż.Models.Entities.Documents.PurchaseOrderDoc", "PurchaseOrderDoc")
-                        .WithMany()
-                        .HasForeignKey("PurchaseOrderDocId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Department");
-
-                    b.Navigation("Invoice");
-
-                    b.Navigation("PurchaseOrderDoc");
-                });
-
             modelBuilder.Entity("pracaInż.Models.Entities.Ticket", b =>
                 {
                     b.HasOne("Employee", "AcceptedBy")
@@ -894,11 +805,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
             modelBuilder.Entity("pracaInż.Models.Entities.Inventory.Computer", b =>
                 {
                     b.Navigation("HardDrives");
-                });
-
-            modelBuilder.Entity("pracaInż.Models.Entities.Invoice", b =>
-                {
-                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.Ticket", b =>
