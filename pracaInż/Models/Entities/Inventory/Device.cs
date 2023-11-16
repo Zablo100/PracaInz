@@ -13,7 +13,8 @@ namespace pracaInż.Models.Entities.Inventory
         Computer,
         Laptop,
         Phone,
-        Other
+        Other,
+        Printer
     }
     public class Device
     {
@@ -43,6 +44,21 @@ namespace pracaInż.Models.Entities.Inventory
 
         public InventoryAsset(AddInventoryAssetDTO assetDTO)
         {
+            Name = assetDTO.Name;
+            Description = assetDTO.Description;
+            Type = assetDTO.Type;
+            FixedAssetClassification = assetDTO.FixedAssetClassification;
+            InventoryNumber = assetDTO.InventoryNumber;
+            InventoryBookNumber = assetDTO.InventoryBookNumber;
+            Amount = assetDTO.Amount;
+            YearOfPurches = assetDTO.YearOfPurches;
+            OrginalPrice = assetDTO.OrginalPrice;
+            DepartmentId = assetDTO.DepartmentId;
+        }
+
+        public InventoryAsset(UpdateInventoryAssetDTO assetDTO)
+        {
+            Id = assetDTO.Id;
             Name = assetDTO.Name;
             Description = assetDTO.Description;
             Type = assetDTO.Type;

@@ -8,11 +8,10 @@ namespace pracaInż.Services
 {
     public interface IInventoryservice
     {
-        //Task<ErrorOr<Created>> AddNewDevice(Device device);
-        //Task<List<Device>> GetDevices();
-
         Task<ErrorOr<Created>> AddInventoryAsset(AddInventoryAssetDTO asset);
         Task<List<InventoryAssetDTO>> GetInventoryAssets();
+        Task<ErrorOr<Updated>> EditAsset(UpdateInventoryAssetDTO assetDTO);
+        Task<ErrorOr<InventoryAsset>> GetAssetById(int id);
     }
     public class InventoryService : IInventoryservice
     {
@@ -33,6 +32,32 @@ namespace pracaInż.Services
             result = Result.Created;
             return result;
 
+        }
+
+        public async Task<ErrorOr<Updated>> EditAsset(UpdateInventoryAssetDTO assetDTO)
+        {
+            ErrorOr<Updated> result;
+            InventoryAsset inventoryAsset = new InventoryAsset(assetDTO);
+
+            _context.InventoryAssets.Update(inventoryAsset);
+            await _context.SaveChangesAsync();
+
+            result = Result.Updated;
+            return result;
+        }
+
+        public async Task<ErrorOr<InventoryAsset>> GetAssetById(int id)
+        {
+            ErrorOr<InventoryAsset> result;
+            var asset = await _context.InventoryAssets.FindAsync(id);
+            if(asset == null)
+            {
+                result = Error.NotFound(description: "Nie można wczytać informacji o podanej pozycji!");
+                return result;
+            }
+
+            result = asset;
+            return result;
         }
 
         public async Task<List<InventoryAssetDTO>> GetInventoryAssets()

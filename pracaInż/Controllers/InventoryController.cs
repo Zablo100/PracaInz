@@ -21,10 +21,34 @@ namespace pracaInż.Controllers
             return Ok(await _service.GetInventoryAssets());
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAssetById(int id)
+        {
+            var result = await _service.GetAssetById(id);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddNewAsset(AddInventoryAssetDTO assetDTO)
         {
             var result = await _service.AddInventoryAsset(assetDTO);
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsset(UpdateInventoryAssetDTO assetDTO)
+        {
+            var result = await _service.EditAsset(assetDTO);
             if (result.IsError)
             {
                 return BadRequest(result.FirstError);
