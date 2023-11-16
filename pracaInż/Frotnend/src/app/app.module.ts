@@ -58,6 +58,7 @@ import { EditSoftwareWindowComponent } from './Software/Components/edit-software
 import { EmployeeSoftwareWindowComponent } from './Employees/Components/employee-software-window/employee-software-window.component';
 import { InventoryPageComponent } from './Inventory/UI/inventory-page/inventory-page.component';
 import { AddInventoryWindowComponent } from './Inventory/Components/add-inventory-window/add-inventory-window.component';
+import { EditInventoryWindowComponent } from './Inventory/Components/edit-inventory-window/edit-inventory-window.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { AddInventoryWindowComponent } from './Inventory/Components/add-inventor
     EmployeeSoftwareWindowComponent,
     InventoryPageComponent,
     AddInventoryWindowComponent,
+    EditInventoryWindowComponent,
   ],
   imports: [
     BrowserModule,
