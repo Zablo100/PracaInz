@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { getErrorMessage } from 'src/app/Core/appip';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddInventoryWindowComponent } from '../../Components/add-inventory-window/add-inventory-window.component';
+import { EditInventoryWindowComponent } from '../../Components/edit-inventory-window/edit-inventory-window.component';
 
 @Component({
   templateUrl: './inventory-page.component.html',
@@ -53,7 +54,17 @@ export class InventoryPageComponent implements OnInit {
   }
 
   openEditWindow(id: any){
+    let dialog: MatDialogRef<EditInventoryWindowComponent> = this.matDialog.open(EditInventoryWindowComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+      data: {
+        AssetId: id
+      }
+    });
 
+    dialog.afterClosed().subscribe(async () => {
+      await this.loadData();
+    })
   }
 
   openDeletWindow(id: any){

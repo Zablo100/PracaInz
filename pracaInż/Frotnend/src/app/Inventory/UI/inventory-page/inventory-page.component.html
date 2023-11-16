@@ -57,6 +57,11 @@
                 matTooltip="Inne"
                 [matTooltipPosition]="'above'"
                 matTooltipHideDelay="35">devices_other</mat-icon>
+
+                <mat-icon *ngIf="element.type == 8" class="icon-info"
+                matTooltip="Drukarka"
+                [matTooltipPosition]="'above'"
+                matTooltipHideDelay="35">print</mat-icon>
                 
                 
                 <mat-icon *ngIf="element.type == 0" class="icon-info"

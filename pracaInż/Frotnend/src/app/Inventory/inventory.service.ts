@@ -20,4 +20,12 @@ export class InventoryService {
   addNewAsset(body: any){
     return this.http.post(`${this.baseURL}/AddNewAsset`, body)
   }
+
+  getAssetById(id: number | string){
+    return this.http.get(`${this.baseURL}/GetAssetById/` + id)
+  }
+
+  updateAsset(body: any){
+    return this.http.put(`${this.baseURL}/UpdateAsset`, body)
+  }
 }
