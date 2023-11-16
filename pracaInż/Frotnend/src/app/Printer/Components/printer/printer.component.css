@@ -1,75 +1,132 @@
 table{
-    width: 100%;
-   }
-   
-   #tabs{
-     height: 10vh;
-   }
-
-   .green{
-    background-color: #b9fbc0;
-   }
-
-   #search{
-    height: 35px;
-    width: 450px;
-    display: block;
-    border-radius: 16px;
-    border: 1px solid lightgray;
-    background: transparent;
-    transition: border-color 0.2s;
-    outline: 0;
-    font-family: Bahnschrift;
-    font-size: medium;
-    text-align: center;
-    
-}
-
-#search:focus::placeholder{
-    transition: 0.25s;
-    color: transparent;
-}
-
-#search:hover{
-    border: 1px solid #0674f1;
-    transition: 0.25s;
-}
-
-
-#search:focus{
-    border: 1px solid #0674f1;
-}
-
-#searchBtn{
-    height: 35px;
-    width: 150px;
-    margin-left: 5px;
-}
-
-#search-bar{
-  justify-content: center;
-  display: flex;
-  margin-top: 25px;
-  margin-bottom: 25px;
-}
-
-
-#controls{
   width: 100%;
+ }
+ 
+ #tabs{
+   height: 10vh;
+ }
+
+ #tabs button{
+   margin-top: 7vh;
+   margin-left: 1vw;
+ }
+
+ .controll-button{
+   width: 100px;
+ }
+
+ 
+ .mat-row:hover{
+   transition: ease-in 0.1s;
+   background-color: rgb(220, 236, 241);
+ }
+
+ .option-button{
+   display: inline-block;
+   padding: 0;
+   margin: 0;
+   vertical-align: top;
+   height: 25px;
+   width: 25px;
+   cursor: pointer;
+   margin-left: 5px;
+ }
+
+ #edit-button-icon{
+   height: 15px;
+   width: 15px;
+ }
+
+ #delet-button-icon{
+   height: 15px;
+   width: 15px;
+ }
+
+ #test2{
+   margin-top: 5vh;
+   margin-left: 2vw; 
+ }
+
+ #search-input{
+   margin-left: 35px;
+ }
+
+ .mat-button, .mat-raised-button{
+   background-color:#f8f9fa;
 }
 
-.printer-btn{
-  width: 10em;
-  height: 2em;
-  margin-left: 15px;
-  margin-right: 15px;
+#add-button{
+ float: right;
+ margin-right: 15px;
+ background-color: #ccfccb;
 }
 
+table{
+  width: 100%;
+ }
+ 
+ #tabs{
+   height: 10vh;
+ }
 
-#clear-btn{
-  float: right;
-}
+ #tabs button{
+   margin-top: 7vh;
+   margin-left: 1vw;
+ }
 
-button{
+ .controll-button{
+   width: 100px;
+ }
+
+ 
+ .mat-row:hover{
+   transition: ease-in 0.1s;
+   background-color: rgb(220, 236, 241);
+ }
+
+ .option-button{
+   display: inline-block;
+   padding: 0;
+   margin: 0;
+   vertical-align: top;
+   height: 25px;
+   width: 25px;
+   margin-left: 5px;
+ }
+
+ .option-button:hover{
   cursor: pointer;
+ }
+
+ #edit-button-icon{
+   height: 15px;
+   width: 15px;
+ }
+
+ #delet-button-icon{
+   height: 15px;
+   width: 15px;
+ }
+
+ #test2{
+   margin-top: 5vh;
+   margin-left: 2vw; 
+ }
+
+ #search-input{
+   margin-left: 35px;
+ }
+
+ .mat-button, .mat-raised-button{
+   background-color:#f8f9fa;
+}
+
+#add-button{
+ float: right;
+ margin-right: 15px;
+ background-color: #ccfccb;
+}
+
+.green{
+  background-color: #b9fbc0;
 }

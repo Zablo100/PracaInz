@@ -14,10 +14,11 @@ import { Printer } from '../../../Models/Printer';
   styleUrls: ['./printer.component.css']
 })
 export class PrinterComponent implements OnInit {
+  PageLoaded: boolean = true
   displayedColumns: string[] = ["department", "serialNumber","description", 'InvoiceDescription','manufacturer', "model", "ip", "contractNumber", "options"];
   data: MatTableDataSource<Printer>;
   private printers: Printer[]
-  searchForm: FormGroup
+  SearchForm: FormGroup
   
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -42,23 +43,18 @@ export class PrinterComponent implements OnInit {
   }
 
   createSearchForm() {
-    this.searchForm = new FormGroup({
-      search: new FormControl("", Validators.required)
+    this.SearchForm = new FormGroup({
+      search: new FormControl("")
     })
   }
 
 
   hasIP(ip: any): boolean{
-    if (ip == null){
+    if (ip == 'Brak'){
       return false
     }
     
     return true
-  }
-
-  applyFilter() {
-    let filterValue = this.searchForm.value.search.toUpperCase()
-    this.data.filter = filterValue;
   }
 
   addPrinterCheck(id: number){
@@ -91,6 +87,12 @@ export class PrinterComponent implements OnInit {
     this.data.data = this.printers
   }
 
+  openEditWindow(id: any){
 
+  }
+
+  openDeletWindow(id: any){
+
+  }
 
 }
