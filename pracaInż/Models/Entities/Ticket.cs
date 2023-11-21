@@ -17,19 +17,19 @@ namespace pracaInż.Models.Entities
         public Status Status { get; set; }
 
         public DateTime CreatedAt { get; set; }
-        public DateTime AcceptedAt { get; set; }
-        public DateTime ResolvedAt { get; set; }
+        public DateTime? AcceptedAt { get; set; }
+        public DateTime? ResolvedAt { get; set; }
 
         [ForeignKey("SubmittedById")]
         public Employee SubmittedBy { get; set; }
         public int SubmittedById { get; set; }
 
         [ForeignKey("AcceptedById")]
-        public Employee AcceptedBy { get; set; }
-        public int AcceptedById { get; set;}
+        public Employee? AcceptedBy { get; set; }
+        public int? AcceptedById { get; set;}
 
-        public Computer Computer { get; set; }
-        public int ComputerId { get; set; }
+        public Computer? Computer { get; set; }
+        public int? ComputerId { get; set; }
 
         public List<Comment> comments { get; set; }
        
