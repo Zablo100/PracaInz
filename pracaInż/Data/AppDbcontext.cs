@@ -10,7 +10,6 @@ namespace pracaInż.Data
     public class AppDbcontext : DbContext
     {
         public AppDbcontext(DbContextOptions options) : base(options) { }
-
         public DbSet<Processor> ProcessorModels { get; set; }
         public DbSet<GraphicsCard> GraphicsCardModels { get; set; }
         public DbSet<HardDrive> HardDrivesModels { get; set; }
@@ -33,5 +32,6 @@ namespace pracaInż.Data
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceItem> InvoicesItem { get; set; }
+
     }
 }

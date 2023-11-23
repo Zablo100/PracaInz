@@ -33,6 +33,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 builder.Services.AddScoped<ISoftwareService, SoftwareService>();
 builder.Services.AddScoped<IInventoryservice, InventoryService>();
+builder.Services.AddScoped<ITicketService, TicketService>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson();
