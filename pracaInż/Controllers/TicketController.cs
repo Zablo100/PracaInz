@@ -26,5 +26,17 @@ namespace pracaInż.Controllers
 
             return Ok(result.Value.ToString());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllTickets()
+        {
+            var result = await _service.GetTicketsAsync();
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
     }
 }
