@@ -4,10 +4,11 @@ namespace pracaInż.Models.Entities.Inventory
 {
     public class Computer : Item
     {
+        public string Name { get; set; }
         public Processor CPU { get; set; }
         public int CPUId { get; set; }
         public GraphicsCard GPU { get; set; }
-        public int GPUId { get; set; }
+        public int? GPUId { get; set; }
         public Motherboard Motherboard { get; set; }
         public int MotherboardId { get; set; }
         public RAM RAM { get; set; }
