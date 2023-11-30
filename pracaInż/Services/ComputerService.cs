@@ -1,7 +1,10 @@
 ﻿using ErrorOr;
+using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
 using pracaInż.Models.DTO.ComputerParts;
 using pracaInż.Models.Entities.ComputerParts;
+using pracaInż.Models.Entities.Inventory;
+using OperatingSystem = pracaInż.Models.Entities.ComputerParts.OperatingSystem;
 
 namespace pracaInż.Services
 {
@@ -15,9 +18,18 @@ namespace pracaInż.Services
         Task<ErrorOr<Created>> AddNewOSInfo(NewOSInfoDTO osDTO);
         Task<ErrorOr<Created>> AddNewPC(NewComputerDTO computerDTO);
 
+        Task<List<Computer>> GetComputerList();
+        Task<List<Processor>> GetProcessorList();
+        Task<List<GraphicsCard>> GetGraphicsCardList();
+        Task<List<Motherboard>> GetMotherboardList();
+        Task<List<RAM>> GetRAMList();
+        Task<List<HardDrive>> GetHardDriveList();
+        Task<List<OperatingSystem>> GetOperatingSystemList();
+
     }
     public class ComputerService : IComputerService
     {
+        //TODO: Uzupełnić walidacje dla każdego z modeli
         private readonly AppDbcontext _context;
 
         public ComputerService(AppDbcontext context)
@@ -49,27 +61,107 @@ namespace pracaInż.Services
             return result;
         }
 
-        public Task<ErrorOr<Created>> AddNewHardDrivesModel(NewHardDriveModelDTO HardDriveDTO)
+        public async Task<ErrorOr<Created>> AddNewHardDrivesModel(NewHardDriveModelDTO HardDriveDTO)
+        {
+            ErrorOr<Created> result;
+            var hardDrive = new HardDrive(HardDriveDTO);
+
+            _context.HardDrivesModels.Add(hardDrive);
+            await _context.SaveChangesAsync();
+
+            result = Result.Created;
+            return result;
+        }
+
+        public async Task<ErrorOr<Created>> AddNewMotherboardModel(NewMotherboardModelDTO motherboardDTO)
+        {
+            ErrorOr<Created> result;
+            var motherboard = new Motherboard(motherboardDTO);
+
+            _context.MotherboardModels.Add(motherboard);
+            await _context.SaveChangesAsync();  
+
+            result = Result.Created;
+            return result;
+        }
+
+        public async Task<ErrorOr<Created>> AddNewOSInfo(NewOSInfoDTO osDTO)
+        {
+            ErrorOr<Created > result;
+            var os = new Models.Entities.ComputerParts.OperatingSystem(osDTO);
+
+            _context.OperatingSystems.Add(os);
+            await _context.SaveChangesAsync();
+
+            result = Result.Created;
+            return result;
+        }
+
+        public async Task<ErrorOr<Created>> AddNewPC(NewComputerDTO computerDTO)
+        {
+            ErrorOr<Created> result;
+            var computer = new Computer(computerDTO);
+
+            _context.Computers.Add(computer);
+            await _context.SaveChangesAsync();
+
+            result = Result.Created;
+            return result;
+        }
+
+        public async Task<ErrorOr<Created>> AddNewRAMModel(NewRAMModelDTO ramDTO)
+        {
+            ErrorOr<Created> result;
+            var ram = new RAM(ramDTO);
+
+            _context.RAMModels.Add(ram);
+            await  _context.SaveChangesAsync();
+
+            result = Result.Created;
+            return result;
+        }
+
+        public async Task<List<Computer>> GetComputerList()
+        {
+            var computers = await _context.Computers
+                .Include(comp => comp.OS)
+                .Include(comp => comp.CPU)
+                .Include(comp => comp.RAM)
+                .Include(comp => comp.GPU)
+                .Include(comp => comp.RAM)
+                .Include(comp => comp.HardDrives)
+                .Include(comp => comp.Motherboard)
+                .ToListAsync();
+
+            return computers;
+        }
+
+        public Task<List<GraphicsCard>> GetGraphicsCardList()
         {
             throw new NotImplementedException();
         }
 
-        public Task<ErrorOr<Created>> AddNewMotherboardModel(NewMotherboardModelDTO motherboardDTO)
+        public Task<List<HardDrive>> GetHardDriveList()
         {
             throw new NotImplementedException();
         }
 
-        public Task<ErrorOr<Created>> AddNewOSInfo(NewOSInfoDTO osDTO)
+        public Task<List<Motherboard>> GetMotherboardList()
         {
             throw new NotImplementedException();
         }
 
-        public Task<ErrorOr<Created>> AddNewPC(NewComputerDTO computerDTO)
+        public Task<List<OperatingSystem>> GetOperatingSystemList()
         {
             throw new NotImplementedException();
         }
 
-        public Task<ErrorOr<Created>> AddNewRAMModel(NewRAMModelDTO ramDTO)
+        public Task<List<Processor>> GetProcessorList()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<RAM>> GetRAMList()
         {
             throw new NotImplementedException();
         }

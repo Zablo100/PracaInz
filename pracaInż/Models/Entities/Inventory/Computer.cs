@@ -1,4 +1,5 @@
-﻿using pracaInż.Models.Entities.ComputerParts;
+﻿using pracaInż.Models.DTO.ComputerParts;
+using pracaInż.Models.Entities.ComputerParts;
 
 namespace pracaInż.Models.Entities.Inventory
 {
@@ -19,5 +20,23 @@ namespace pracaInż.Models.Entities.Inventory
 
 
         public List<HardDrive> HardDrives { get; set; }
+
+
+        public Computer()
+        {
+            
+        }
+
+        public Computer(NewComputerDTO modelDTO)
+        {
+            Name = modelDTO.Name;
+            CPUId = modelDTO.CPUId;
+            GPUId = modelDTO.GPUId;
+            MotherboardId = modelDTO.MotherboardId;
+            OSId = modelDTO.OSId;
+            RAMId = modelDTO.RAMId;
+            RAMCapacity = modelDTO.RAMCapacity;
+
+        }
     }
 }
