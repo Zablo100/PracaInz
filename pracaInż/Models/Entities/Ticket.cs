@@ -58,5 +58,17 @@ namespace pracaInż.Models.Entities
 
         public Ticket Ticket { get; set; }
         public int TicketId { get; set; }
+
+        public Comment()
+        {
+            
+        }
+
+        public Comment(AddCommentDTO modelDTO)
+        {
+            Text = modelDTO.Text;
+            CreatedAt = DateTime.Now;
+            TicketId = modelDTO.TicketId;
+        }
     }
 }

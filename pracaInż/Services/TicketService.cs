@@ -10,6 +10,8 @@ namespace pracaInż.Services
     {
         Task<ErrorOr<Created>> SubmitNewTicketAsync(NewTicketDTO ticketDTO);
         Task<ErrorOr<List<TicketDTO>>> GetTicketsAsync();
+        Task<ErrorOr<TicketDTO>> GetTicketByIdAsync(int id);
+        Task<ErrorOr<Created>> AddCommentToTicketAsync(AddCommentDTO commentDTO);
 
     }
     public class TicketService : ITicketService
@@ -21,6 +23,47 @@ namespace pracaInż.Services
             _context = context;
         }
 
+        public async Task<ErrorOr<Created>> AddCommentToTicketAsync(AddCommentDTO commentDTO)
+        {
+            ErrorOr<Created> result;
+            //Walidacja
+            var comment = new Comment(commentDTO);
+
+            _context.Comments.Add(comment);
+            await _context.SaveChangesAsync();
+
+            result = Result.Created;
+            return result;
+        }
+
+        public async Task<ErrorOr<TicketDTO>> GetTicketByIdAsync(int id)
+        {
+            ErrorOr<TicketDTO> result;
+            //TODO: Walidacja
+            var ticket = await _context.Tickets
+                .Include(t => t.AcceptedBy)
+                .Include(t => t.SubmittedBy)
+                .ThenInclude(emp => emp.Department)
+                .Include(t => t.Computer)
+                .FirstOrDefaultAsync(ticket => ticket.Id == id);
+
+            if (ticket == null)
+            {
+                result = Error.NotFound(description: "Nie znaleziono zgłoszenia o podanym numerze(ID)");
+                return result;
+            }
+
+            var ticketDTO = new TicketDTO(ticket);
+            ticketDTO.Comments = _context.Comments
+                .Where(comm => comm.TicketId == id)
+                .Select(comm => new CommentDTO(comm))
+                .ToList();
+
+            result = ticketDTO;
+
+            return result;
+        }
+
         public async Task<ErrorOr<List<TicketDTO>>> GetTicketsAsync()
         {
             ErrorOr<List<TicketDTO>> Result;
@@ -30,7 +73,9 @@ namespace pracaInż.Services
                 .ThenInclude(emp => emp.Department)
                 .Include(t => t.Computer)
                 .ToListAsync();
+
             List<TicketDTO> ticketDTOs = new List<TicketDTO>();
+
             foreach (var ticket in tickets)
             {
                 ticketDTOs.Add(new TicketDTO(ticket));
@@ -38,9 +83,11 @@ namespace pracaInż.Services
 
             if(ticketDTOs.Count <= 0) 
             {
-                Result = Error.NotFound(description: "Brak elementów w bazie danych!");
+                Result = Error.NotFound(description: "Brak zgłoszeń!");
                 return Result;
             }
+
+
 
             Result = ticketDTOs;
             return Result;
@@ -61,5 +108,6 @@ namespace pracaInż.Services
 
             return result;
         }
+
     }
 }

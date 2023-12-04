@@ -38,5 +38,30 @@ namespace pracaInż.Controllers
 
             return Ok(result.Value);
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetTicketById(int id)
+        {
+            var result = await _service.GetTicketByIdAsync(id);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddCommentToTicket([FromBody] AddCommentDTO comment)
+        {
+            var result = await _service.AddCommentToTicketAsync(comment);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
     }
 }

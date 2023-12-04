@@ -17,7 +17,7 @@ namespace pracaInż.Models.DTO.TicketDTO
         public string AcceptedBy { get; set; }
         public string Computer { get; set; }
         public int? ComputerId { get; set; }
-        public List<Comment> Comments { get; set; }
+        public List<CommentDTO> Comments { get; set; }
 
         public TicketDTO(Ticket ticket)
         {
@@ -32,7 +32,7 @@ namespace pracaInż.Models.DTO.TicketDTO
             SubmittedByDepartment = ticket.SubmittedBy.Department.ShortName;
             Computer = IsNull(ticket.Computer) ? "Nie wskazano" : ticket.Computer.InventoryNumber;
             ComputerId = ticket.ComputerId;
-            Comments = ticket.comments; 
+
         }
 
         private bool IsNull<T>(T x)
