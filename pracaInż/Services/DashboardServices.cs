@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
 using pracaInż.Models.Entities;
+using pracaInż.Models.Entities.Inventory;
 using System.Net.NetworkInformation;
 
 namespace pracaInż.Services
@@ -18,7 +19,9 @@ namespace pracaInż.Services
         }
         public async Task<List<InfrastructureStatus>> getInfrastructureStatus()
         {
-            var devices = await _context.Devices.ToListAsync();
+            var devices = await _context.Devices
+                .Where(device => !(device is InventoryAsset))
+                .ToListAsync();
             var status = new List<InfrastructureStatus>();
 
             var pingTasks = devices.Select(async device =>
