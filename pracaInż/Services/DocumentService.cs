@@ -6,7 +6,7 @@ namespace pracaInż.Services
 {
     public interface IDocumentService
     {
-        Task<ErrorOr<ManualDocumentModel>> GetManualDocumentById(int id);
+        Task<ErrorOr<DocumentModel>> GetManualDocumentById(int id);
     }
     public class DocumentService : IDocumentService
     {
@@ -15,10 +15,10 @@ namespace pracaInż.Services
         {
             _context = appDbcontext;
         }
-        public async Task<ErrorOr<ManualDocumentModel>> GetManualDocumentById(int id)
+        public async Task<ErrorOr<DocumentModel>> GetManualDocumentById(int id)
         {
-            ErrorOr<ManualDocumentModel> result;
-            var doc = await _context.ManualDocuments.FindAsync(id);
+            ErrorOr<DocumentModel> result;
+            var doc = await _context.Documents.FindAsync(id);
             if (doc == null)
             {
                 result = Error.NotFound(description: "Nie znaleziono pliku!");

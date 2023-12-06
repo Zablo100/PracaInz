@@ -25,13 +25,12 @@ namespace pracaInż.Data
         public DbSet<Printer> Printers { get; set; }
         public DbSet<PrinterArcus> PrintersArcus { get; set;}
         public DbSet<Software> Software {  get; set; }
-        public DbSet<ManualDocumentModel> ManualDocuments { get; set; }
-        public DbSet<PurchaseOrderDoc> PurchaseOrderDocuments { get; set;}
         public DbSet<InventoryAsset> InventoryAssets { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceItem> InvoicesItem { get; set; }
+        public DbSet<DocumentModel> Documents { get; set; }
 
     }
 }
