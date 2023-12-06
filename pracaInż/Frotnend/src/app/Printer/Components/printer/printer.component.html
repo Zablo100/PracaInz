@@ -5,7 +5,7 @@
 
     <div id="tabs">
 
-      <form [formGroup]="SearchForm">
+      <form [formGroup]="SearchForm" (ngSubmit)="search()">
 
         <mat-form-field id="search-input">
           <input matInput placeholder="Wyszukaj" formControlName="search">

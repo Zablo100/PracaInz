@@ -46,4 +46,8 @@ export class PrinterService {
     this.http.delete(`https://${app.ip}/api/printers/DeletArcusPrinter` + id, )
   }
 
+  searchPrinter(search: string){
+    return this.http.get(`https://${app.ip}/api/printers/SearchPrinter/` + search)
+  }
+
 }

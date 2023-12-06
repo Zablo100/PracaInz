@@ -95,4 +95,18 @@ export class PrinterComponent implements OnInit {
 
   }
 
+  search(){
+    const query: string = this.SearchForm.value.search
+    if(query){
+      this.service.searchPrinter(query).subscribe((response) => {
+        this.data = new MatTableDataSource<Printer>(response as Printer[]);
+        this.printers = response as Printer[];
+        this.data.paginator = this.paginator
+        this.data.filterPredicate = 
+        (printer: Printer, filter: string) => printer.serialNumber.indexOf(filter) != -1;
+      })
+    }else{
+      this.getDataToTable()
+    }
+  }
 }
