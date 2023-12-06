@@ -55,7 +55,12 @@ namespace pracaInż.Controllers
             return Ok();
         }
 
-
+        [HttpGet("{search}")]
+        public async Task<IActionResult> SearchPrinter(string search)
+        {
+            var result = await _printerService.SearchArcusPrinter(search);
+            return Ok(result);
+        }
 
     }
 }

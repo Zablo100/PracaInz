@@ -21,6 +21,7 @@ namespace pracaInż.Services
         //Task<AddPrin>
         //Task RemoveCompnayPrinter(int id);
         Task RemoveArcusPrinters(int id);
+        Task<List<PrinterArcusDTO>> SearchArcusPrinter(string search);
 
     }
     public class PrinterService : IPrinterService
@@ -107,6 +108,24 @@ namespace pracaInż.Services
 
             return result;
         }
+
+        public async Task<List<PrinterArcusDTO>> SearchArcusPrinter(string search)
+        {
+            List<PrinterArcusDTO> result = new List<PrinterArcusDTO>();
+            var printers = await _context.PrintersArcus
+                .Include(printer => printer.Department)
+                .Where(printer => printer.SerialNumber.Contains(search))
+                .ToListAsync();
+
+            foreach (var printer in printers)
+            {
+                result.Add(new PrinterArcusDTO(printer));
+            }
+
+            return result;
+        }
+
+
         //TODO
         public Task<PrinterDTO> GetCompnayPrinterById(int id)
         {

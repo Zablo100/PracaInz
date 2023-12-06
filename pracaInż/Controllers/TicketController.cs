@@ -51,7 +51,6 @@ namespace pracaInż.Controllers
             return Ok(result.Value);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> AddCommentToTicket([FromBody] AddCommentDTO comment)
         {
@@ -63,5 +62,29 @@ namespace pracaInż.Controllers
 
             return Ok(result.Value);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AcceptTicket(AcceptTicketDTO acceptTicket)
+        {
+            var result = await _service.AcceptTicket(acceptTicket);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value.ToString());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> CompletTicket(int id)
+        {
+            var result = await _service.ResolveTicket(id);
+            if(result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value.ToString());
+        } 
     }
 }

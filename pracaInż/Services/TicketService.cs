@@ -12,6 +12,8 @@ namespace pracaInż.Services
         Task<ErrorOr<List<TicketDTO>>> GetTicketsAsync();
         Task<ErrorOr<TicketDTO>> GetTicketByIdAsync(int id);
         Task<ErrorOr<Created>> AddCommentToTicketAsync(AddCommentDTO commentDTO);
+        Task<ErrorOr<Updated>> AcceptTicket(AcceptTicketDTO request);
+        Task<ErrorOr<Updated>> ResolveTicket(int ticketId);
 
     }
     public class TicketService : ITicketService
@@ -21,6 +23,27 @@ namespace pracaInż.Services
         public TicketService(AppDbcontext context)
         {
             _context = context;
+        }
+
+        public async Task<ErrorOr<Updated>> AcceptTicket(AcceptTicketDTO request)
+        {
+            ErrorOr<Updated> result;
+            var ticket = await _context.Tickets.FindAsync(request.TicketId);
+            if (ticket == null)
+            {
+                result = Error.NotFound(description: "Nie można odnaleźć zgłoszenia o podanym numerze(ID)");
+                return result;
+            }
+
+            ticket.AcceptedById = request.AcceptedById;
+            ticket.Status = Status.InProgress;
+            ticket.AcceptedAt = DateTime.Now;
+
+            _context.Tickets.Update(ticket);
+            await _context.SaveChangesAsync();
+
+            result = Result.Updated;
+            return result;
         }
 
         public async Task<ErrorOr<Created>> AddCommentToTicketAsync(AddCommentDTO commentDTO)
@@ -91,6 +114,27 @@ namespace pracaInż.Services
 
             Result = ticketDTOs;
             return Result;
+        }
+
+        public async Task<ErrorOr<Updated>> ResolveTicket(int ticketId)
+        {
+            ErrorOr<Updated> result;
+
+            var ticket = await _context.Tickets.FindAsync(ticketId);
+            if (ticket == null)
+            {
+                result = Error.NotFound(description: "Nie znaleziono zgłoszenia o podanym numerze(ID)");
+                return result;
+            }
+
+            ticket.Status = Status.Completed;
+            ticket.ResolvedAt = DateTime.Now;
+
+            _context.Tickets.Update(ticket);
+            await _context.SaveChangesAsync();
+
+            result = Result.Updated;
+            return result;
         }
 
         public async Task<ErrorOr<Created>> SubmitNewTicketAsync(NewTicketDTO ticketDTO)
