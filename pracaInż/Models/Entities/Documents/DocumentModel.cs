@@ -6,7 +6,6 @@
         PurchaseOrder,
         Contract,
         Offer
-
     }
     public class DocumentModel
     {
