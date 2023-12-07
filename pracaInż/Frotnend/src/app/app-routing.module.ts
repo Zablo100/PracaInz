@@ -15,6 +15,7 @@ import { InfrastructurePageComponent } from './Infrastructure/Page/infrastructur
 import { DocumentPageComponent } from './Documents/UI/document-page/document-page.component';
 import { SoftwareListPAgeComponent } from './Software/UI/software-list-page/software-list-page.component';
 import { InventoryPageComponent } from './Inventory/UI/inventory-page/inventory-page.component';
+import { TicketsPageComponent } from './Tickets/UI/tickets-page.component';
 
 const routes: Routes = [
   {path: "login", component: LoginPageComponent},
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: "documents", component: DocumentPageComponent},
   {path: "software", component: SoftwareListPAgeComponent},
   {path: "inventory", component: InventoryPageComponent},
+  {path: "tickets", component: TicketsPageComponent},
   {path: "", redirectTo: "infrastructure", pathMatch: "full"},
 ];
 

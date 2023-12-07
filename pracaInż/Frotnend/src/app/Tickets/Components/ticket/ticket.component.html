@@ -1,0 +1,54 @@
+<div id="content">
+    <div class="load" *ngIf="!PageLoaded"></div>
+
+    <div *ngIf="PageLoaded">
+        <div id="Ticket-Header">
+            Zgłoszenie nr. {{this.data.TicketId}}
+        </div>
+        <div class="line"></div>
+        
+        <div id="ticket-description">Urządzenie: {{ticket.computer}}</div>
+
+        <div id="ticket-info">
+            <div id="left">
+                <p>Utworzono: {{ticket.createdAt}} </p>
+                <p>Zgłaszający: {{ticket.submittedBy}}</p>
+                <p>Dział: {{ticket.submittedByDepartment}}</p>
+            </div>
+
+            <div id="right">
+                <p>Status: {{ticket.status}} </p>
+                <p>Przyjęte: {{ticket.acceptedAt}}</p>
+                <p>Pracownik IT: {{ticket.acceptedBy}}</p>
+            </div>
+        </div>
+
+        <div id="ticket-description">{{ticket.description}}</div>
+
+        <div class="info"></div>
+        <div class="line"></div>
+        <div id="comments">
+            <span *ngIf="ticket.comments?.length != 0">
+                <p *ngFor="let comment of ticket.comments"><b>[{{comment.date}}]</b> - {{comment.text}}</p>
+            </span>
+            <div class="wraper" *ngIf="ticket.comments?.length == 0">
+                <img src="/assets/comment.png" id="empty-comment">
+            </div>
+        </div>
+
+        <div class="line"></div>
+
+        <div id="add-comment">
+            <mat-form-field class="example-full-width">
+                <mat-label>Napisz komentarz...</mat-label>
+                <textarea matInput id="comment-input"></textarea>
+              </mat-form-field>
+        </div>
+        <div class="wraper">
+            <button mat-raised-button type="submit">Dodaj komentarz</button>
+        </div>
+
+    </div>
+</div>
+
+

@@ -1,0 +1,165 @@
+table{
+    width: 100%;
+   }
+   
+   #tabs{
+     height: 10vh;
+   }
+ 
+   #tabs button{
+     margin-top: 7vh;
+     margin-left: 1vw;
+   }
+ 
+   .controll-button{
+     width: 100px;
+   }
+ 
+   
+   .mat-row:hover{
+     transition: ease-in 0.1s;
+     background-color: rgb(220, 236, 241);
+   }
+ 
+   .option-button{
+     display: inline-block;
+     padding: 0;
+     margin: 0;
+     vertical-align: top;
+     height: 25px;
+     width: 25px;
+     cursor: pointer;
+     margin-left: 5px;
+   }
+ 
+   #edit-button-icon{
+     height: 15px;
+     width: 15px;
+   }
+ 
+   #delet-button-icon{
+     height: 15px;
+     width: 15px;
+   }
+ 
+   #test2{
+     margin-top: 5vh;
+     margin-left: 2vw; 
+   }
+ 
+   #search-input{
+     margin-left: 35px;
+   }
+ 
+   .mat-button, .mat-raised-button{
+     background-color:#f8f9fa;
+ }
+ 
+ #add-button{
+   float: right;
+   margin-right: 15px;
+   background-color: #ccfccb;
+ }
+ 
+ table{
+    width: 100%;
+   }
+   
+   #tabs{
+     height: 10vh;
+   }
+ 
+   #tabs button{
+     margin-top: 7vh;
+     margin-left: 1vw;
+   }
+ 
+   .controll-button{
+     width: 100px;
+   }
+ 
+   
+   .mat-row:hover{
+     transition: ease-in 0.1s;
+     background-color: rgb(220, 236, 241);
+     cursor: pointer;
+   }
+ 
+   .option-button{
+     display: inline-block;
+     padding: 0;
+     margin: 0;
+     vertical-align: top;
+     height: 25px;
+     width: 25px;
+     cursor: pointer;
+     margin-left: 5px;
+   }
+ 
+   #edit-button-icon{
+     height: 15px;
+     width: 15px;
+   }
+ 
+   #delet-button-icon{
+     height: 15px;
+     width: 15px;
+   }
+ 
+   #test2{
+     margin-top: 5vh;
+     margin-left: 2vw; 
+   }
+ 
+   #search-input{
+     margin-left: 35px;
+   }
+ 
+   .mat-button, .mat-raised-button{
+     background-color:#f8f9fa;
+ }
+ 
+ #add-button{
+   float: right;
+   margin-right: 15px;
+   background-color: #ccfccb;
+ }
+
+.mat-column-status{
+    width: 10%;
+}
+
+.mat-column-createdAt{
+    width: 8%
+}
+
+.mat-column-computer{
+    width: 7%;
+}
+
+.mat-column-submittedBy{
+    width: 10%;
+}
+
+.mat-column-description{
+    width: 64%
+}
+
+.mat-column-options{
+  width: 7%;
+ }
+
+.Pending{
+    color: darkred;
+    font-weight: bold;
+}
+
+.InProgress{
+    color: darkorange;
+    font-weight: bold;
+}
+
+.Completed{
+    color: darkgreen;
+    font-weight: bold;
+}

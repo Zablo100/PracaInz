@@ -1,0 +1,86 @@
+#Ticket-Header{
+    text-align: center;
+    line-height: 4vh;
+    width: 100%;
+    height: 4vh;
+
+    font-size: 1.6em;
+}
+
+.line{
+    border-top: 1px solid black;
+    width: 100%;
+}
+
+#ticket-description{
+    font-size: 1.2em;
+    margin-top: 1vh;
+    text-align: center;
+    text-wrap: wrap;
+    max-width: 30vw;
+}
+
+#content{
+    width: 30vw;
+}
+
+#ticket-info{
+    display: flex;
+}
+
+#left{
+    float: left;
+    width: 50vw;
+    min-height: 10vh;
+    font-size: 1vw;
+}
+
+#right{
+    float: right;
+    width: 50vw;
+    min-height: 10vh;
+    font-size: 1vw;
+}
+
+#comments{
+    min-height: 15vh;
+}
+
+#add-comment{
+    margin-top: 1vh;
+    display: flex;
+    justify-content: center;
+}
+
+.example-full-width{
+    width: 30vw;
+    height: 12vh
+}
+
+#comment-input{
+    width: 30vw;
+    height: 8vh;
+}
+
+.wraper{
+    display: flex;
+    width: 30vw;
+    justify-content: center;
+}
+
+.mat-button, .mat-raised-button{
+    background-color:#f8f9fa;
+}
+
+.info{
+    height: 1.2vh;
+    margin-top: 1vh;
+    text-align: center;
+    text-wrap: wrap;
+}
+
+#empty-comment{
+    margin-top: 2vh;
+    height: auto;
+    max-width: 5vw;
+}

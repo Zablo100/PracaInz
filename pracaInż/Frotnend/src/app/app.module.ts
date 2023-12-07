@@ -59,6 +59,8 @@ import { EmployeeSoftwareWindowComponent } from './Employees/Components/employee
 import { InventoryPageComponent } from './Inventory/UI/inventory-page/inventory-page.component';
 import { AddInventoryWindowComponent } from './Inventory/Components/add-inventory-window/add-inventory-window.component';
 import { EditInventoryWindowComponent } from './Inventory/Components/edit-inventory-window/edit-inventory-window.component';
+import { TicketsPageComponent } from './Tickets/UI/tickets-page.component';
+import { TicketComponent } from './Tickets/Components/ticket/ticket.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +104,8 @@ import { EditInventoryWindowComponent } from './Inventory/Components/edit-invent
     InventoryPageComponent,
     AddInventoryWindowComponent,
     EditInventoryWindowComponent,
+    TicketsPageComponent,
+    TicketComponent,
   ],
   imports: [
     BrowserModule,
