@@ -11,7 +11,7 @@ namespace pracaInż.Services
         Task<ErrorOr<DocumentModel>> GetManualDocumentById(int id);
         Task<ErrorOr<List<DocumentModel>>> GetAllDocuments();
         Task<ErrorOr<Created>> UploadNewFile(DocumentModel document, IFormFile file);
-        Task<ErrorOr<Updated>> UpdateDocument(IFormFile file);
+        Task<ErrorOr<Updated>> UpdateDocument(int id, IFormFile file);
     }
     public class DocumentService : IDocumentService
     {
