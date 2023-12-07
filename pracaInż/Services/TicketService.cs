@@ -11,7 +11,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Created>> SubmitNewTicketAsync(NewTicketDTO ticketDTO);
         Task<ErrorOr<List<TicketDTO>>> GetTicketsAsync();
         Task<ErrorOr<TicketDTO>> GetTicketByIdAsync(int id);
-        Task<ErrorOr<Created>> AddCommentToTicketAsync(AddCommentDTO commentDTO);
+        Task<ErrorOr<CommentDTO>> AddCommentToTicketAsync(AddCommentDTO commentDTO);
         Task<ErrorOr<Updated>> AcceptTicket(AcceptTicketDTO request);
         Task<ErrorOr<Updated>> ResolveTicket(int ticketId);
 
@@ -46,16 +46,16 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<ErrorOr<Created>> AddCommentToTicketAsync(AddCommentDTO commentDTO)
+        public async Task<ErrorOr<CommentDTO>> AddCommentToTicketAsync(AddCommentDTO commentDTO)
         {
-            ErrorOr<Created> result;
+            ErrorOr<CommentDTO> result;
             //Walidacja
             var comment = new Comment(commentDTO);
 
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 
-            result = Result.Created;
+            result = new CommentDTO(comment);
             return result;
         }
 
