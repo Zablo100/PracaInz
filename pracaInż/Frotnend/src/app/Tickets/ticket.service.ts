@@ -17,4 +17,8 @@ export class TicketService {
   getDataById(id: number){
     return this.http.get(`${this.baseUrl}/Ticket/GetTicketById/` + id)
   }
+
+  addCommentToTicket(body: any){
+    return this.http.post(`${this.baseUrl}/Ticket/AddCommentToTicket`, body)
+  }
 }

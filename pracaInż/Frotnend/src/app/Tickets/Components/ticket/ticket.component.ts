@@ -4,6 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { TicketDTO } from 'src/app/Models/Ticket';
 import { getErrorMessage } from 'src/app/Core/appip';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Comment } from 'src/app/Models/Ticket';
 
 @Component({
   selector: 'app-ticket',
@@ -11,6 +13,7 @@ import { getErrorMessage } from 'src/app/Core/appip';
   styleUrls: ['./ticket.component.css']
 })
 export class TicketComponent implements OnInit {
+  CommentForm: FormGroup;
   ticket: TicketDTO;
   PageLoaded: boolean = false
 
@@ -19,7 +22,14 @@ export class TicketComponent implements OnInit {
   private dialogRef: MatDialogRef<TicketComponent>) { }
 
   ngOnInit(): void {
+    this.createForm()
     this.getTicketData(this.data.TicketId)
+  }
+
+  createForm(){
+    this.CommentForm = new FormGroup({
+      comment: new FormControl("")
+    })
   }
 
   getTicketData(id: number){
@@ -30,4 +40,23 @@ export class TicketComponent implements OnInit {
       (err) => this.notification.error(getErrorMessage(err)))
   }
 
+  postComment(){
+    if(this.CommentForm.value.comment == ''){
+      this.notification.error("Komentarz nie może być pusty")
+      return;
+    }
+
+    const body = {
+      text: this.CommentForm.value.comment,
+      TicketId: this.ticket.id
+    }
+
+    this.service.addCommentToTicket(body).subscribe((response) => {
+      this.ticket.comments?.push(response as Comment)
+    })
+
+    this.CommentForm.get('comment')?.setValue("")
+  }
+
+  
 }

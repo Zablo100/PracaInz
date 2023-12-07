@@ -39,13 +39,15 @@
         <div class="line"></div>
 
         <div id="add-comment">
+            <form [formGroup]="CommentForm" (ngSubmit)="postComment()">
             <mat-form-field class="example-full-width">
                 <mat-label>Napisz komentarz...</mat-label>
-                <textarea matInput id="comment-input"></textarea>
+                <textarea matInput id="comment-input" formControlName="comment"></textarea>
               </mat-form-field>
+            </form>
         </div>
         <div class="wraper">
-            <button mat-raised-button type="submit">Dodaj komentarz</button>
+            <button mat-raised-button (click)="postComment()">Dodaj komentarz</button>
         </div>
 
     </div>
