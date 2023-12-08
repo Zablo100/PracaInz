@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -9,17 +10,22 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class DocumentPageComponent implements OnInit {
   pdfSrc: any
-  constructor(private http: HttpClient, public sanitizer: DomSanitizer) { }
+  PageLoaded: boolean = false
+  constructor(private http: HttpClient, public sanitizer: DomSanitizer, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.fetchPdf();
   }
 
   fetchPdf(){
-    this.http.get('https://localhost:7096/Document/GetManualDocumentById/1', {responseType: 'arraybuffer'}).subscribe((response) => {
-      var blob = new Blob([response], {type: 'application/pdf'})
-      this.pdfSrc = URL.createObjectURL(blob)
-  })
+    const id = this.route.snapshot.paramMap.get('id')
+    if(id != null){
+      this.http.get('https://localhost:7096/Document/GetManualDocumentById/' + id, {responseType: 'arraybuffer'}).subscribe((response) => {
+        var blob = new Blob([response], {type: 'application/pdf'})
+        this.pdfSrc = URL.createObjectURL(blob)
+        this.PageLoaded = true
+      })
+    }
   }
 
 }

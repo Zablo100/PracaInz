@@ -16,6 +16,7 @@ import { DocumentPageComponent } from './Documents/UI/document-page/document-pag
 import { SoftwareListPAgeComponent } from './Software/UI/software-list-page/software-list-page.component';
 import { InventoryPageComponent } from './Inventory/UI/inventory-page/inventory-page.component';
 import { TicketsPageComponent } from './Tickets/UI/tickets-page.component';
+import { DocumentsPageComponent } from './Documents/UI/documents-page/documents-page.component';
 
 const routes: Routes = [
   {path: "login", component: LoginPageComponent},
@@ -26,7 +27,8 @@ const routes: Routes = [
   {path: "printers", component: PrintersPageComponent},
   {path: "computers", component: ComputerPageComponent},
   {path: "infrastructure", component: InfrastructurePageComponent},
-  {path: "documents", component: DocumentPageComponent},
+  {path: "documents", component: DocumentsPageComponent},
+  {path: "document/:id", component: DocumentPageComponent},
   {path: "software", component: SoftwareListPAgeComponent},
   {path: "inventory", component: InventoryPageComponent},
   {path: "tickets", component: TicketsPageComponent},
