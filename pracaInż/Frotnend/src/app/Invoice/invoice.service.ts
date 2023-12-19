@@ -12,11 +12,11 @@ export class InvoiceService {
   constructor(private http: HttpClient) { }
 
   public getAll(){
-    return this.http.get(`http://${app.ip}/api/v1/invoice`)
+    return this.http.get(`https://${app.ip}/api/invoice`)
   }
 
   getById(id: number){
-    return this.http.get(`http://${app.ip}/api/v1/invoice/`+id)
+    return this.http.get(`https://${app.ip}/api/invoice/`+id)
   }
 
   public create(body : any){
