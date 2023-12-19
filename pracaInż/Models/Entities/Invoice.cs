@@ -25,8 +25,8 @@ namespace pracaInż.Models.Entities
         public Department Department { get; set; }
         public int DepartmentId { get; set; }
 
-        public PurchaseOrderDoc PurchaseOrderDoc { get; set; }
-        public int PurchaseOrderDocId { get; set; }
+        public DocumentModel? PurchaseOrderDoc { get; set; }
+        public int? PurchaseOrderDocId { get; set; }
 
         public Invoice Invoice { get; set; }
         public int InvoiceId { get; set; }

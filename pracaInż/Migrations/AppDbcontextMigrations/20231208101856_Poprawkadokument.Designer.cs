@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pracaInż.Data;
 
@@ -10,9 +11,11 @@ using pracaInż.Data;
 namespace pracaInż.Migrations.AppDbcontextMigrations
 {
     [DbContext(typeof(AppDbcontext))]
-    partial class AppDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20231208101856_Poprawkadokument")]
+    partial class Poprawkadokument
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -501,7 +504,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int?>("PurchaseOrderDocId")
+                    b.Property<int>("PurchaseOrderDocId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -797,7 +800,9 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
                     b.HasOne("pracaInż.Models.Entities.Documents.DocumentModel", "PurchaseOrderDoc")
                         .WithMany()
-                        .HasForeignKey("PurchaseOrderDocId");
+                        .HasForeignKey("PurchaseOrderDocId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Department");
 

@@ -36,5 +36,19 @@ namespace pracaInż.Controllers
 
             return File(pdfBytes, "application/pdf");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAlldocuments()
+        {
+            var result = await _service.GetAllDocuments();
+            if (result.IsError)
+            {
+                return BadRequest(result.FirstError);
+            }
+
+            return Ok(result.Value);
+        }
+
+
     }
 }

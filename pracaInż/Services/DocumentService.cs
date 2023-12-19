@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
+using pracaInż.Models.DTO.Documents;
 using pracaInż.Models.Entities.Documents;
 using System.Text;
 
@@ -9,7 +10,7 @@ namespace pracaInż.Services
     public interface IDocumentService
     {
         Task<ErrorOr<DocumentModel>> GetManualDocumentById(int id);
-        Task<ErrorOr<List<DocumentModel>>> GetAllDocuments();
+        Task<ErrorOr<List<DocumentDTO>>> GetAllDocuments();
         Task<ErrorOr<Created>> UploadNewFile(DocumentModel document, IFormFile file);
         Task<ErrorOr<Updated>> UpdateDocument(int id, IFormFile file);
     }
@@ -21,9 +22,9 @@ namespace pracaInż.Services
             _context = appDbcontext;
         }
 
-        public async Task<ErrorOr<List<DocumentModel>>> GetAllDocuments()
+        public async Task<ErrorOr<List<DocumentDTO>>> GetAllDocuments()
         {
-            ErrorOr<List<DocumentModel>> result;
+            ErrorOr<List<DocumentDTO>> result;
             var documents = await _context.Documents.ToListAsync();
             if(documents.Count == 0)
             {
@@ -31,7 +32,7 @@ namespace pracaInż.Services
                 return result;
             }
 
-            result = documents;
+            result = documents.Select(doc => new DocumentDTO(doc)).ToList();
             return result;
 
         }
@@ -120,5 +121,6 @@ namespace pracaInż.Services
             return result;
 
         }
+
     }
 }
