@@ -14,6 +14,8 @@ namespace pracaInż.Services
         Task<ErrorOr<CommentDTO>> AddCommentToTicketAsync(AddCommentDTO commentDTO);
         Task<ErrorOr<Updated>> AcceptTicket(AcceptTicketDTO request);
         Task<ErrorOr<Updated>> ResolveTicket(int ticketId);
+        Task<ErrorOr<List<List<string>>>> GetPersonTicketSummary(int presonId);
+        Task<ErrorOr<List<TicketDTO>>> GetTicketsByPreson(int id);
 
     }
     public class TicketService : ITicketService
@@ -86,7 +88,7 @@ namespace pracaInż.Services
 
             return result;
         }
-
+        
         public async Task<ErrorOr<List<TicketDTO>>> GetTicketsAsync()
         {
             ErrorOr<List<TicketDTO>> Result;
@@ -116,6 +118,36 @@ namespace pracaInż.Services
             return Result;
         }
 
+        public async Task<ErrorOr<List<TicketDTO>>> GetTicketsByPreson(int id)
+        {
+            ErrorOr<List<TicketDTO>> Result;
+            var tickets = await _context.Tickets
+                .Where(t => t.SubmittedById == id)
+                .Include(t => t.AcceptedBy)
+                .Include(t => t.SubmittedBy)
+                .ThenInclude(emp => emp.Department)
+                .Include(t => t.Computer)
+                .OrderByDescending(t => t.CreatedAt)
+                .ToListAsync();
+
+            List<TicketDTO> ticketDTOs = new List<TicketDTO>();
+
+            foreach (var ticket in tickets)
+            {
+                ticketDTOs.Add(new TicketDTO(ticket));
+            }
+
+            if (ticketDTOs.Count <= 0)
+            {
+                Result = Error.NotFound(description: "Brak zgłoszeń!");
+                return Result;
+            }
+
+
+
+            Result = ticketDTOs;
+            return Result;
+        }
         public async Task<ErrorOr<Updated>> ResolveTicket(int ticketId)
         {
             ErrorOr<Updated> result;
@@ -150,6 +182,50 @@ namespace pracaInż.Services
 
             result = Result.Created;
 
+            return result;
+        }
+
+        public async Task<ErrorOr<List<List<string>>>> GetPersonTicketSummary(int presonId)
+        {
+            ErrorOr<List<List<string>>> result;
+            var year = DateTime.Now.Year;
+            var start = new DateTime(year, 1, 1);
+            var stop = new DateTime(year, 12, 31);
+            List<Tuple<int, decimal>> raw;
+
+            try
+            {
+                raw = _context.Tickets
+                    .Where(inv => inv.SubmittedById == presonId && inv.CreatedAt >= start && inv.CreatedAt <= stop)
+                    .GroupBy(inv => inv.CreatedAt.Month)
+                    .Select(group => new Tuple<int, decimal>(group.Key, group.Count()))
+                    .ToList();
+
+            }
+            catch (Exception ex)
+            {
+                result = Error.Failure(ex.Message);
+                return result;
+            }
+
+            for (int i = 1; i <= 12; i++)
+            {
+                if (!raw.Any(t => t.Item1 == i))
+                {
+                    Tuple<int, decimal> tupla = new Tuple<int, decimal>(i, 0m);
+                    raw.Add(tupla);
+                }
+            }
+
+            raw.Sort((x, y) => x.Item1.CompareTo(y.Item1));
+            List<List<string>> lista = new List<List<string>>();
+            List<string> months = new List<string> { "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Pażdziernik", "Listopad", "Grudzień" };
+            foreach (var tupla in raw)
+            {
+                lista.Add(new List<string> { months[tupla.Item1 - 1], tupla.Item2.ToString("0") });
+            }
+
+            result = lista;
             return result;
         }
 

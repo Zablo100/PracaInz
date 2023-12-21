@@ -37,12 +37,12 @@
             <div id="computer-info-header" class="info-header">Przypisany komputer</div>
             <table>
                 <tr class="row-info">
-                    <td class="info-lable">Test</td>
-                    <td class="info"> W trakcie</td>
+                    <td class="info-lable">Nazwa</td>
+                    <td class="info">TEST-001</td>
                 </tr>
                 <tr class="row-info last">
-                    <td class="info-lable">Test</td>
-                    <td class="info"> W trakcie</td>
+                    <td class="info-lable">Status</td>
+                    <td class="info">Offline</td>
                 </tr>
             </table>
         </div>
@@ -87,17 +87,22 @@
 
         <div id="right-bottom">
             <div id="tickets" class="page-table"></div>
-            <div id="controls" class="page-table">
-                <div class="wraper">
-                    <button mat-raised-button class="show-button" (click)="openEditWindow()">Edytuj pracownika <mat-icon class="icon">edit</mat-icon></button>  
-                </div>
-                <div class="wraper">
-                    <button mat-raised-button class="show-button">Zmień hasło <mat-icon class="icon">refresh</mat-icon></button>  
-                </div>
-                <div class="wraper">
-                    <button mat-raised-button class="show-button">Wyłącz konto<mat-icon class="icon">lock</mat-icon></button>  
+            <div id="middle-panel">
+                <app-tickets id="tick"></app-tickets>
+                <div id="controls" class="page-table">
+                    <div class="wraper">
+                        <button mat-raised-button class="show-button" (click)="openEditWindow()">Edytuj pracownika <mat-icon class="icon">edit</mat-icon></button>  
+                    </div>
+                    <div class="wraper">
+                        <button mat-raised-button class="show-button">Zmień hasło <mat-icon class="icon">refresh</mat-icon></button>  
+                    </div>
+                    <div class="wraper">
+                        <button mat-raised-button class="show-button">Wyłącz konto<mat-icon class="icon">lock</mat-icon></button>  
+                    </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>

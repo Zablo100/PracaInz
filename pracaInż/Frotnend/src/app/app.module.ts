@@ -61,6 +61,7 @@ import { AddInventoryWindowComponent } from './Inventory/Components/add-inventor
 import { EditInventoryWindowComponent } from './Inventory/Components/edit-inventory-window/edit-inventory-window.component';
 import { TicketsPageComponent } from './Tickets/UI/tickets-page.component';
 import { TicketComponent } from './Tickets/Components/ticket/ticket.component';
+import { TicketsComponent } from './Tickets/Components/tickets/tickets.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import { TicketComponent } from './Tickets/Components/ticket/ticket.component';
     EditInventoryWindowComponent,
     TicketsPageComponent,
     TicketComponent,
+    TicketsComponent
   ],
   imports: [
     BrowserModule,

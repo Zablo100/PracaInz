@@ -15,13 +15,15 @@ import { EmployeeSoftwareWindowComponent } from '../employee-software-window/emp
 })
 export class EmployeePageComponent implements OnInit {
   public employee: Employee
+  Daty = []
+  Dane = []
 
   constructor(private service: EmployeeService, private route: ActivatedRoute, 
     private notification: ToastrService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getDataFromAPI()
-    this.createChart()
+    this.getDataForChart()
   }
 
   getDataFromAPI(){
@@ -40,16 +42,26 @@ export class EmployeePageComponent implements OnInit {
     return "Offline"
   }
 
+  getDataForChart(){
+    const id = this.route.snapshot.paramMap.get('id')
+    this.service.getSummaryById(id).subscribe((response => {
+      const lista = response as []
+      lista.forEach(element => {
+        this.Daty.push(element[0])
+        this.Dane.push(element[1])
+      });
+      this.createChart()
+    }))
+  }
+
   createChart(){
-    const daty = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"]
-    const dane = [2,5,2,7,5,4,3,2,1,0,0,3]
     new Chart("myChart", {
       type: 'bar',
       data: {
-        labels: daty,
+        labels: this.Daty,
         datasets: [{
-          label: 'Wydatki',
-          data: dane,
+          label: 'Ilość zgłoszeń',
+          data: this.Dane,
           borderWidth: 1
         }]
       },
@@ -57,7 +69,7 @@ export class EmployeePageComponent implements OnInit {
         scales: {
           y: {
             beginAtZero: true,
-            max: 8,
+            max: Math.ceil(Math.max(...this.Dane) +1),
             ticks: {
               stepSize: 1
             }
@@ -91,7 +103,6 @@ export class EmployeePageComponent implements OnInit {
   }
 
   openSoftwareWindow(){
-    console.log("Tak")
     const id = this.route.snapshot.paramMap.get('id')
     let dialog: MatDialogRef<EmployeeSoftwareWindowComponent> = this.matDialog.open(EmployeeSoftwareWindowComponent, {
       "autoFocus": false,

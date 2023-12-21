@@ -85,4 +85,8 @@ export class EmployeeService {
     return this.http.post(`${this.baseUrl}/Employee/SearchByQuery`, body)
   }
 
+  getSummaryById(id: string | null ){
+    return this.http.get(`${this.baseUrl}/Ticket/GetSummaryById/` + id)
+  }
+
 }

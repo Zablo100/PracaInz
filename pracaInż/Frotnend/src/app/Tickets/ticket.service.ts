@@ -14,11 +14,15 @@ export class TicketService {
     return this.http.get(`${this.baseUrl}/Ticket/GetAllTickets`)
   }
 
-  getDataById(id: number){
+  getDataById(id: number | string | null){
     return this.http.get(`${this.baseUrl}/Ticket/GetTicketById/` + id)
   }
 
   addCommentToTicket(body: any){
     return this.http.post(`${this.baseUrl}/Ticket/AddCommentToTicket`, body)
+  }
+
+  getByPerson(id: string | null){
+    return this.http.get(`${this.baseUrl}/Ticket/GetByPreson/` + id)
   }
 }
