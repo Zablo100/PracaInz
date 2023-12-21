@@ -7,6 +7,8 @@ import { InvoiceService } from '../../invoice.service';
 import { MatDialog } from '@angular/material/dialog';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { NewInvoiceComponent } from '../new-invoice/new-invoice.component';
+import { getErrorMessage } from 'src/app/Core/appip';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-invoices',
@@ -17,13 +19,15 @@ export class InvoicesComponent implements OnInit {
   displayedColumns: string[] = ['Numer', "Sprzedawca", "Data wystawienia", "Całkowity koszt"];
   data: MatTableDataSource<Invoice>;
   PageLoaded: boolean = false
+  Daty = []
+  Dane = []
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private service: InvoiceService, private matDialog: MatDialog) { }
 
   ngOnInit(): void {
-
+    this.getDataForChart()
     this.service.getAll().subscribe((invoice) => {
       console.log(invoice)
       this.data = new MatTableDataSource<Invoice>(invoice as Invoice[]);
@@ -46,8 +50,49 @@ export class InvoicesComponent implements OnInit {
 
   openNewInvoiceform(){
     this.matDialog.open(NewInvoiceComponent, {
-      "autoFocus": false,
+      autoFocus: false,
     });
-    
+  }
+
+  getDataForChart(){
+    this.service.getMoneySpend().subscribe((response) => {
+      console.log(response)
+      const lista = response as []
+      lista.forEach(element => {
+        this.Daty.push(element[0])
+        this.Dane.push(element[1])
+      });
+      console.log(Math.max(...this.Dane))
+      this.createChart()
+    })
+  }
+
+  createChart(){
+    new Chart("myChart", {
+      type: 'bar',
+      data: {
+        labels: this.Daty,
+        datasets: [{
+          label: 'Wydatki',
+          data: this.Dane,
+          backgroundColor: ['#2a9d8f',],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: Math.ceil(Math.max(...this.Dane)/1000)*1000,
+            ticks: {
+              stepSize: 500
+            }
+          },
+          x: {
+            max: 12
+          }
+        }
+      }
+    });
   }
 }

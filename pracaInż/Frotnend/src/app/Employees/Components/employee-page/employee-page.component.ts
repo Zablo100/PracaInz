@@ -48,7 +48,7 @@ export class EmployeePageComponent implements OnInit {
       data: {
         labels: daty,
         datasets: [{
-          label: 'Ilość zgłoszeń',
+          label: 'Wydatki',
           data: dane,
           borderWidth: 1
         }]

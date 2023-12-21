@@ -1,10 +1,27 @@
-<div id="search-bar">
+<div class="page-background">
+  <div class="page-table">
+
+<div id="summary">
+      <canvas id="myChart" height="300" width="1400"></canvas>
+</div>
+
+<div id="tabs">
+
+  <form>
+
+    <mat-form-field id="search-input">
+      <input matInput placeholder="Wyszukaj" formControlName="search">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <button mat-raised-button type="submit">Wyszukaj</button>
+    <button mat-raised-button type="button" id="add-button" (click)="openNewInvoiceform()">Dodaj nowy</button>
+</form>
 
 </div>
-<div id="controls">
-  <button class="btn-invoice btn-green-box" id="add-btn" (click)="openNewInvoiceform()">Dodaj</button>
-</div>
 <div class="load" *ngIf="!PageLoaded"></div>
+<div *ngIf="PageLoaded">
+
 
 <table mat-table [dataSource]="this.data" *ngIf="PageLoaded">
 
@@ -38,5 +55,8 @@
     <tr mat-row (click)="open(row.id)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSize]="10" showFirstLastButtons aria-label="Select page" >
-  </mat-paginator>
+
+</div>
+<mat-paginator [pageSize]="5" showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>
+</div>
