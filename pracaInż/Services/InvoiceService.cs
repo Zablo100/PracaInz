@@ -94,7 +94,7 @@ namespace pracaInż.Services
             List<string> months = new List<string> { "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Pażdziernik", "Listopad", "Grudzień" };
             foreach (var tupla in raw)
             {
-                lista.Add(new List<string> { months[tupla.Item1 -1], tupla.Item2.ToString("0.00")});
+                lista.Add(new List<string> { months[tupla.Item1 -1], tupla.Item2.ToString("0.00").Replace(",", ".")});
             }
 
             result = lista;

@@ -8,6 +8,8 @@
         public string EmailAddress { get; set; }
         public string WorkPhone { get; set; }
         public string JobTitle { get; set; }
+        public string Username { get; set; }
+        public string Role { get; set; }
 
         public EmployeeDTO(Employee employee)
         {
@@ -17,6 +19,8 @@
             EmailAddress = employee.EmailAddress;
             WorkPhone = employee.WorkPhone;
             JobTitle = employee.JobTitle;
+            Username = employee.Username;
+            Role = employee.Role;
         }
     }
 }

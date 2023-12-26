@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using pracaInż.Data;
 using pracaInż.Models.ApiRequests;
 using pracaInż.Models.ApiResponses;
+using pracaInż.Models.DTO.Employees;
 using pracaInż.Models.Identity;
 using pracaInż.Models.Services;
 using System.Net;
@@ -16,14 +20,17 @@ namespace pracaInż.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly AppDbcontext _context;
 
         public AccountController(UserManager<AppUser> userManager, 
             SignInManager<AppUser> signInManager,
-            ITokenService tokenService)
+            ITokenService tokenService,
+            AppDbcontext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+            _context = context;
         }
 
         [HttpPost("login")]
@@ -43,11 +50,20 @@ namespace pracaInż.Controllers
                 return Unauthorized();
             }
 
-            return new LoginResponse(user.UserName, _tokenService.CreateToken(user));
+            var employee = await _context.Employees
+                .FirstOrDefaultAsync(emp => emp.Username == request.Username);
+
+            if(employee == null)
+            {
+                Error error = Error.Failure(description: "Konto nie zostało powiązane z pracownikiem");
+                return BadRequest(error);
+            }
+
+            return new LoginResponse(new EmployeeDTO(employee), _tokenService.CreateToken(user));
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<LoginResponse>> Register(loginRequest request)
+        public async Task<ActionResult<RegisterResponse>> Register(loginRequest request)
         {
             var user = new AppUser
             {
@@ -58,7 +74,7 @@ namespace pracaInż.Controllers
 
             if (!result.Succeeded) return BadRequest();
 
-            return new LoginResponse(user.UserName, _tokenService.CreateToken(user));
+            return new RegisterResponse(user.UserName, _tokenService.CreateToken(user));
         }
     }
 }

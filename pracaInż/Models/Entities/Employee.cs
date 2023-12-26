@@ -11,6 +11,8 @@ public class Employee
     public string EmailAddress { get; set; }
     public string WorkPhone { get; set; }
     public string JobTitle { get; set; }
+    public string Username { get; set; }
+    public string Role { get; set; }
 
     public int DepartmentId { get; set; }   
     public Department Department { get; set; }
