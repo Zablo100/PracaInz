@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 
-<div id="sidebar">
+<div id="sidebar" *ngIf="checkIfLoggedIn()">
 
     <div class="link-wraper">
         <a routerLink="/dashboard" routerLinkActive="selected" class="menu-item"> <img src="/assets/employee.png" class="menu-icon"> Pracownicy</a>

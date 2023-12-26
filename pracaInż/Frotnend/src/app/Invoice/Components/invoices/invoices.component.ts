@@ -62,7 +62,8 @@ export class InvoicesComponent implements OnInit {
         this.Daty.push(element[0])
         this.Dane.push(element[1])
       });
-      console.log(Math.max(...this.Dane))
+      console.log(this.Dane)
+      console.log(Math.max(...this.Dane as number[]))
       this.createChart()
     })
   }
@@ -75,7 +76,7 @@ export class InvoicesComponent implements OnInit {
         datasets: [{
           label: 'Wydatki',
           data: this.Dane,
-          backgroundColor: ['#2a9d8f',],
+          backgroundColor: ['#e63946',],
           borderWidth: 1
         }]
       },

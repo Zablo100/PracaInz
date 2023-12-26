@@ -12,5 +12,13 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  checkIfLoggedIn(){
+    const status = window.sessionStorage.getItem("login")
+    if(status == "true"){
+      return true
+    }else{
+      return false
+    }
+  }
 
 }

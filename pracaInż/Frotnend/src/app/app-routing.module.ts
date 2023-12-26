@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: "software", component: SoftwareListPAgeComponent},
   {path: "inventory", component: InventoryPageComponent},
   {path: "tickets", component: TicketsPageComponent},
-  {path: "", redirectTo: "infrastructure", pathMatch: "full"},
+  {path: "", redirectTo: "login", pathMatch: "full"},
 ];
 
 @NgModule({

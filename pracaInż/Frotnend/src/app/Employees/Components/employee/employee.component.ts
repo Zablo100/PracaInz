@@ -56,6 +56,7 @@ export class EmployeeComponent implements OnInit {
     this.serivce.getEmployeesList().subscribe((response) => {
       this.rawData = response as Employee[]
       this.data = new MatTableDataSource<Employee>(response as Employee[])
+      this.data.paginator = this.paginator;
     }, (err) => {
       this.notification.error(getErrorMessage(err))
     })

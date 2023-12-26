@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { loginRequest } from './Models/Api';
+import { getErrorMessage } from '../Core/appip';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,9 @@ import { loginRequest } from './Models/Api';
   Dodać notyfikacje
 */
 export class LoginService {
-  url: string = "https://localhost:4040/api/v1/User/login"
+  url: string = "https://localhost:7096/Account/login"
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private notification: ToastrService) { }
 
   async Login(request: loginRequest){
     const headers = {
@@ -21,30 +23,34 @@ export class LoginService {
     }
     
     this.http.post(this.url, request, headers).subscribe((response) => {
-      this.ProcessLogin(response)
+      this.ProcessLoginSucces(response)
+    }, (err) => {
+      if(err.status == 401){
+        this.notification.error("Błąd logowania")
+      }else{
+        this.notification.error(getErrorMessage(err))
+      }
     })
   }
 
-  async ProcessLogin(response: any){
-
-    if (response.httpStatus == 200){
-      await this.storeUserData(response.data)
-    }else{
-      console.log(response.message)
-    }
+  async ProcessLoginSucces(response: any){
+    await this.storeUserData(response)
   }
 
   async storeUserData(data: any){
-    window.sessionStorage.setItem("user", data.username)
-    window.sessionStorage.setItem("role", data.role)
+    window.sessionStorage.setItem("login", "true")
+    window.sessionStorage.setItem("user", data.user.username)
+    window.sessionStorage.setItem("role", data.user.role)
+    window.sessionStorage.setItem("token", data.token)
 
-    this.redirectUser(data.role)
+    this.redirectUser(data.user.role)
   }
 
-  redirectUser(role: number){
-    if (role == 1 || role == 2){
-      this.router.navigate(["./pracownicy"]) // Zmienić potem na dashboard
-    }else{
+  redirectUser(role: string){
+    console.log("Test: ", role)
+    if (role == "Admin"){
+      this.router.navigate(["./infrastructure"])
+    }else if(role == "user"){
       this.router.navigate(["./user"]) // Spolszczyć ?
     }
   }
