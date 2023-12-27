@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pracaInż.Data;
 
@@ -10,9 +11,11 @@ using pracaInż.Data;
 namespace pracaInż.Migrations.AppDbcontextMigrations
 {
     [DbContext(typeof(AppDbcontext))]
-    partial class AppDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20231227092401_PowiozanieOsobyIKomputera")]
+    partial class PowiozanieOsobyIKomputera
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -559,29 +562,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.ToTable("Logs");
                 });
 
-            modelBuilder.Entity("pracaInż.Models.Entities.PcLog", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ComputerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ComputerId");
-
-                    b.ToTable("PcLogs");
-                });
-
             modelBuilder.Entity("pracaInż.Models.Entities.Software", b =>
                 {
                     b.Property<int>("Id")
@@ -846,15 +826,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.Navigation("Invoice");
 
                     b.Navigation("PurchaseOrderDoc");
-                });
-
-            modelBuilder.Entity("pracaInż.Models.Entities.PcLog", b =>
-                {
-                    b.HasOne("pracaInż.Models.Entities.Inventory.Computer", "Computer")
-                        .WithMany()
-                        .HasForeignKey("ComputerId");
-
-                    b.Navigation("Computer");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.Ticket", b =>

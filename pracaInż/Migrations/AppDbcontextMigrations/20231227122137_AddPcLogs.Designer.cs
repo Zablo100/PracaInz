@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pracaInż.Data;
 
@@ -10,9 +11,11 @@ using pracaInż.Data;
 namespace pracaInż.Migrations.AppDbcontextMigrations
 {
     [DbContext(typeof(AppDbcontext))]
-    partial class AppDbcontextModelSnapshot : ModelSnapshot
+    [Migration("20231227122137_AddPcLogs")]
+    partial class AddPcLogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -565,7 +568,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("ComputerId")
+                    b.Property<int>("ComputerId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("Date")
@@ -852,7 +855,9 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                 {
                     b.HasOne("pracaInż.Models.Entities.Inventory.Computer", "Computer")
                         .WithMany()
-                        .HasForeignKey("ComputerId");
+                        .HasForeignKey("ComputerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Computer");
                 });

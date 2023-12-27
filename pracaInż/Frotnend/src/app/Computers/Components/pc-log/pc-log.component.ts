@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { log } from 'src/app/Models/Computer';
+import { pcLog } from 'src/app/Models/Computer';
 
 @Component({
   selector: 'app-pc-log',
@@ -7,7 +7,7 @@ import { log } from 'src/app/Models/Computer';
   styleUrls: ['./pc-log.component.css']
 })
 export class PcLogComponent implements OnInit {
-  @Input() log: log;
+  @Input() log: pcLog;
 
   constructor() { }
 

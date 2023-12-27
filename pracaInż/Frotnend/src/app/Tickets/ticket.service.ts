@@ -25,4 +25,8 @@ export class TicketService {
   getByPerson(id: string | null){
     return this.http.get(`${this.baseUrl}/Ticket/GetByPreson/` + id)
   }
+
+  getByPc(id: string | null){
+    return this.http.get(`${this.baseUrl}/Ticket/GetByPc/` + id)
+  }
 }

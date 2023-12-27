@@ -88,7 +88,7 @@
         <div id="right-bottom">
             <div id="tickets" class="page-table"></div>
             <div id="middle-panel">
-                <app-tickets id="tick"></app-tickets>
+                <app-tickets id="tick" [id]="this.employee.id.toString()" [type]="1"></app-tickets>
                 <div id="controls" class="page-table">
                     <div class="wraper">
                         <button mat-raised-button class="show-button" (click)="openEditWindow()">Edytuj pracownika <mat-icon class="icon">edit</mat-icon></button>  

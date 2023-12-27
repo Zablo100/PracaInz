@@ -17,7 +17,8 @@ namespace pracaInż.Models.Entities.Inventory
         public ComputerParts.OperatingSystem OS { get; set; }
         public int OSId { get; set; }
         public int RAMCapacity { get; set; }
-
+        public Employee? Employee { get; set; }
+        public int? EmployeeId { get; set; }
 
         public List<HardDrive> HardDrives { get; set; }
 

@@ -18,13 +18,15 @@ namespace pracaInż.Services
         Task<ErrorOr<Created>> AddNewOSInfo(NewOSInfoDTO osDTO);
         Task<ErrorOr<Created>> AddNewPC(NewComputerDTO computerDTO);
 
-        Task<List<Computer>> GetComputerList();
+        Task<List<ComputerDTO>> GetComputerList();
         Task<List<Processor>> GetProcessorList();
         Task<List<GraphicsCard>> GetGraphicsCardList();
         Task<List<Motherboard>> GetMotherboardList();
         Task<List<RAM>> GetRAMList();
         Task<List<HardDrive>> GetHardDriveList();
         Task<List<OperatingSystem>> GetOperatingSystemList();
+
+        Task<ErrorOr<ComputerDTO>> GetComputerById(int id);
 
     }
     public class ComputerService : IComputerService
@@ -121,7 +123,33 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<List<Computer>> GetComputerList()
+        public async Task<ErrorOr<ComputerDTO>> GetComputerById(int id)
+        {
+            ErrorOr<ComputerDTO> result;
+
+            var comp = await _context.Computers
+                .Include(comp => comp.OS)
+                .Include(comp => comp.CPU)
+                .Include(comp => comp.RAM)
+                .Include(comp => comp.GPU)
+                .Include(comp => comp.RAM)
+                .Include(comp => comp.HardDrives)
+                .Include(comp => comp.Motherboard)
+                .Include(comp => comp.Employee)
+                .ThenInclude(emp => emp.Department)
+                .FirstOrDefaultAsync(comp => comp.Id == id);
+
+            if(comp == null)
+            {
+                result = Error.NotFound(description: "Nie można załadować komputer o podanym ID");
+                return result;
+            }
+
+            result = new ComputerDTO(comp);
+            return result;
+        }
+
+        public async Task<List<ComputerDTO>> GetComputerList()
         {
             var computers = await _context.Computers
                 .Include(comp => comp.OS)
@@ -131,9 +159,13 @@ namespace pracaInż.Services
                 .Include(comp => comp.RAM)
                 .Include(comp => comp.HardDrives)
                 .Include(comp => comp.Motherboard)
+                .Include(comp => comp.Employee)
+                .ThenInclude(emp => emp.Department)
                 .ToListAsync();
 
-            return computers;
+            var result = computers.Select(comp => new ComputerDTO(comp)).ToList();
+
+            return result;
         }
 
         public Task<List<GraphicsCard>> GetGraphicsCardList()

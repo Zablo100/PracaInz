@@ -17,6 +17,7 @@ export interface HardDrive {
     name: string;
     size: number;
     type: Dysk;
+    score: number;
 }
 
 export interface Monitor {
@@ -43,6 +44,27 @@ export interface Computer {
     monitors: Monitor[];
 }
 
+export interface ComputerDTO {
+    id: number;
+    name: string;
+    processorName: string;
+    processorManufacturer: number;
+    processorScore: number;
+    graphicsCardName: string;
+    graphicsCardManufacturer: number;
+    graphicsCardScore: number;
+    motherboardName: string;
+    ramModel: string;
+    ramType: string;
+    osName: string;
+    ramCapacity: number;
+    yearOfPurches: string;
+    inventoryName: string;
+    totalScore: number;
+    person: string;
+    hardDrives: HardDrive[];
+}
+
 export interface ComputerCard{
     icon: string;
     title: string;
@@ -62,14 +84,7 @@ export interface ComputerResponse{
     workType: string;
 }
 
-export interface log{
-    id: number,
+export interface pcLog{
     date: string,
-    msg: string,
-    pcId: number
-  }
-
-  export interface logSummary{
-    month: string,
-    count: number
+    message: string,
   }

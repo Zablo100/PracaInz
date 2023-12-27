@@ -1,6 +1,9 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ComputerService } from '../../computer.service';
+import { ToastrService } from 'ngx-toastr';
+import { getErrorMessage } from 'src/app/Core/appip';
 
 @Component({
   selector: 'app-new-log-form',
@@ -8,17 +11,15 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./new-log-form.component.css']
 })
 export class NewLogFormComponent implements OnInit {
+  selectedOption: number = 0;
   RepairSelected: boolean = false
-  CustomSelected: boolean = false
+  CleanSelected: boolean = false
   CatForm: FormGroup
-  RepairForm: FormGroup
-  CustomForm: FormGroup
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private service: ComputerService, private notification: ToastrService) { }
 
   ngOnInit(): void {
     this.createForm()
-
   }
 
   createForm(){
@@ -27,31 +28,42 @@ export class NewLogFormComponent implements OnInit {
     })
   }
 
-  createRepairForm(){
-    this.RepairForm = new FormGroup({
-      type: new FormControl(0)
-    })
-  }
-
   categoryChange(){
     if (this.CatForm.value.category == 1){
-      this.CustomSelected = false
-      this.createRepairForm()
+      this.CleanSelected = false
       this.RepairSelected = true
     }else if(this.CatForm.value.category == 2){
       this.RepairSelected = false
 
-      this.CustomSelected = true
+      this.CleanSelected = true
     }
   }
 
-  RepairSubmit(){
-    var body = {
-      pcId: this.data.pcId,
-      type: this.RepairForm.value.type
+  submit(){
+    var body = {};
+    if(this.RepairSelected){
+      body = {
+        pcId: this.data.pcId,
+        type: 1,
+        message: this.selectedOption
+      }
+    }else if(this.CleanSelected){
+      body = {
+        pcId: this.data.pcId,
+        type: 2,
+        message: this.selectedOption
+      }
     }
+    this.service.addPcLog(body).subscribe((Response) => {
+      this.notification.success("Pomyślnie dodano informacje do komputera")
+      location.reload()
+    }, (err) => {
+      this.notification.error(getErrorMessage(err))
+    } )
+  }
 
-    //post na endpoint wymian
+  updateOption(x: any){
+    this.selectedOption = parseInt(x)
   }
 
 

@@ -16,6 +16,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Updated>> ResolveTicket(int ticketId);
         Task<ErrorOr<List<List<string>>>> GetPersonTicketSummary(int presonId);
         Task<ErrorOr<List<TicketDTO>>> GetTicketsByPreson(int id);
+        Task<ErrorOr<List<TicketDTO>>> GetTicketsByPc(int id);
 
     }
     public class TicketService : ITicketService
@@ -229,5 +230,35 @@ namespace pracaInż.Services
             return result;
         }
 
+        public async Task<ErrorOr<List<TicketDTO>>> GetTicketsByPc(int id)
+        {
+            ErrorOr<List<TicketDTO>> Result;
+            var tickets = await _context.Tickets
+                .Where(t => t.ComputerId == id)
+                .Include(t => t.AcceptedBy)
+                .Include(t => t.SubmittedBy)
+                .ThenInclude(emp => emp.Department)
+                .Include(t => t.Computer)
+                .OrderByDescending(t => t.CreatedAt)
+                .ToListAsync();
+
+            List<TicketDTO> ticketDTOs = new List<TicketDTO>();
+
+            foreach (var ticket in tickets)
+            {
+                ticketDTOs.Add(new TicketDTO(ticket));
+            }
+
+            if (ticketDTOs.Count <= 0)
+            {
+                Result = Error.NotFound(description: "Brak zgłoszeń!");
+                return Result;
+            }
+
+
+
+            Result = ticketDTOs;
+            return Result;
+        }
     }
 }

@@ -32,6 +32,7 @@ namespace pracaInż.Data
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<InvoiceItem> InvoicesItem { get; set; }
         public DbSet<DocumentModel> Documents { get; set; }
+        public DbSet<PcLog> PcLogs { get; set; }
 
     }
 }

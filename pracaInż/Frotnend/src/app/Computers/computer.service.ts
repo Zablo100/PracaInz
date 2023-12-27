@@ -6,24 +6,24 @@ import { app } from '../Core/appip';
   providedIn: 'root'
 })
 export class ComputerService {
-  url: string = `http://${app.ip}/api/computer`;
+  url: string = `https://${app.ip}`;
 
   constructor(private http: HttpClient) { }
 
   getAll(){
-    return this.http.get(`${this.url}/all`)
+    return this.http.get(`${this.url}/Computers/GetAllComputers`)
   }
 
   getByID(id: string | null){
-    return this.http.get(`${this.url}/get/${id}`)
+    return this.http.get(`${this.url}/Computers/GetById/${id}`)
   }
 
   getPcLogsById(id: string | null){
-    return this.http.get(`${this.url}/get/log/${id}`)
+    return this.http.get(`${this.url}/Computers/GetLogsByPc/${id}`)
   }
 
-  getPcLogSummary(id: string | null){
-    return this.http.get(`${this.url}/get/log/summary/${id}`)
+  addPcLog(body: any){
+    return this.http.post(`${this.url}/Computers/AddLogs`, body)
   }
 
 }

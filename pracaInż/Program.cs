@@ -35,6 +35,8 @@ builder.Services.AddScoped<ISoftwareService, SoftwareService>();
 builder.Services.AddScoped<IInventoryservice, InventoryService>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
+builder.Services.AddScoped<IComputerService, ComputerService>();
+builder.Services.AddScoped<IPcLogService, PcLogService>();
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson();

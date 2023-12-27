@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { Tick } from 'chart.js/dist/core/core.scale';
@@ -18,6 +18,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class TicketsComponent {
+  @Input() type: number;
+  @Input() id: string | null;
   data: MatTableDataSource<TicketDTO>
   displayedColumns = ['createdAt', 'status', 'computer', 'description' ,'acceptedBy']
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -29,9 +31,33 @@ export class TicketsComponent {
   }
 
   loadData(){
-    const id = this.route.snapshot.paramMap.get('id')
-    console.log(id)
+    if(this.type == 1){
+      this.loadDataByUser()
+    }else if(this.type == 2){
+      this.loadDataByPC()
+    }
+  }
+
+  getHeight(){
+    if(this.type == 1){
+      return 9
+    }else if(this.type == 2){
+      return 8
+    }
+    return 10
+  }
+
+  loadDataByUser(){
+    const id = this.id
     this.service.getByPerson(id).subscribe((response) => {
+      this.data = new MatTableDataSource<TicketDTO>(response as TicketDTO[])
+      this.data.paginator = this.paginator
+    }, (err) => this.notification.error(getErrorMessage(err)))
+  }
+
+  loadDataByPC(){
+    const id = this.id
+    this.service.getByPc(id).subscribe((response) => {
       this.data = new MatTableDataSource<TicketDTO>(response as TicketDTO[])
       this.data.paginator = this.paginator
     }, (err) => this.notification.error(getErrorMessage(err)))

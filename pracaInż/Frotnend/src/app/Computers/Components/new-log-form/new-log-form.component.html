@@ -5,30 +5,30 @@
         <label for="select-cat" class="select-lable">Kategoria</label>
         <select class="select-input" id="select-cat" formControlName="category">
             <option [ngValue]="1">Wymiana</option>
-            <option [ngValue]="2">Inne</option>
+            <option [ngValue]="2">Czyszczenie</option>
         </select><br>
     </form>
 
-    <form *ngIf="RepairSelected" (submit)="RepairSubmit">
-        <label for="select-type" class="select-lable">Zdarzenie</label>
-        <select class="select-input" id="select-type">
-            <option [ngValue]="0">Dysk</option>
-            <option [ngValue]="1">Zasilacz</option>
-            <option [ngValue]="2">Procesor</option>
-            <option [ngValue]="3">Pamięć RAM</option>
-            <option [ngValue]="4">Karta graficzna</option>
+    <form *ngIf="RepairSelected">
+        <label for="select-type" class="select-lable">Wymiana</label>
+        <select class="select-input" (change)="updateOption($any($event.target).value)">
+            <option value="0">Klawiatura</option>
+            <option value="1">Myszka</option>
+            <option value="2">Kabel zasilający</option>
+            <option value="3">Zasilacz</option>
         </select>
 
-        <button type="submit" class="btn-black-round" id="btn-submit">Dodaj</button>
+        <button type="button" class="btn-black-round" id="btn-submit" (click)="submit()">Dodaj</button>
     </form>
 
-    <form *ngIf="CustomSelected">
-        <label for="input-custom" class="select-lable">Opis</label>
-        <textarea id="input-custom"></textarea><br>
-        <button type="submit" class="btn-black-round" id="btn-submit-custom">Dodaj</button>
+    <form *ngIf="CleanSelected">
+        <label for="select-type" class="select-lable">Czyszczenie</label>
+        <select class="select-input" (change)="updateOption($any($event.target).value)">
+            <option value="0">Powietrzem</option>
+            <option value="1">Całkowite</option>
+        </select>
+        <button type="button" class="btn-black-round" id="btn-submit-custom" (click)="submit()">Dodaj</button>
     </form>
-
-    
 
 </div>
 </div>

@@ -126,18 +126,18 @@
 }
 
 #pc-history{
-    margin-top: 5vh;
-    margin-left: 50px;
-    height: 57vh;
+    margin-top: 1vh;
+    margin-left: 1vw;
+    height: 55vh;
     border: 3px solid #0077b6;
-
+    max-width: 23vw;
     border-radius: 16px;
 }
 
 #pc-history-logs{
     overflow-y: scroll;
 
-    height: 57vh;
+    height: 55vh;
 }
 
 ::-webkit-scrollbar {
@@ -149,12 +149,13 @@
     width: 35px;
     font-size: large;
     font-weight: 600;
+    margin-top: 3px;
+    margin-right: 3px;
 
-    position: absolute;
-    bottom: 4.5%;
-    right: 5%;
+    position: relative;
+    float: right;
 }
 
 #chart-container{
-    margin-top: 150px;
+    margin-top: 2vh;
 }
