@@ -42,14 +42,22 @@ export class ComputersComponent implements OnInit {
 
   createForm(){
     this.form = new FormGroup({
-      cpu: new FormControl(''),
-      os: new FormControl(''),
-      ram: new FormControl('all')
+      cpu: new FormControl('0'),
+      os: new FormControl('0'),
+      gpu: new FormControl('0')
     })
 
     this.searchForm = new FormGroup({
       search: new FormControl()
     })
+  }
+
+  checkPerson(person: string){
+    if (person == "Brak osoby"){
+      return true
+    }
+
+    return false;
   }
 
   resetFilter(){

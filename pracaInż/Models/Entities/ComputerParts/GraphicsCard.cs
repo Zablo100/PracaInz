@@ -4,7 +4,7 @@ namespace pracaInż.Models.Entities.ComputerParts
 {
     public enum GraphicCardManufacturers
     {
-        Intel,
+        Intel = 1,
         AMD,
         Nvidia
     }

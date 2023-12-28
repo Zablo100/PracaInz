@@ -19,41 +19,6 @@ table{
     background-color: #b9fbc0;
    }
 
-   #search{
-    height: 35px;
-    width: 450px;
-    display: block;
-    border-radius: 16px;
-    border: 1px solid lightgray;
-    background: transparent;
-    transition: border-color 0.2s;
-    outline: 0;
-    font-family: Bahnschrift;
-    font-size: medium;
-    text-align: center;
-    
-}
-
-#search:focus::placeholder{
-    transition: 0.25s;
-    color: transparent;
-}
-
-#search:hover{
-    border: 1px solid #0674f1;
-    transition: 0.25s;
-}
-
-
-#search:focus{
-    border: 1px solid #0674f1;
-}
-
-.btn-search{
-    height: 35px;
-    width: 150px;
-    margin-left: 15px;
-}
 
 #search-bar{
 
@@ -92,6 +57,7 @@ button{
 #title{
   font-family: Bahnschrift;
   font-size: large;
+  margin-left: 1vw;
 }
 
 #search-form{
@@ -99,3 +65,18 @@ button{
   margin-left: 50px;
   margin-right: 150px;
 }
+
+
+.inputs-mat{
+  margin-left: 1vw;
+}
+
+.mat-raised-button{
+  background-color:#f8f9fa;
+  height: 4vh;
+}
+
+.red{
+  color: #e63946;
+}
+

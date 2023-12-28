@@ -1,36 +1,43 @@
 <div id="search-bar">
     <form [formGroup]="searchForm" id="search-form" (submit)="applyFilter()">
-      <input id="search" formControlName="search" placeholder="Wyszukaj" autocomplete="off">
-      <button class="btn-blue-round btn-search" type="submit">Wyszukaj</button>
+      <mat-form-field>
+      <input formControlName="search" placeholder="Wyszukaj" autocomplete="off" matInput id="mat-input-search">
+    </mat-form-field>
+    <button class="inputs-mat" mat-raised-button type="button" id="search-button">Wyszukaj</button>
     </form>
 
     <form [formGroup]="form" (submit)="filterData()">
         <span id="title">Filtry: </span>
-        <select class="select-input" formControlName="cpu">
-          <option [ngValue]="''">Wszystkie</option>
-            <option [ngValue]="'Intel i3'">Intel i3</option>
-            <option [ngValue]="'Intel i5'">Intel i5</option>
-            <option [ngValue]="'Intel i7'">Intel i7</option>
-            <option [ngValue]="'Intel'">Intel</option>
-            <option [ngValue]="'AMD'">AMD</option>
-        </select>
+        <mat-form-field class="inputs-mat">
+          <mat-label>Procesor</mat-label>
+        <mat-select formControlName="cpu">
+          <mat-option value="0">Wszystkie</mat-option>
+          <mat-option value="1">Intel</mat-option>
+          <mat-option value="2">AMD</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <select class="select-input" formControlName="ram">
-            <option [ngValue]="'all'">Wszystkie</option>
-            <option [ngValue]="4">4GB</option>
-            <option [ngValue]="8">8GB</option>
-            <option [ngValue]="16">16GB</option>
-            <option [ngValue]="32">32GB</option>
-        </select>
+      <mat-form-field class="inputs-mat">
+        <mat-label>Karta graficzna</mat-label>
+        <mat-select formControlName="gpu">
+            <mat-option value="0">Wszystkie</mat-option>
+            <mat-option value="1">Nvidia</mat-option>
+            <mat-option value="2">AMD</mat-option>
+            <mat-option value="1">Intel</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <select class="select-input" formControlName="os">
-          <option [ngValue]="''">Wszystkie</option>
-          <option [ngValue]="'Windows 7'">Windows 7</option>
-          <option [ngValue]="'Windows 10'">Windows 10</option>
-          <option [ngValue]="'Windows 11'">Windows 11</option>
-      </select>
+      <mat-form-field class="inputs-mat">
+        <mat-label>System operacyjny</mat-label>
+        <mat-select formControlName="os">
+          <mat-option value="0">Wszystkie</mat-option>
+          <mat-option value="1">Windows 7</mat-option>
+          <mat-option value="2">Windows 10</mat-option>
+          <mat-option value="1">Windows 11</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-        <button class="btn-blue-round btn-search" type="submit">Filtruj</button>
+        <button class="inputs-mat" mat-raised-button id="filtr-button" type="button">Filtruj</button>
     </form>
 </div>
 <div id="reset" *ngIf="show">
@@ -46,7 +53,10 @@
 
       <ng-container matColumnDef="person">
         <th mat-header-cell *matHeaderCellDef> Pracownik </th>
-        <td mat-cell *matCellDef="let element"> {{element.person}} </td>
+        <td mat-cell *matCellDef="let element"> 
+          <span class="red" *ngIf="checkPerson(element.person)"><B>{{element.person}}</B></span>
+          <span *ngIf="!checkPerson(element.person)">{{element.person}}</span>
+           </td>
       </ng-container>
 
       <ng-container matColumnDef="processorName">

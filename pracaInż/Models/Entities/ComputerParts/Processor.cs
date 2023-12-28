@@ -4,7 +4,7 @@ namespace pracaInż.Models.Entities.ComputerParts
 {
     public enum CPUManufacurers
     {
-        Intel,
+        Intel = 1,
         AMD,
         Other
     }
