@@ -62,6 +62,7 @@ import { EditInventoryWindowComponent } from './Inventory/Components/edit-invent
 import { TicketsPageComponent } from './Tickets/UI/tickets-page.component';
 import { TicketComponent } from './Tickets/Components/ticket/ticket.component';
 import { TicketsComponent } from './Tickets/Components/tickets/tickets.component';
+import { UserPageComponent } from './User/user-page/user-page.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { TicketsComponent } from './Tickets/Components/tickets/tickets.component
     EditInventoryWindowComponent,
     TicketsPageComponent,
     TicketComponent,
-    TicketsComponent
+    TicketsComponent,
+    UserPageComponent
   ],
   imports: [
     BrowserModule,

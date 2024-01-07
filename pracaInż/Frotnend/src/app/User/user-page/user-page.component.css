@@ -1,0 +1,133 @@
+#content{
+    margin-top: 3vh;
+    display: flex;
+}
+
+#left{
+    float: left;
+    width: 45vw;
+    margin-right: 3vw;
+    margin-left: 2vw;
+    height: 65vh;
+
+}
+
+#right{
+    margin-right: 3vw;
+    margin-left: 2vw;
+    float: right;
+    width: 45vw;
+    height: 65vh;
+
+}
+
+#ticket-summary{
+    margin-top: 1vh;
+}
+
+#btn-log{
+    height: 5vh;
+    width: 15vw;
+    float: right;
+    margin-top: 1vh;
+    cursor: pointer;
+    font-size: large;
+}
+
+#top{
+    width: 100vw;
+    height: 25vh;
+
+}
+
+#chart{
+    margin-left: 5vw;
+    margin-top: 2vh;
+    width: 90vw;
+    height: 25vh; 
+}
+
+#ticket-panel{
+    margin-left: 5vw;
+    border: 1px solid lightgrey;
+    width: 40vw;
+    height: 57vh;
+    display: flex;
+    justify-content: center;
+}
+
+#btn-submit{
+    margin-top: 2vh;
+    height: 5vh;
+    width: 15vw;
+    cursor: pointer;
+    font-size: large;
+}
+
+#desc{
+    height: 20vh;
+    width: 20vw;
+    resize: none;
+    margin-top: 2vh;
+    border: 0;
+    border: 1px solid lightgray;
+    background: transparent;
+    transition: border-color 0.2s;
+    outline: 0;
+    font-family: Bahnschrift;
+    font-size: medium;
+    text-align: center;
+}
+
+#desc:focus{
+    transition: 0.5s;
+    border: 1px solid #0674f1;
+}
+
+#desc:focus::placeholder{
+    transition: 0.25s;
+    color: transparent;
+}
+
+#buttons{
+    display: flex;
+    justify-content: center;
+}
+
+#pc{
+    height: 5vh;
+    width: 20vw;
+    margin-top: 1vh;
+    border: 0;
+    border: 1px solid lightgray;
+    background: transparent;
+    transition: border-color 0.2s;
+    outline: 0;
+    font-size: large;
+    text-align: center;
+    font-family: Bahnschrift;
+    line-height: 5vh;
+}
+
+#chekbox-text{
+    font-family: Bahnschrift;
+}
+
+#chekbox-pc{
+    cursor: pointer;
+}
+
+#custom-pc{
+    height: 5vh;
+    width: 20vw;
+    margin-top: 1vh;
+    border: 0;
+    border: 1px solid lightgray;
+    background: transparent;
+    transition: border-color 0.2s;
+    outline: 0;
+    font-size: large;
+    text-align: center;
+    font-family: Bahnschrift;
+    line-height: 5vh; 
+}

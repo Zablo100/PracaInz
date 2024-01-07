@@ -10,8 +10,8 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  getDataFromAPI(){
-    return this.http.get(`${this.baseUrl}/Ticket/GetAllTickets`)
+  getDataFromAPI(page: number){
+    return this.http.get(`${this.baseUrl}/Ticket/GetAllTickets?page=`+page)
   }
 
   getDataById(id: number | string | null){

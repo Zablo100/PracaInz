@@ -1,0 +1,30 @@
+<div id="top">
+    <div id="chart">
+        <canvas id="myChart" height="264" width="1800"></canvas>
+    </div>
+</div>
+<div id="content">
+    <div id="left">
+        <div id="ticket-panel">
+            <div id="ticket-form">
+                <textarea id="desc" placeholder="Opisz problem"></textarea>
+                <br>
+                <input id="chekbox-pc" type="checkbox" (change)="this.customPc()"> <span id="chekbox-text">Wybierz jeśli chcesz zgłosić inne urządzenie</span>
+                <div id="pc" *ngIf="!Custom">Twój komputer: PC22-01</div><br>
+                <input *ngIf="Custom" id="custom-pc" placeholder="Wpisz numer urządzenia">
+                <div id="buttons">
+                    <button id="btn-submit" class="btn-blue-box">Wyślij</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div id="right">
+        <div id="ticket-summary">
+            <app-tickets id="tick" [id]="'1231241'" [type]="1"></app-tickets>
+        </div>
+        <button id="btn-log" class="btn-red-round">Wyloguj</button>
+    </div>
+</div>
+

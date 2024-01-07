@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
+using pracaInż.Models;
 using pracaInż.Models.DTO.ComputerParts;
 using pracaInż.Models.Entities.ComputerParts;
 using pracaInż.Models.Entities.Inventory;
@@ -18,7 +19,7 @@ namespace pracaInż.Services
         Task<ErrorOr<Created>> AddNewOSInfo(NewOSInfoDTO osDTO);
         Task<ErrorOr<Created>> AddNewPC(NewComputerDTO computerDTO);
 
-        Task<List<ComputerDTO>> GetComputerList();
+        Task<PaginationResponse<List<ComputerDTO>>> GetComputerList(int page);
         Task<List<Processor>> GetProcessorList();
         Task<List<GraphicsCard>> GetGraphicsCardList();
         Task<List<Motherboard>> GetMotherboardList();
@@ -149,9 +150,12 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<List<ComputerDTO>> GetComputerList()
+        public async Task<PaginationResponse<List<ComputerDTO>>> GetComputerList(int page)
         {
             var computers = await _context.Computers
+                .Skip((page - 1) * 10)
+                .Take(10)
+                .OrderBy(comp => comp.Id)
                 .Include(comp => comp.OS)
                 .Include(comp => comp.CPU)
                 .Include(comp => comp.RAM)
@@ -163,7 +167,11 @@ namespace pracaInż.Services
                 .ThenInclude(emp => emp.Department)
                 .ToListAsync();
 
-            var result = computers.Select(comp => new ComputerDTO(comp)).ToList();
+            var totalCount = await _context.Computers.CountAsync();
+
+            var result = new PaginationResponse
+                <List<ComputerDTO>>
+                (page, totalCount, 10,  computers.Select(comp => new ComputerDTO(comp)).ToList());
 
             return result;
         }

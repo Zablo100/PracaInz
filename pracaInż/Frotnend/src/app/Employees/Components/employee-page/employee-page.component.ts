@@ -45,6 +45,7 @@ export class EmployeePageComponent implements OnInit {
   getDataForChart(){
     const id = this.route.snapshot.paramMap.get('id')
     this.service.getSummaryById(id).subscribe((response => {
+      console.log(response)
       const lista = response as []
       lista.forEach(element => {
         this.Daty.push(element[0])

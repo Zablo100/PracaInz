@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
+using pracaInż.Models;
 using pracaInż.Models.DTO.Employees;
 using pracaInż.Validators;
 
@@ -9,7 +10,7 @@ namespace pracaInż.Services
 {
     public interface IEmployeeService
     {
-        Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoList();
+        Task<ErrorOr<PaginationResponse<List<EmployeeBasicInfoDTO>>>> GetEmployeesBasicInfoList(int page);
         Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoByFactory(int factoryId);
         Task<ErrorOr<EmployeeBasicInfoDTO>> GetEmployeeBasicInfoById(int id);
         Task<ErrorOr<Created>> AddNewEmployeeBasicInfo(AddEmployeeBasiInfoDTO employeeDTO);
@@ -68,13 +69,18 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<ErrorOr<List<EmployeeBasicInfoDTO>>> GetEmployeesBasicInfoList()
+        public async Task<ErrorOr<PaginationResponse<List<EmployeeBasicInfoDTO>>>> GetEmployeesBasicInfoList(int page)
         {
-            ErrorOr<List<EmployeeBasicInfoDTO>> result;
+            ErrorOr<PaginationResponse<List<EmployeeBasicInfoDTO>>> result;
             var rawData = await _context.Employees
+                .Skip((page - 1) * 10)
+                .Take(10)
+                .OrderBy(emp => emp.Id)
                 .Include(emp => emp.Department)
                 .ThenInclude(dep => dep.Factory)
                 .ToListAsync();
+            var totalCount = await _context.Employees.CountAsync();
+
             if(rawData.Count < 0) 
             {
                 result = Error.NotFound(description: "Nie znaleziono żadnych pracowników!");
@@ -87,7 +93,8 @@ namespace pracaInż.Services
                 employeeBasicInfoDTOs.Add(new EmployeeBasicInfoDTO(employee));
             }
 
-            result = employeeBasicInfoDTOs;
+            result = new PaginationResponse<List<EmployeeBasicInfoDTO>>
+                (page, totalCount, 10, employeeBasicInfoDTOs);
             return result;
 
         }

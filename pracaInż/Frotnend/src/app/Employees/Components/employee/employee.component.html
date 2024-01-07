@@ -27,7 +27,7 @@
   </form>
   </div>
 
-  <table mat-table [dataSource]="this.data" matSort (matSortChange)="sortData($event)">
+  <table mat-table [dataSource]="this.data" matSort>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -90,7 +90,12 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSize]="10" showFirstLastButtons aria-label="Select page">
+  <mat-paginator 
+  [pageSize]="10" 
+  [length]="this.TotalCount" 
+  (page)="this.loadNextPage($event)"
+  showFirstLastButtons 
+  aria-label="Select page">
   </mat-paginator>
 
 </div>

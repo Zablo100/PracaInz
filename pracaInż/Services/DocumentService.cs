@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
+using pracaInż.Models;
 using pracaInż.Models.DTO.Documents;
 using pracaInż.Models.Entities.Documents;
 using System.Text;
@@ -10,7 +11,7 @@ namespace pracaInż.Services
     public interface IDocumentService
     {
         Task<ErrorOr<DocumentModel>> GetManualDocumentById(int id);
-        Task<ErrorOr<List<DocumentDTO>>> GetAllDocuments();
+        Task<ErrorOr<PaginationResponse<List<DocumentDTO>>>> GetDocuments(int page);
         Task<ErrorOr<Created>> UploadNewFile(DocumentModel document, IFormFile file);
         Task<ErrorOr<Updated>> UpdateDocument(int id, IFormFile file);
     }
@@ -22,17 +23,26 @@ namespace pracaInż.Services
             _context = appDbcontext;
         }
 
-        public async Task<ErrorOr<List<DocumentDTO>>> GetAllDocuments()
+        public async Task<ErrorOr<PaginationResponse<List<DocumentDTO>>>> GetDocuments(int page)
         {
-            ErrorOr<List<DocumentDTO>> result;
-            var documents = await _context.Documents.ToListAsync();
+            ErrorOr<PaginationResponse<List<DocumentDTO>>> result;
+            var documents = await _context
+                .Documents
+                .Skip((page - 1) * 10)
+                .Take(10)
+                .OrderBy(doc => doc.Id)
+                .ToListAsync();
+
+            var totalCount = await _context.Documents.CountAsync();
+
             if(documents.Count == 0)
             {
                 result = Error.NotFound(description: "Błąd podczas ładowania dokumnetów");
                 return result;
             }
 
-            result = documents.Select(doc => new DocumentDTO(doc)).ToList();
+            result = new PaginationResponse<List<DocumentDTO>>
+                (page, totalCount, 10, documents.Select(doc => new DocumentDTO(doc)).ToList());
             return result;
 
         }

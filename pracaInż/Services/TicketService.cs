@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
+using pracaInż.Models;
 using pracaInż.Models.DTO.TicketDTO;
 using pracaInż.Models.Entities;
 
@@ -9,7 +10,7 @@ namespace pracaInż.Services
     public interface ITicketService
     {
         Task<ErrorOr<Created>> SubmitNewTicketAsync(NewTicketDTO ticketDTO);
-        Task<ErrorOr<List<TicketDTO>>> GetTicketsAsync();
+        Task<ErrorOr<PaginationResponse<List<TicketDTO>>>> GetTicketsAsync(int page);
         Task<ErrorOr<TicketDTO>> GetTicketByIdAsync(int id);
         Task<ErrorOr<CommentDTO>> AddCommentToTicketAsync(AddCommentDTO commentDTO);
         Task<ErrorOr<Updated>> AcceptTicket(AcceptTicketDTO request);
@@ -90,15 +91,20 @@ namespace pracaInż.Services
             return result;
         }
         
-        public async Task<ErrorOr<List<TicketDTO>>> GetTicketsAsync()
+        public async Task<ErrorOr<PaginationResponse<List<TicketDTO>>>> GetTicketsAsync(int page)
         {
-            ErrorOr<List<TicketDTO>> Result;
+            ErrorOr<PaginationResponse<List<TicketDTO>>> Result;
             var tickets = await _context.Tickets
+                .Skip((page - 1) * 10)
+                .Take(10)
+                .OrderBy(t => t.Id)
                 .Include(t => t.AcceptedBy)
                 .Include(t => t.SubmittedBy)
                 .ThenInclude(emp => emp.Department)
                 .Include(t => t.Computer)
                 .ToListAsync();
+
+            var totalCount = await _context.Tickets.CountAsync();
 
             List<TicketDTO> ticketDTOs = new List<TicketDTO>();
 
@@ -115,7 +121,7 @@ namespace pracaInż.Services
 
 
 
-            Result = ticketDTOs;
+            Result = new PaginationResponse<List<TicketDTO>>(page, totalCount, 10, ticketDTOs);
             return Result;
         }
 
@@ -190,8 +196,8 @@ namespace pracaInż.Services
         {
             ErrorOr<List<List<string>>> result;
             var year = DateTime.Now.Year;
-            var start = new DateTime(year, 1, 1);
-            var stop = new DateTime(year, 12, 31);
+            var start = new DateTime(2023, 1, 1);
+            var stop = new DateTime(2023, 12, 31);
             List<Tuple<int, decimal>> raw;
 
             try

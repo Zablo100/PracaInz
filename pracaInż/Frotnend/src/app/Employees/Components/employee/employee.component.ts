@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
@@ -17,6 +17,7 @@ import { Factory, SelectFactoryDTO } from 'src/app/Models/Factory';
 import { DepartmentSelectDTO } from 'src/app/Models/Department';
 import { ToastrService } from 'ngx-toastr';
 import { getErrorMessage } from 'src/app/Core/appip';
+import { PaginationResponse } from 'src/app/Models/Pagination';
 
 @Component({
   selector: 'app-employee',
@@ -32,6 +33,8 @@ export class EmployeeComponent implements OnInit {
   departments: DepartmentSelectDTO[];
   isFactorySelected: boolean = false;
   firstRun: boolean = true;
+  Page: number = 1
+  TotalCount: number;
 
   constructor(private serivce: EmployeeService, private matDialog: MatDialog, private notification: ToastrService) { }
 
@@ -53,10 +56,31 @@ export class EmployeeComponent implements OnInit {
   }
 
   getDataFromAPI(){
-    this.serivce.getEmployeesList().subscribe((response) => {
+    this.serivce.getEmployeesList(this.Page).subscribe((response) => {
       this.rawData = response as Employee[]
-      this.data = new MatTableDataSource<Employee>(response as Employee[])
+      const responseValue = response as PaginationResponse<Employee[]>
+      this.data = new MatTableDataSource<Employee>(responseValue.value as Employee[])
+      this.TotalCount = responseValue.totalCount
       this.data.paginator = this.paginator;
+    }, (err) => {
+      this.notification.error(getErrorMessage(err))
+    })
+  }
+
+  loadNextPage(event: PageEvent){
+    if(event.previousPageIndex! < event.pageIndex){
+      this.Page++
+    }else{
+      this.Page--
+    }
+
+    if(this.Page <= 0){
+      this.Page = 1
+    }
+
+    this.serivce.getEmployeesList(this.Page).subscribe((response) => {
+      const responseValue = response as PaginationResponse<Employee[]>
+      this.data = new MatTableDataSource<Employee>(responseValue.value as Employee[])
     }, (err) => {
       this.notification.error(getErrorMessage(err))
     })
@@ -109,52 +133,6 @@ export class EmployeeComponent implements OnInit {
       this.notification.error(getErrorMessage(err))
     })
 
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.data.sort = this.sort;
-    }, 1000);
-  }
-
-  sortData(sort: Sort) {
-    if (sort.active == "department"){
-      this.sortByDepartment(sort.direction)
-    }
-
-    if(sort.direction == ""){
-      this.sortByID()
-    }
-
-    }
-
-  sortByDepartment(direction: string){
-
-    if(direction == "asc"){
-      this.data.data.sort((a,b) => {
-        const e1 = a.departmentShortName
-        const e2 = b.departmentShortName
-  
-        return e1 < e2 ? -1 : 1
-      });
-    }else{
-      this.data.data.sort((a,b) => {
-        const e1 = a.departmentShortName
-        const e2 = b.departmentShortName
-  
-        return e1 > e2 ? -1 : 1
-      });
-    }
-
-  }
-
-  sortByID(){
-    this.data.data.sort((a,b) => {
-      const e1 = a.id
-      const e2 = b.id
-
-      return e1 < e2 ? -1 : 1
-    });
   }
 
 
