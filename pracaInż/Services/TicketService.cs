@@ -189,9 +189,9 @@ namespace pracaInż.Services
         public async Task<ErrorOr<List<List<string>>>> GetPersonTicketSummary(int presonId)
         {
             ErrorOr<List<List<string>>> result;
-            var year = DateTime.Now.Year;
-            var start = new DateTime(year, 1, 1);
-            var stop = new DateTime(year, 12, 31);
+            //var year = DateTime.Now.Year;
+            var start = new DateTime(2023, 1, 1);
+            var stop = new DateTime(2023, 12, 31);
             List<Tuple<int, decimal>> raw;
 
             try

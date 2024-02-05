@@ -63,8 +63,8 @@ namespace pracaInż.Services
 
             ErrorOr<List<List<string>>> result;
             var year = DateTime.Now.Year;
-            var start = DateOnly.FromDateTime(new DateTime(year, 1, 1));
-            var stop = DateOnly.FromDateTime(new DateTime(year, 12, 31));
+            var start = DateOnly.FromDateTime(new DateTime(2023, 1, 1));
+            var stop = DateOnly.FromDateTime(new DateTime(2023, 12, 31));
             List<Tuple<int, decimal>> raw;
 
             try

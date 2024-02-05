@@ -64,6 +64,6 @@ app.UseCors(frontend);
 
 app.MapControllers();
 
-Copy.Start();
+//Copy.Start();
 app.Run();
 
