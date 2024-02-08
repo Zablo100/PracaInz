@@ -16,9 +16,9 @@ namespace pracaInż.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetInventoryAssets()
+        public async Task<IActionResult> GetInventoryAssets(int page)
         {
-            return Ok(await _service.GetInventoryAssets());
+            return Ok(await _service.GetInventoryAssets(page));
         }
 
         [HttpGet("{id}")]

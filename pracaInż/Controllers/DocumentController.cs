@@ -38,9 +38,9 @@ namespace pracaInż.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAlldocuments()
+        public async Task<IActionResult> GetAlldocuments(int page)
         {
-            var result = await _service.GetAllDocuments();
+            var result = await _service.GetDocuments(page);
             if (result.IsError)
             {
                 return BadRequest(result.FirstError);

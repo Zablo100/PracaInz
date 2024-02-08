@@ -21,9 +21,9 @@ namespace pracaInż.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllComputers()
+        public async Task<IActionResult> GetComputers(int page)
         {
-            var result = await _service.GetComputerList();
+            var result = await _service.GetComputerList(page);
 
             return Ok(result);
         }

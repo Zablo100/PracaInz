@@ -14,7 +14,8 @@ export class SidebarComponent implements OnInit {
 
   checkIfLoggedIn(){
     const status = window.sessionStorage.getItem("login")
-    if(status == "true"){
+    const role = window.sessionStorage.getItem("role")
+    if(status == "true" && role == "Admin"){
       return true
     }else{
       return false

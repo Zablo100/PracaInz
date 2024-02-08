@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using pracaInż.Data;
+using pracaInż.Models;
 using pracaInż.Models.DTO.Inventory;
 using pracaInż.Models.Entities.Inventory;
 
@@ -9,7 +10,7 @@ namespace pracaInż.Services
     public interface IInventoryservice
     {
         Task<ErrorOr<Created>> AddInventoryAsset(AddInventoryAssetDTO asset);
-        Task<List<InventoryAssetDTO>> GetInventoryAssets();
+        Task<PaginationResponse<List<InventoryAssetDTO>>> GetInventoryAssets(int page);
         Task<ErrorOr<Updated>> EditAsset(UpdateInventoryAssetDTO assetDTO);
         Task<ErrorOr<InventoryAsset>> GetAssetById(int id);
     }
@@ -60,11 +61,19 @@ namespace pracaInż.Services
             return result;
         }
 
-        public async Task<List<InventoryAssetDTO>> GetInventoryAssets()
+        public async Task<PaginationResponse<List<InventoryAssetDTO>>> GetInventoryAssets(int page)
         {
-            var raw = await _context.InventoryAssets.Include(asset => asset.Department).ToListAsync();
-            var result = new List<InventoryAssetDTO>();
-            raw.ForEach(raw => result.Add(new InventoryAssetDTO(raw)));
+            var raw = await _context
+                .InventoryAssets
+                .Skip((page -1) * 10)
+                .Take(10)
+                .OrderBy(inv => inv.Id)
+                .Include(asset => asset.Department).ToListAsync();
+
+            var totalCount = await _context.InventoryAssets.CountAsync();
+
+            var result = new PaginationResponse<List<InventoryAssetDTO>>
+                (page, totalCount, 10, raw.Select(inv => new InventoryAssetDTO(inv)).ToList());
 
             return result;
         }

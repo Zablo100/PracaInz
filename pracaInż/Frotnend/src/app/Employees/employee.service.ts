@@ -18,8 +18,8 @@ export class EmployeeService {
     return this.http.get(`https://${app.ip}/api/department/GetDepartmentsWithoutEmployees`)
   }
 
-  getEmployeesList(){
-    return this.http.get(`https://${app.ip}/Employee/GetEmployeesBasicInfo`)
+  getEmployeesList(page: number){
+    return this.http.get(`https://${app.ip}/Employee/GetEmployeesBasicInfo?page=`+page)
   }
 
   getEmployeeById(id: string){

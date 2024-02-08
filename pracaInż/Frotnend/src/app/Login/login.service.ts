@@ -50,8 +50,8 @@ export class LoginService {
     console.log("Test: ", role)
     if (role == "Admin"){
       this.router.navigate(["./infrastructure"])
-    }else if(role == "user"){
-      this.router.navigate(["./user"]) // Spolszczyć ?
+    }else if(role == "User"){
+      this.router.navigate(["./user"])
     }
   }
 }

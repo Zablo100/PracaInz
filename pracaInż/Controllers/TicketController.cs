@@ -28,9 +28,9 @@ namespace pracaInż.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllTickets()
+        public async Task<IActionResult> GetAllTickets(int page)
         {
-            var result = await _service.GetTicketsAsync();
+            var result = await _service.GetTicketsAsync(page);
             if (result.IsError)
             {
                 return BadRequest(result.FirstError);
