@@ -5,11 +5,11 @@
 
 <div id="sidebar" *ngIf="checkIfLoggedIn()">
 
-    <div class="link-wraper">
+    <div class="link-wraper dev">
         <a routerLink="/dashboard" routerLinkActive="selected" class="menu-item"> <img src="/assets/employee.png" class="menu-icon"> Pracownicy</a>
     </div>
 
-    <div class="link-wraper">
+    <div class="link-wraper dev">
         <a routerLink="/tickets"  routerLinkActive="selected" class="menu-item"> <img src="/assets/support-ticket.png" class="menu-icon"> Zgłoszenia</a>
     </div>
 
@@ -17,7 +17,7 @@
         <a routerLink="/printers"  routerLinkActive="selected" class="menu-item"> <img src="/assets/printer.png" class="menu-icon"> Drukarki</a>
     </div>
 
-    <div class="link-wraper">
+    <div class="link-wraper dev">
         <a routerLink="/computers"  routerLinkActive="selected" class="menu-item"> <img src="/assets/computer.png" class="menu-icon"> Komputery</a>
     </div>
 
@@ -29,12 +29,16 @@
         <a routerLink="/inventory" routerLinkActive="selected" class="menu-item"> <img src="/assets/inventory.png" class="menu-icon"> Inwentarz</a>
     </div>
 
-    <div class="link-wraper">
+    <div class="link-wraper dev">
         <a routerLink="/invoices" routerLinkActive="selected" class="menu-item"> <img src="/assets/invoice.png" class="menu-icon"> Faktury </a>
     </div>
 
     <div class="link-wraper">
         <a routerLink="/documents" routerLinkActive="selected" class="menu-item"> <img src="/assets/documentation.png" class="menu-icon"> Dokumenty</a>
+    </div>
+
+    <div class="link-wraper">
+        <a routerLink="/contacts" routerLinkActive="selected" class="menu-item"> <img src="/assets/contacts.png" class="menu-icon"> Kontakty </a>
     </div>
 
 </div>

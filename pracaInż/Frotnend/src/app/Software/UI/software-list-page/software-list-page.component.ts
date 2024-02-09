@@ -29,9 +29,9 @@ export class SoftwareListPAgeComponent implements OnInit {
 
   loadData(){
     this.service.getSoftwareList().subscribe((response) => {
-      this.PageLoaded = true
       this.data = new MatTableDataSource<Software>(response as Software[])
       this.data.paginator = this.paginator
+      this.PageLoaded = true
     }, (err) => this.notification.error(getErrorMessage(err)))
   }
 
