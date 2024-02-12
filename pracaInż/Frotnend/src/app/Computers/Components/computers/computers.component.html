@@ -48,7 +48,11 @@
   
       <ng-container matColumnDef="pcName">
         <th mat-header-cell *matHeaderCellDef> Nazwa </th>
-        <td mat-cell *matCellDef="let element"> <B>{{element.pcName}}</B> </td>
+        <td mat-cell *matCellDef="let element"> <B>
+          [<span class="pc-department">{{getPcDepartment(element.employee)}}</span>] 
+          {{element.pcName}}
+        </B> 
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="employee">
@@ -72,12 +76,6 @@
           </td>
       </ng-container>
 
-      <ng-container matColumnDef="inventoryNumber">
-        <th mat-header-cell *matHeaderCellDef> Numer inwentarzowy </th>
-        <td mat-cell *matCellDef="let element"> {{element.inventoryNumber}} </td>
-      </ng-container>
-
-      
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Interwencja </th>
         <td mat-cell *matCellDef="let element"> 

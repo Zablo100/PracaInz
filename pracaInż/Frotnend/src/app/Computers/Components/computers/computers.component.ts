@@ -7,6 +7,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatSort, Sort } from '@angular/material/sort';
 import { PaginationResponse } from 'src/app/Models/Pagination';
 import { Action } from 'rxjs/internal/scheduler/Action';
+import { Employee } from 'src/app/Models/Employee';
 
 @Component({
   selector: 'app-computers',
@@ -15,7 +16,7 @@ import { Action } from 'rxjs/internal/scheduler/Action';
 })
 export class ComputersComponent implements OnInit {
   PageLoaded: boolean = false
-  displayedColumns: string[] = ["pcName", "employee", "ticketCount" ,"yearOfPurches", "inventoryNumber", "action"];
+  displayedColumns: string[] = ["pcName", "employee", "ticketCount" ,"yearOfPurches", "action"];
   data: MatTableDataSource<newComputerDTO>;
   form: FormGroup
   searchForm: FormGroup
@@ -63,8 +64,14 @@ export class ComputersComponent implements OnInit {
       this.data = new MatTableDataSource<newComputerDTO>(responseValue.value as newComputerDTO[]);
       this.PageLoaded = true;
     });
+  }
 
+  getPcDepartment(employee: Employee | null){
+    if(employee == null){
+      return "Brak"
+    }
 
+    return `${employee.departmentShortName}`;
   }
 
   createForm(){
