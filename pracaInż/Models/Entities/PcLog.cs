@@ -8,7 +8,7 @@ namespace pracaInż.Models.Entities
         public int Id { get; set; }
         public DateOnly Date { get; set; }
         public string Message { get; set; }
-        public Computer? Computer { get; set; }
+        public ComputerOld? Computer { get; set; }
         public int? ComputerId { get; set; }
 
         public PcLog()

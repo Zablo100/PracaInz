@@ -29,7 +29,7 @@ namespace pracaInż.Models.Entities
         public Employee? AcceptedBy { get; set; }
         public int? AcceptedById { get; set;}
 
-        public Computer? Computer { get; set; }
+        public ComputerOld? Computer { get; set; }
         public int? ComputerId { get; set; }
 
         public List<Comment> comments { get; set; }

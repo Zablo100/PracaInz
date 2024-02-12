@@ -10,8 +10,8 @@ export class ComputerService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(){
-    return this.http.get(`${this.url}/Computers/GetAllComputers`)
+  getPcList(page: number){
+    return this.http.get(`${this.url}/Computers/GetComputers?page=${page}`)
   }
 
   getByID(id: string | null){

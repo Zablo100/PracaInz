@@ -3,7 +3,7 @@
     public class Item
     {
         public int Id { get; init; }
-        public DateOnly YearOfPurchase { get; init; }
+        public int YearOfPurchase { get; init; }
         public string InventoryNumber { get; init; }
 
 

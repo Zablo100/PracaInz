@@ -180,7 +180,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GraphicsCardModels");
+                    b.ToTable("GraphicsCard");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.ComputerParts.HardDrive", b =>
@@ -189,7 +189,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("ComputerId")
+                    b.Property<int?>("ComputerOldId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -207,9 +207,9 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ComputerId");
+                    b.HasIndex("ComputerOldId");
 
-                    b.ToTable("HardDrivesModels");
+                    b.ToTable("HardDrive");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.ComputerParts.Motherboard", b =>
@@ -235,7 +235,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MotherboardModels");
+                    b.ToTable("Motherboard");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.ComputerParts.OperatingSystem", b =>
@@ -254,7 +254,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OperatingSystems");
+                    b.ToTable("OperatingSystem");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.ComputerParts.Processor", b =>
@@ -281,7 +281,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProcessorModels");
+                    b.ToTable("Processor");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.ComputerParts.RAM", b =>
@@ -303,7 +303,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RAMModels");
+                    b.ToTable("RAM");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.Documents.DocumentModel", b =>
@@ -344,6 +344,39 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InventoryNumber")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("PcName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TicketCount")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Type")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<int>("YearOfPurchase")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Computers");
+                });
+
+            modelBuilder.Entity("pracaInż.Models.Entities.Inventory.ComputerOld", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
                     b.Property<int>("CPUId")
                         .HasColumnType("int");
 
@@ -373,8 +406,8 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.Property<int>("RAMId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("YearOfPurchase")
-                        .HasColumnType("date");
+                    b.Property<int>("YearOfPurchase")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -390,7 +423,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
                     b.HasIndex("RAMId");
 
-                    b.ToTable("Computers");
+                    b.ToTable("ComputerOld");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.Inventory.Device", b =>
@@ -760,12 +793,21 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
             modelBuilder.Entity("pracaInż.Models.Entities.ComputerParts.HardDrive", b =>
                 {
-                    b.HasOne("pracaInż.Models.Entities.Inventory.Computer", null)
+                    b.HasOne("pracaInż.Models.Entities.Inventory.ComputerOld", null)
                         .WithMany("HardDrives")
-                        .HasForeignKey("ComputerId");
+                        .HasForeignKey("ComputerOldId");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.Inventory.Computer", b =>
+                {
+                    b.HasOne("Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("pracaInż.Models.Entities.Inventory.ComputerOld", b =>
                 {
                     b.HasOne("pracaInż.Models.Entities.ComputerParts.Processor", "CPU")
                         .WithMany()
@@ -850,7 +892,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
             modelBuilder.Entity("pracaInż.Models.Entities.PcLog", b =>
                 {
-                    b.HasOne("pracaInż.Models.Entities.Inventory.Computer", "Computer")
+                    b.HasOne("pracaInż.Models.Entities.Inventory.ComputerOld", "Computer")
                         .WithMany()
                         .HasForeignKey("ComputerId");
 
@@ -863,7 +905,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                         .WithMany()
                         .HasForeignKey("AcceptedById");
 
-                    b.HasOne("pracaInż.Models.Entities.Inventory.Computer", "Computer")
+                    b.HasOne("pracaInż.Models.Entities.Inventory.ComputerOld", "Computer")
                         .WithMany()
                         .HasForeignKey("ComputerId");
 
@@ -901,7 +943,7 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                     b.Navigation("Departments");
                 });
 
-            modelBuilder.Entity("pracaInż.Models.Entities.Inventory.Computer", b =>
+            modelBuilder.Entity("pracaInż.Models.Entities.Inventory.ComputerOld", b =>
                 {
                     b.Navigation("HardDrives");
                 });

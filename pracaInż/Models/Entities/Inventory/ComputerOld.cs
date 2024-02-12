@@ -3,7 +3,7 @@ using pracaInż.Models.Entities.ComputerParts;
 
 namespace pracaInż.Models.Entities.Inventory
 {
-    public class Computer : Item
+    public class ComputerOld : Item
     {
         public string Name { get; set; }
         public Processor CPU { get; set; }
@@ -23,12 +23,12 @@ namespace pracaInż.Models.Entities.Inventory
         public List<HardDrive> HardDrives { get; set; }
 
 
-        public Computer()
+        public ComputerOld()
         {
             
         }
 
-        public Computer(NewComputerDTO modelDTO)
+        public ComputerOld(NewComputerDTO modelDTO)
         {
             Name = modelDTO.Name;
             CPUId = modelDTO.CPUId;
@@ -40,4 +40,19 @@ namespace pracaInż.Models.Entities.Inventory
 
         }
     }
+
+    public class Computer : Item
+    {
+        public string PcName { get; set; }
+        public Employee? Employee { get; set; }
+        public int? EmployeeId { get; set; }
+        public byte Type { get; set; }
+        public int TicketCount { get; set; }
+
+        public Computer()
+        {
+            
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-import { EmployeePC } from "./Employee";
+import { Employee, EmployeePC } from "./Employee";
 
 export interface ComputerOld {
     id: number;
@@ -63,6 +63,17 @@ export interface ComputerDTO {
     totalScore: number;
     person: string;
     hardDrives: HardDrive[];
+}
+
+export interface newComputerDTO{
+    id: number;
+    pcName: string;
+    employee: Employee | null;
+    employeeId: number | null;
+    type: number;
+    ticketCount: number;
+    yearOfPurchase: number;
+    inventoryNumber: string;
 }
 
 export interface ComputerCard{

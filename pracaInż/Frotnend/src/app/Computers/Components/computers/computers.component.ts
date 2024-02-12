@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Computer, ComputerDTO, ComputerResponse, Dysk } from 'src/app/Models/Computer';
+import { Computer, ComputerDTO, ComputerResponse, Dysk, newComputerDTO } from 'src/app/Models/Computer';
 import { ComputerService } from '../../computer.service';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatSort, Sort } from '@angular/material/sort';
+import { PaginationResponse } from 'src/app/Models/Pagination';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 @Component({
   selector: 'app-computers',
@@ -13,13 +15,16 @@ import { MatSort, Sort } from '@angular/material/sort';
 })
 export class ComputersComponent implements OnInit {
   PageLoaded: boolean = false
-  displayedColumns: string[] = ["name", "person", "processorName", "graphicsCardName", "ram", "osName", "yearOfPurches"];
-  data: MatTableDataSource<ComputerDTO>;
+  displayedColumns: string[] = ["pcName", "employee", "ticketCount" ,"yearOfPurches", "inventoryNumber", "action"];
+  data: MatTableDataSource<newComputerDTO>;
   form: FormGroup
   searchForm: FormGroup
   show: boolean = false
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  private Page: number = 1
+  TotalCount: number;
 
   constructor(private service: ComputerService) { }
 
@@ -30,14 +35,36 @@ export class ComputersComponent implements OnInit {
   }
 
   getDataToTable(){
-    this.service.getAll().subscribe((reponse) => {
-      console.log(reponse)
-      this.data = new MatTableDataSource<ComputerDTO>(reponse as ComputerDTO[]);
+    this.service.getPcList(this.Page).subscribe((response) => {
+      console.log(response)
+      const responseValue = response as PaginationResponse<newComputerDTO[]>
+      this.data = new MatTableDataSource<newComputerDTO>(responseValue.value as newComputerDTO[]);
+      this.TotalCount = responseValue.totalCount;
       this.data.sort = this.sort;
       this.data.paginator = this.paginator
   this.PageLoaded = true;
     });
     
+  }
+
+  loadNextPage(event: PageEvent){
+    if(event.previousPageIndex! < event.pageIndex){
+      this.Page++
+    }else{
+      this.Page--
+    }
+
+    if(this.Page <= 0){
+      this.Page = 1
+    }
+
+    this.service.getPcList(this.Page).subscribe((response) => {
+      const responseValue = response as PaginationResponse<newComputerDTO[]>
+      this.data = new MatTableDataSource<newComputerDTO>(responseValue.value as newComputerDTO[]);
+      this.PageLoaded = true;
+    });
+
+
   }
 
   createForm(){
@@ -53,11 +80,20 @@ export class ComputersComponent implements OnInit {
   }
 
   checkPerson(person: string){
-    if (person == "Brak osoby"){
+    if (person == null){
       return true
     }
 
     return false;
+  }
+
+  checkYear(year: number){
+    console.log(year)
+    if(year == 0){
+      return true
+    }
+
+    return false
   }
 
   resetFilter(){

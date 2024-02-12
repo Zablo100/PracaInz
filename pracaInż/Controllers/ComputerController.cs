@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using pracaInż.Data;
-using pracaInż.Models.DTO;
+using pracaInż.Models;
+using pracaInż.Models.Entities.Inventory;
 using pracaInż.Services;
 
 namespace pracaInż.Controllers
@@ -10,27 +10,14 @@ namespace pracaInż.Controllers
     public class ComputerController : Controller
     {
         private readonly IComputerService _service;
-        private readonly IPcLogService _logService;
-        public ComputerController(
-            IComputerService service,
-            IPcLogService pcLogService
-            )
+        public ComputerController(IComputerService service)
         {
             _service = service;
-            _logService = pcLogService;
         }
 
-        [HttpGet]
         public async Task<IActionResult> GetComputers(int page)
         {
-            var result = await _service.GetComputerList(page);
-
-            return Ok(result);
-        }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var result = await _service.GetComputerById(id);
+            var result = await _service.GetComputerAsync(page);
             if(result.IsError)
             {
                 return BadRequest(result.FirstError);
@@ -38,29 +25,6 @@ namespace pracaInż.Controllers
 
             return Ok(result.Value);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AddLogs(AddPcLogDTO addPcLog)
-        {
-            var result = await _logService.AddPcLog(addPcLog);
-            if (result.IsError)
-            {
-                return BadRequest(result.FirstError);
-            }
-
-            return Ok(result.Value);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetLogsByPc(int id)
-        {
-            var result = await _logService.GetPcLogsById(id);
-            if(result.IsError)
-            {
-                return NotFound(result.FirstError);
-            }
-
-            return Ok(result.Value);
-        }
+        
     }
 }

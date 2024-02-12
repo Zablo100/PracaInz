@@ -26,7 +26,7 @@ namespace pracaInż.Models.DTO.ComputerParts
 
         public List<HardDrive> HardDrives { get; set; }
 
-        public ComputerDTO(Computer computer)
+        public ComputerDTO(ComputerOld computer)
         {
             Id = computer.Id;
             Name = computer.Name;
@@ -41,7 +41,7 @@ namespace pracaInż.Models.DTO.ComputerParts
             RAMCapacity = computer.RAMCapacity;
             RamType = computer.RAM.MemoryType;
             osName = computer.OS.Name;
-            YearOfPurches = computer.YearOfPurchase.Year.ToString();
+            YearOfPurches = computer.YearOfPurchase.ToString();
             InventoryName = computer.InventoryNumber;
             HardDrives = computer.HardDrives;
             TotalScore = computer.CPU.Score + computer.GPU.Score + computer.HardDrives.Sum(drive => drive.Score);
