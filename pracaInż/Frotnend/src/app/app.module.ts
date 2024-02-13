@@ -63,6 +63,7 @@ import { TicketsPageComponent } from './Tickets/UI/tickets-page.component';
 import { TicketComponent } from './Tickets/Components/ticket/ticket.component';
 import { TicketsComponent } from './Tickets/Components/tickets/tickets.component';
 import { UserPageComponent } from './User/user-page/user-page.component';
+import { adminGuard } from './Core/Guard';
 
 @NgModule({
   declarations: [
@@ -137,7 +138,7 @@ import { UserPageComponent } from './User/user-page/user-page.component';
     NgxExtendedPdfViewerModule,
     MatTooltipModule
   ],
-  providers: [],
+  providers: [ adminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,6 +18,7 @@ import { InventoryPageComponent } from './Inventory/UI/inventory-page/inventory-
 import { TicketsPageComponent } from './Tickets/UI/tickets-page.component';
 import { DocumentsPageComponent } from './Documents/UI/documents-page/documents-page.component';
 import { UserPageComponent } from './User/user-page/user-page.component';
+import { adminGuard } from './Core/Guard';
 
 const routes: Routes = [
   {path: "login", component: LoginPageComponent},
@@ -28,7 +29,7 @@ const routes: Routes = [
   {path: "printers", component: PrintersPageComponent},
   {path: "computers", component: ComputerPageComponent},
   {path: "infrastructure", component: InfrastructurePageComponent},
-  {path: "documents", component: DocumentsPageComponent},
+  {path: "documents", component: DocumentsPageComponent, canActivate: [adminGuard]},
   {path: "document/:id", component: DocumentPageComponent},
   {path: "software", component: SoftwareListPAgeComponent},
   {path: "inventory", component: InventoryPageComponent},
