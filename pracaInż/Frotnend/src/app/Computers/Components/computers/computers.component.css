@@ -83,3 +83,19 @@ button{
 .pc-department{
   color: darkgoldenrod;
 }
+
+.mat-column-pcName{
+  width: 10%;
+}
+
+.mat-column-employee{
+  width: 15%;
+}
+
+.mat-column-ticketCount{
+  width: 10%;
+}
+
+.mat-column-pcName{
+  width: 10%;
+}

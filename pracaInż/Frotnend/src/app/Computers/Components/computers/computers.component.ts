@@ -59,6 +59,7 @@ export class ComputersComponent implements OnInit {
       this.Page = 1
     }
 
+    this.PageLoaded = false
     this.service.getPcList(this.Page).subscribe((response) => {
       const responseValue = response as PaginationResponse<newComputerDTO[]>
       this.data = new MatTableDataSource<newComputerDTO>(responseValue.value as newComputerDTO[]);
