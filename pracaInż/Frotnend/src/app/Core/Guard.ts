@@ -27,6 +27,8 @@ export class adminGuard implements CanActivate {
             if (role == "Admin"){
                 return true
             }
+
+          return false
         }
 
         this.notification.error("Nie masz uprawnień do tej witryny")
