@@ -653,12 +653,6 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("AcceptedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("AcceptedById")
-                        .HasColumnType("int");
-
                     b.Property<int?>("ComputerId")
                         .HasColumnType("int");
 
@@ -669,22 +663,9 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime?>("ResolvedAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubmittedById")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AcceptedById");
-
                     b.HasIndex("ComputerId");
-
-                    b.HasIndex("SubmittedById");
 
                     b.ToTable("Tickets");
                 });
@@ -901,25 +882,11 @@ namespace pracaInż.Migrations.AppDbcontextMigrations
 
             modelBuilder.Entity("pracaInż.Models.Entities.Ticket", b =>
                 {
-                    b.HasOne("Employee", "AcceptedBy")
-                        .WithMany()
-                        .HasForeignKey("AcceptedById");
-
-                    b.HasOne("pracaInż.Models.Entities.Inventory.ComputerOld", "Computer")
+                    b.HasOne("pracaInż.Models.Entities.Inventory.Computer", "Computer")
                         .WithMany()
                         .HasForeignKey("ComputerId");
 
-                    b.HasOne("Employee", "SubmittedBy")
-                        .WithMany()
-                        .HasForeignKey("SubmittedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcceptedBy");
-
                     b.Navigation("Computer");
-
-                    b.Navigation("SubmittedBy");
                 });
 
             modelBuilder.Entity("pracaInż.Models.Entities.Inventory.InventoryAsset", b =>
