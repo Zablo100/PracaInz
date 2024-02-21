@@ -24,7 +24,7 @@ namespace pracaInż.Controllers
                 return BadRequest(result.FirstError);
             }
 
-            return Ok(result.Value.ToString());
+            return Ok();
         }
 
         [HttpGet]

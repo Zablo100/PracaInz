@@ -1,0 +1,9 @@
+#button-wraper{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: center;
+}
+
+#description{
+    margin-top: 2vh;
+}

@@ -80,7 +80,7 @@
         <th mat-header-cell *matHeaderCellDef> Interwencja </th>
         <td mat-cell *matCellDef="let element"> 
           <div style="display:  flex; justify-content: center;">
-            <button>+</button>
+            <button (click)="addNewTicket(element.id)">+</button>
           </div>
         </td>
       </ng-container>

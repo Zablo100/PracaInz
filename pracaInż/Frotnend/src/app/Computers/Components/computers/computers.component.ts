@@ -8,6 +8,9 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { PaginationResponse } from 'src/app/Models/Pagination';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { Employee } from 'src/app/Models/Employee';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { NewPcTicketComponent } from '../new-pc-ticket/new-pc-ticket.component';
 
 @Component({
   selector: 'app-computers',
@@ -27,7 +30,7 @@ export class ComputersComponent implements OnInit {
   private Page: number = 1
   TotalCount: number;
 
-  constructor(private service: ComputerService) { }
+  constructor(private service: ComputerService, private MatDialog: MatDialog, private notification: ToastrService) { }
 
   ngOnInit(): void {
     this.getDataToTable()
@@ -96,7 +99,6 @@ export class ComputersComponent implements OnInit {
   }
 
   checkYear(year: number){
-    console.log(year)
     if(year == 0){
       return true
     }
@@ -115,5 +117,22 @@ export class ComputersComponent implements OnInit {
   applyFilter(){
 
   }
+
+  addNewTicket(element: any){
+    let dialog: MatDialogRef<NewPcTicketComponent> = this.MatDialog.open(NewPcTicketComponent, {
+      "autoFocus": false,
+      enterAnimationDuration: "180ms",
+      data: {
+        PcId: element
+      }
+    });
+
+    dialog.afterClosed().subscribe(() => {
+      this.getDataToTable()
+    })
+
+  }
+
+
 
 }

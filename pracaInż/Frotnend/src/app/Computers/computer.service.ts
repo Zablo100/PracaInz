@@ -26,4 +26,8 @@ export class ComputerService {
     return this.http.post(`${this.url}/Computers/AddLogs`, body)
   }
 
+  addTicket(body: any){
+    return this.http.post(`${this.url}/Ticket/SubmitTicket`, body)
+  }
+
 }

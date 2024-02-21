@@ -64,6 +64,7 @@ import { TicketComponent } from './Tickets/Components/ticket/ticket.component';
 import { TicketsComponent } from './Tickets/Components/tickets/tickets.component';
 import { UserPageComponent } from './User/user-page/user-page.component';
 import { adminGuard } from './Core/Guard';
+import { NewPcTicketComponent } from './Computers/Components/new-pc-ticket/new-pc-ticket.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { adminGuard } from './Core/Guard';
     TicketsPageComponent,
     TicketComponent,
     TicketsComponent,
-    UserPageComponent
+    UserPageComponent,
+    NewPcTicketComponent
   ],
   imports: [
     BrowserModule,

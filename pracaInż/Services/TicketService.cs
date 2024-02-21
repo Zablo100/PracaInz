@@ -101,6 +101,14 @@ namespace pracaInż.Services
             Ticket ticket = new Ticket(ticketDTO);
 
             _context.Tickets.Add(ticket);
+            var comp = _context.Computers.Find(ticket.ComputerId);
+
+            Console.WriteLine(comp.TicketCount.ToString());
+
+            comp.TicketCount = comp.TicketCount +1;
+            _context.Computers.Update(comp);
+
+            Console.WriteLine(comp.TicketCount.ToString());
             await _context.SaveChangesAsync();
 
             result = Result.Created;
